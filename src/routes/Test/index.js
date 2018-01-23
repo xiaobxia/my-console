@@ -10,7 +10,6 @@ import qs from 'qs'
 import HelloWord from 'localComponent/HelloWorld'
 import {consoleRender} from 'localUtil/consoleLog'
 import classNames from 'classnames'
-import {injectIntl} from 'react-intl';
 
 class Test extends PureComponent {
   constructor(props) {
@@ -57,7 +56,6 @@ class Test extends PureComponent {
 
   render() {
     consoleRender('Test render');
-    let locale = this.props.intl.formatMessage;
     //query在search里
     let query = qs.parse(this.props.location.search.slice(1));
     return (
@@ -69,13 +67,13 @@ class Test extends PureComponent {
         </div>
         <div className="test-block">
           <h3>测试国际化</h3>
-          <p>app的名字是: {locale({id: 'App.name'})}</p>
+          <p>app的名字是: </p>
         </div>
         <div className="test-block">
           <h3>测试路由</h3>
           <div>
             <p>当前路由的query：{JSON.stringify(query)}</p>
-            <button onClick={this.jumpToDashboard}>{locale({id: 'App.menu.dashboard'})}</button>
+            <button onClick={this.jumpToDashboard}>主页</button>
           </div>
         </div>
         <div className="test-block">
@@ -106,4 +104,4 @@ class Test extends PureComponent {
 }
 
 
-export default injectIntl(withRouter(connect()(Test)));
+export default withRouter(connect()(Test));

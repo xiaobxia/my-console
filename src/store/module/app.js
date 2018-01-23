@@ -21,7 +21,7 @@ export const appActions = {
   appCheckLogin() {
     return (dispatch, getState) => {
       dispatch({type: APP_CHECK_LOGIN});
-      return http.get('sys/auth/checkLogin').then((data) => {
+      return http.get('auth/checkLogin').then((data) => {
         dispatch({type: APP_CHECK_LOGIN_SUC, loginUser: data});
       });
     };
@@ -29,7 +29,7 @@ export const appActions = {
   appLogin({user, password}) {
     return (dispatch, getState) => {
       dispatch({type: APP_LOGIN});
-      return http.post('sys/auth/login', {account: user, password: md5(password)}).then((data) => {
+      return http.post('/auth/login', {account: user, password: md5(password)}).then((data) => {
         if (data.login === true) {
           dispatch({type: APP_LOGIN_SUC, loginUser: data});
         }

@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import {bindActionCreators} from 'redux';
 import {Icon, Layout, notification} from 'antd';
-import {injectIntl} from 'react-intl';
 import AppMenu from './menu'
 import AppHeader from './header'
 import ModelLogin from './modelLogin'
@@ -27,19 +26,18 @@ class BaseLayout extends PureComponent {
   };
 
   componentWillMount() {
-    let locale = this.props.intl.formatMessage;
     const menuProps = {
       menus: [
         {
           path: '/dashboard',
           icon: 'desktop',
-          name: locale({id: 'App.menu.dashboard'}),
+          name: '主页',
           key: 1
         },
         {
           path: '/test',
           icon: 'pushpin',
-          name: locale({id: 'App.menu.test'}),
+          name: '测试',
           key: 2
         }
       ],
@@ -131,4 +129,4 @@ const mapDispatchToProps = dispatch => ({
   appActions: bindActionCreators(appActions, dispatch)
 });
 
-export default injectIntl(withRouter(connect(mapStateToProps, mapDispatchToProps)(BaseLayout)));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BaseLayout));
