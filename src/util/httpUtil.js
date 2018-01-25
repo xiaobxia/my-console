@@ -8,29 +8,31 @@ function makeUrl(url) {
     return `${basePath}${url}`;
   }
 }
-function addTimestamp(url) {
-  let hook = '';
-  let index = url.indexOf('?');
-  if (index === -1) {
-    hook = '?';
-  } else {
-    hook = index + 1 === url.length ? '' : '&';
-  }
-  return `${url}${hook}timestamp=${new Date().getTime()}`;
-}
 const Http = {
-  get (url, options) {
-    let urlWithTime = addTimestamp(url);
-    return axios.get(makeUrl(urlWithTime), options).then(data => data.data.data);
+  get (url, query, options) {
+    let queryString = '';
+    if (query) {
+      query.timestamp = new Date().getTime();
+      queryString = qs.stringify(query);
+    } else {
+      queryString = qs.stringify({timestamp: new Date().getTime()});
+    }
+    return axios.get(makeUrl(url + (queryString ? '?' + queryString : ''))).then(data => data.data);
   },
 
-  getRaw (url, options) {
-    let urlWithTime = addTimestamp(url);
-    return axios.get(makeUrl(urlWithTime), options);
+  getRaw (url, query, options) {
+    let queryString = '';
+    if (query) {
+      query.timestamp = new Date().getTime();
+      queryString = qs.stringify(query);
+    } else {
+      queryString = qs.stringify({timestamp: new Date().getTime()});
+    }
+    return axios.get(makeUrl(url + (queryString ? '?' + queryString : '')));
   },
 
   post (url, param, options) {
-    return axios.post(makeUrl(url), qs.stringify(param), options).then(data => data.data.data);
+    return axios.post(makeUrl(url), qs.stringify(param), options).then(data => data.data);
   },
 
   postRaw (url, param, options) {
@@ -38,7 +40,7 @@ const Http = {
   },
 
   postJSON (url, param, options) {
-    return axios.post(makeUrl(url), param, options).then(data => data.data.data);
+    return axios.post(makeUrl(url), param, options).then(data => data.data);
   },
 
   postJSONRaw (url, param, options) {
@@ -46,7 +48,7 @@ const Http = {
   },
 
   delete (url, options) {
-    return axios.delete(makeUrl(url), options).then(data => data.data.data);
+    return axios.delete(makeUrl(url), options).then(data => data.data);
   },
 
   deleteRaw (url, options) {

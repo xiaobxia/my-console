@@ -23,6 +23,7 @@
     "qs": "^6.5.0",
     "react": "^16.2.0",
     "react-addons-perf": "^15.4.2",
+    "react-document-title": "^2.0.3",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",

@@ -28,7 +28,6 @@
 
 #app {
   height: 100%;
-  min-height: 900px;
   width: 100%;
   background-color: $background-color;
   .glob-loading-wrap {
@@ -42,9 +41,9 @@
     height: 40px;
   }
 }
-@import "module/login";
-@import "module/register";
+@import "module/auth";
 @import "module/main";
 @import "module/test";
+@import "module/myFund";
 
 

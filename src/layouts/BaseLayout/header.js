@@ -28,7 +28,6 @@ class AppHeader extends PureComponent {
     );
     return (
       <div>
-        <div className="logo">我的控制台</div>
         <Dropdown overlay={loginUserMenu} trigger={['click']} onVisibleChange={(visible) => {
           this.visibleChangeHandler(visible, 'loginUserMenuOpen');
         }}>

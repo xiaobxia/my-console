@@ -2,14 +2,17 @@ import React, {PureComponent} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import {bindActionCreators} from 'redux';
+import DocumentTitle from 'react-document-title';
 import {Icon, Layout, notification} from 'antd';
 import AppMenu from './menu'
 import AppHeader from './header'
 import ModelLogin from './modelLogin'
+import {getOpenKeyAndMainPath} from './routes'
 const {Header, Content, Sider} = Layout;
 import {appActions} from 'localStore/actions'
 import {consoleRender} from 'localUtil/consoleLog'
 import {baseRoutes} from '../../router'
+import GlobalFooter from 'localComponent/GlobalFooter'
 
 
 class BaseLayout extends PureComponent {
@@ -68,6 +71,10 @@ class BaseLayout extends PureComponent {
   componentWillUnmount() {
   }
 
+  getTitle() {
+    return getOpenKeyAndMainPath(this.props.location.pathname).title;
+  }
+
   render() {
     consoleRender('BaseLayout render');
     let props = this.props;
@@ -75,46 +82,54 @@ class BaseLayout extends PureComponent {
     console.log(store.loginUser);
     let state = this.state;
     return (
-      <div className="app-main">
-        <Layout>
-          <Sider
-            trigger={null}
-            collapsible
-            className="app-sider"
-            collapsed={store.collapsed}
-          >
-            <AppMenu {...state.menuProps}/>
-            <div className="trigger-wrap">
-              <Icon
-                className="trigger"
-                type={store.collapsed ? 'menu-unfold' : 'menu-fold'}
-                onClick={this.toggleCollapsed}
+      <DocumentTitle title={this.getTitle()}>
+        <div className="app-main">
+          <Layout>
+            <Sider
+              trigger={null}
+              collapsible
+              className="app-sider"
+              collapsed={store.collapsed}
+            >
+              <div className="logo">
+                XBX
+              </div>
+              <AppMenu {...state.menuProps}/>
+            </Sider>
+            {/*ant内部有classnames所以能直接用，原生的标签与要这个库*/}
+            <Layout className={{'app-content': true, 'open': !store.collapsed}}>
+              <Header className="app-header">
+                <div className="trigger-wrap">
+                  <Icon
+                    className="trigger"
+                    type={store.collapsed ? 'menu-unfold' : 'menu-fold'}
+                    onClick={this.toggleCollapsed}
+                  />
+                </div>
+                <AppHeader
+                  userName={store.loginUser.name}
+                  onLogout={props.appActions.appLogout}
+                />
+              </Header>
+              <Content className="app-route-view">
+                <Switch>
+                  {baseRoutes.map((item) => {
+                    return (<Route exact key={item.path} path={item.path} component={item.component}/>);
+                  })}
+                </Switch>
+                <div className="footer-wrap">
+                  <GlobalFooter/>
+                </div>
+              </Content>
+              <ModelLogin
+                onLogin={props.appActions.appInsetLogin}
+                onHide={props.appActions.appHideGlobLogin}
+                visible={store.showGlobLogin}
               />
-            </div>
-          </Sider>
-          {/*ant内部有classnames所以能直接用，原生的标签与要这个库*/}
-          <Layout className={{'app-content': true, 'open': !store.collapsed}}>
-            <Header className="app-header">
-              <AppHeader
-                userName={store.loginUser.userName}
-                onLogout={props.appActions.appLogout}
-              />
-            </Header>
-            <Content className="app-route-view">
-              <Switch>
-                {baseRoutes.map((item) => {
-                  return (<Route exact key={item.path} path={item.path} component={item.component}/>);
-                })}
-              </Switch>
-            </Content>
-            <ModelLogin
-              onLogin={props.appActions.appInsetLogin}
-              onHide={props.appActions.appHideGlobLogin}
-              visible={store.showGlobLogin}
-            />
+            </Layout>
           </Layout>
-        </Layout>
-      </div>
+        </div>
+      </DocumentTitle>
     );
   }
 }

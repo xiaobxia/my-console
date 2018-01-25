@@ -26,25 +26,29 @@ class Login extends PureComponent {
   loginHandler = (formData) => {
     const {appActions} = this.props;
     appActions.appLogin(formData).then((data) => {
-      if (data.login === false && data.msg) {
-        this.setState({
-          showError: true,
-          errorMsg: data.msg
-        });
+      if (data.success === false) {
+        if (data.message) {
+          this.setState({
+            showError: true,
+            errorMsg: data.message
+          });
+        }
       } else {
-        this.props.history.push('/dashboard');
+        this.props.history.push('/');
       }
     });
   };
 
   render() {
+    console.log(this.props)
     consoleRender('Login render');
     // 渲染多次的原因是，自动填充了两次
     return (
       <div className="login-wrap">
-        <div className="logo">我的控制台</div>
-        {this.state.showError && (<Alert message={this.state.errorMsg} type="error" closable onClose={this.onClose}/>)}
-        <Card hoverable={false}>
+        <h2 className="logo">我的控制台</h2>
+        <Card hoverable={false} bordered={false}>
+          {this.state.showError && (
+            <Alert message={this.state.errorMsg} type="error" closable onClose={this.onClose}/>)}
           <LoginForm onLoginHandler={this.loginHandler}>
             {/*<Link to="/user/forgot">忘记密码</Link>*/}
           </LoginForm>

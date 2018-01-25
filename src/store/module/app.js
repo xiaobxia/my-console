@@ -14,25 +14,47 @@ const APP_LOGOUT_SUC = 'APP_LOGOUT_SUC';
 const APP_SHOW_GLOB_LOGIN = 'APP_SHOW_GLOB_LOGIN';
 const APP_HIDE_GLOB_LOGIN = 'APP_HIDE_GLOB_LOGIN';
 
+const platform = (function detectmob() {
+  const userAgent = navigator.userAgent;
+  if (userAgent.match(/Android/i) ||
+    userAgent.match(/webOS/i) ||
+    userAgent.match(/iPhone/i) ||
+    userAgent.match(/iPad/i) ||
+    userAgent.match(/iPod/i) ||
+    userAgent.match(/BlackBerry/i) ||
+    userAgent.match(/Windows Phone/i)
+  ) {
+    return 'mobile';
+  } else {
+    return 'pc';
+  }
+})();
+// 全局token
+window._token = '';
+
 export const appActions = {
   appToggleCollapsed() {
     return {type: APP_TOGGLE_COLLAPSED};
   },
   appCheckLogin() {
+    const token = localStorage.getItem('token') || '';
     return (dispatch, getState) => {
       dispatch({type: APP_CHECK_LOGIN});
-      return http.get('auth/checkLogin').then((data) => {
-        dispatch({type: APP_CHECK_LOGIN_SUC, loginUser: data});
+      return http.get('auth/checkLogin', {token}).then((data) => {
+        window._token = data.data.token;
+        dispatch({type: APP_CHECK_LOGIN_SUC, loginUser: data.data});
       });
     };
   },
   appLogin({user, password}) {
     return (dispatch, getState) => {
       dispatch({type: APP_LOGIN});
-      return http.post('/auth/login', {account: user, password: md5(password)}).then((data) => {
-        if (data.login === true) {
-          dispatch({type: APP_LOGIN_SUC, loginUser: data});
-        }
+      return http.post('auth/login', {account: user, password: md5(password), platform}).then((data) => {
+        // if (data.login === true) {
+        //   dispatch({type: APP_LOGIN_SUC, loginUser: data});
+        // }
+        window._token = data.data.token;
+        localStorage.setItem('token', data.data.token);
         return data;
       });
     };
@@ -47,7 +69,8 @@ export const appActions = {
   },
   appLogout() {
     return (dispatch, getState) => {
-      return http.get('sys/auth/logout').then((res) => {
+      return http.get('auth/logout', {platform, token: window._token}).then((res) => {
+        localStorage.removeItem('token');
         dispatch({type: APP_LOGOUT_SUC});
       });
     };
@@ -86,7 +109,6 @@ export const appReducers = (state = appStore, action) => {
       data.isGlobLoading = false;
       if (action.loginUser.isLogin === true) {
         data.loginUser = action.loginUser;
-        localStorage.setItem('userCode', action.loginUser.userCode);
       } else {
         data.loginUser = {
           isLogin: false
@@ -103,12 +125,10 @@ export const appReducers = (state = appStore, action) => {
       //登录页登录的初始化，内部登录不需要
       data.collapsed = false;
       localStorage.removeItem('collapsed');
-      localStorage.setItem('userCode', action.loginUser.userCode);
       return data;
     }
     case APP_INSET_LOGIN_SUC: {
       data.loginUser = action.loginUser;
-      localStorage.setItem('userCode', action.loginUser.userCode);
       return data;
     }
     case APP_LOGOUT_SUC: {
