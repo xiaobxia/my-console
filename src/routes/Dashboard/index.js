@@ -18,7 +18,7 @@ class Dashboard extends PureComponent {
     return (
       <Alert message={(<h2>
         <span>你好, </span>
-        <span>{this.props.app.loginUser.userName}</span>
+        <span>{this.props.app.loginUser.name}</span>
       </h2>)} type="success" />
     );
   }

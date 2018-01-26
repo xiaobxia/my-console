@@ -2,12 +2,10 @@ import React, {PureComponent} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import {bindActionCreators} from 'redux';
-import DocumentTitle from 'react-document-title';
 import {Icon, Layout, notification} from 'antd';
 import AppMenu from './menu'
 import AppHeader from './header'
 import ModelLogin from './modelLogin'
-import {getOpenKeyAndMainPath} from './routes'
 const {Header, Content, Sider} = Layout;
 import {appActions} from 'localStore/actions'
 import {consoleRender} from 'localUtil/consoleLog'
@@ -20,40 +18,11 @@ class BaseLayout extends PureComponent {
     super();
   }
 
-  state = {
-    menuProps: {}
-  };
-
   toggleCollapsed = () => {
     this.props.appActions.appToggleCollapsed();
   };
 
   componentWillMount() {
-    const menuProps = {
-      menus: [
-        {
-          path: '/dashboard',
-          icon: 'desktop',
-          name: '主页',
-          key: 1
-        },
-        {
-          path: '/test',
-          icon: 'pushpin',
-          name: '测试',
-          key: 2
-        }
-      ],
-      menusMap: {
-        '/': '1',
-        '/home': '1',
-        '/dashboard': '1',
-        '/test': '2'
-      }
-    };
-    this.setState({
-      menuProps
-    });
   }
 
   //生命周期mount
@@ -71,18 +40,12 @@ class BaseLayout extends PureComponent {
   componentWillUnmount() {
   }
 
-  getTitle() {
-    return getOpenKeyAndMainPath(this.props.location.pathname).title;
-  }
-
   render() {
     consoleRender('BaseLayout render');
     let props = this.props;
     let store = this.props.app;
     console.log(store.loginUser);
-    let state = this.state;
     return (
-      <DocumentTitle title={this.getTitle()}>
         <div className="app-main">
           <Layout>
             <Sider
@@ -94,7 +57,7 @@ class BaseLayout extends PureComponent {
               <div className="logo">
                 XBX
               </div>
-              <AppMenu {...state.menuProps}/>
+              <AppMenu/>
             </Sider>
             {/*ant内部有classnames所以能直接用，原生的标签与要这个库*/}
             <Layout className={{'app-content': true, 'open': !store.collapsed}}>
@@ -129,7 +92,6 @@ class BaseLayout extends PureComponent {
             </Layout>
           </Layout>
         </div>
-      </DocumentTitle>
     );
   }
 }

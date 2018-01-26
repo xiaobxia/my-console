@@ -5,7 +5,7 @@ import React, {Component} from 'react'
 import {Link, withRouter} from 'react-router-dom'
 import {Menu, Icon} from 'antd';
 import {consoleRender} from 'localUtil/consoleLog'
-import {menusInfos, getOpenKeyAndMainPath} from './routes'
+import {menusInfos, getOpenKeyAndMainPath} from '../../router'
 const SubMenu = Menu.SubMenu;
 
 // 不用纯的

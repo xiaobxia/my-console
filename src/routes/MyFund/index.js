@@ -5,10 +5,14 @@ import React, {PureComponent} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import { Input } from 'antd';
+import DocumentTitle from 'react-document-title';
+import {Input} from 'antd';
 import qs from 'qs'
 import {consoleRender} from 'localUtil/consoleLog'
+import PageHeader from 'localComponent/PageHeader'
+import {getOpenKeyAndMainPath} from '../../router'
 import classNames from 'classnames'
+import FundList from './fundList'
 
 class MyFund extends PureComponent {
   constructor(props) {
@@ -21,7 +25,7 @@ class MyFund extends PureComponent {
   };
 
   componentWillMount() {
-    // console.log('将要装载MyFund');
+
   }
 
   componentDidMount() {
@@ -53,17 +57,38 @@ class MyFund extends PureComponent {
     });
   };
 
+  getTitle() {
+    return getOpenKeyAndMainPath(this.props.location.pathname).title;
+  }
+
   render() {
     consoleRender('MyFund render');
     //query在search里
     let query = qs.parse(this.props.location.search.slice(1));
+    const title = this.getTitle();
     return (
-      <div className="module-my-fund">
-
-      </div>
+      <DocumentTitle title={title}>
+        <div className="module-my-fund">
+          <PageHeader routeTitle={title}/>
+          <div className="content-card-wrap">
+            <FundList/>
+          </div>
+        </div>
+      </DocumentTitle>
     );
   }
 }
 
 
-export default withRouter(connect()(MyFund));
+const mapStateToProps = state => {
+  return {
+    myFund: state.myFund
+  }
+};
+
+const mapDispatchToProps = dispatch => ({
+  //action在此为引入
+  myFundActions: bindActionCreators(myFundActions, dispatch)
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MyFund));
