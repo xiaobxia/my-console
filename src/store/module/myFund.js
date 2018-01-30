@@ -9,41 +9,42 @@ export const myFundActions = {
   queryMyFunds(queryString) {
     return (dispatch, getState) => {
       dispatch({type: MYFUND_QUERY_MYFUNDS_BEGIN});
-      return http.get('myFunds?' + queryString).then((data) => {
-        dispatch({type: MYFUND_QUERY_MYFUNDS_SUC, data});
-        return data;
-      });
-    };
-  },
-  clearCurrentMyFund() {
-    return (dispatch, getState) => {
-      dispatch({type: MYFUND_QUERY_MYFUND_BEGIN});
-    };
-  },
-  addMyFund(data) {
-    return (dispatch, getState) => {
-      return http.post('myFunds/add', data).then((data) => {
-        console.log(data)
-        return data;
-      });
-    };
-  },
-  saveMyFund(data) {
-    return (dispatch, getState) => {
-      return http.post('myFunds/save', data).then((data) => {
-        console.log(data)
-        return data;
-      });
-    };
-  },
-  deleteMyFund(id) {
-    return (dispatch, getState) => {
-      return http.get('myFunds/delete?id=' + id).then((data) => {
+      return http.get('fund/getUserFunds').then((data) => {
+        dispatch({type: MYFUND_QUERY_MYFUNDS_SUC, data: data.data});
         console.log(data)
         return data;
       });
     };
   }
+  // clearCurrentMyFund() {
+  //   return (dispatch, getState) => {
+  //     dispatch({type: MYFUND_QUERY_MYFUND_BEGIN});
+  //   };
+  // },
+  // addMyFund(data) {
+  //   return (dispatch, getState) => {
+  //     return http.post('myFunds/add', data).then((data) => {
+  //       console.log(data)
+  //       return data;
+  //     });
+  //   };
+  // },
+  // saveMyFund(data) {
+  //   return (dispatch, getState) => {
+  //     return http.post('myFunds/save', data).then((data) => {
+  //       console.log(data)
+  //       return data;
+  //     });
+  //   };
+  // },
+  // deleteMyFund(id) {
+  //   return (dispatch, getState) => {
+  //     return http.get('myFunds/delete?id=' + id).then((data) => {
+  //       console.log(data)
+  //       return data;
+  //     });
+  //   };
+  // }
 };
 
 const myFundStore = {
@@ -61,16 +62,6 @@ export const myFundReducers = (state = myFundStore, action) => {
     case MYFUND_QUERY_MYFUNDS_SUC: {
       const data = action.data;
       store.myFundList = data.list;
-      store.pagination = data.page;
-      return store;
-    }
-    case MYFUND_QUERY_MYFUND_BEGIN: {
-      store.currentMyFund = {};
-      return store;
-    }
-    case MYFUND_QUERY_MYFUND_SUC: {
-      const data = action.data;
-      store.currentMyFund = data.item;
       return store;
     }
     //TODO 需要有default返回返回旧的state

@@ -12,7 +12,7 @@ class PageHeader extends PureComponent {
     return (
       <div className="page-header">
         <Breadcrumb>
-          <Breadcrumb.Item href="">
+          <Breadcrumb.Item>
             <Link to="/">
               <Icon type="home"/>
               主页

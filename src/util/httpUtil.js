@@ -1,6 +1,14 @@
 import axios from 'axios';
 import qs from 'qs';
 const basePath = '/myService/';
+
+axios.interceptors.request.use(function (config) {
+  config.headers.token = window._token || '';
+  return config;
+}, function (error) {
+  return Promise.reject(error);
+});
+
 function makeUrl(url) {
   if (url.startsWith('/') || url.startsWith('http://') || url.startsWith('https://')) {
     return url;

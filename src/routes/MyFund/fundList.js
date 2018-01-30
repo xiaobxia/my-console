@@ -22,6 +22,10 @@ class FundList extends PureComponent {
         dataIndex: 'count'
       },
       {
+        title: '持仓净值',
+        dataIndex: 'sum'
+      },
+      {
         title: '操作',
         width: 180,
         fixed: 'right',
@@ -53,6 +57,7 @@ class FundList extends PureComponent {
         dataSource={dataSource}
         columns={columns}
         simple
+        pagination={false}
         size="small"
         rowKey={record => record.code}
       />
