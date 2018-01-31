@@ -53,6 +53,11 @@ export const baseRoutes = [
     name: 'MyFund',
     path: '/myFund',
     component: getComponent(MyFund)
+  },
+  {
+    name: 'FundDetail',
+    path: '/fund',
+    component: getComponent(MyFund)
   }
 ];
 

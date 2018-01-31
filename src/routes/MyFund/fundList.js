@@ -6,6 +6,10 @@ import {Table, Button, Divider, Popconfirm} from 'antd';
 import {Link} from 'react-router-dom'
 
 class FundList extends PureComponent {
+  deleteHandler = (code) => {
+    this.props.onDeleteHandler(code);
+  };
+
   render() {
     const columns = [
       {
@@ -26,6 +30,38 @@ class FundList extends PureComponent {
         dataIndex: 'sum'
       },
       {
+        title: '估值',
+        render: (record) => {
+          const isUp = record.valuationSum > record.sum;
+          return (
+            <span className={isUp ? 'red-text' : 'green-text'}>{record.valuationSum}</span>
+          );
+        }
+      },
+      {
+        title: '估值源',
+        render: (record) => {
+          let source = '---';
+          switch (record.valuationSource) {
+            case 'tiantian': {
+              source = '天天';
+              break;
+            }
+            case 'haomai': {
+              source = '好买';
+              break;
+            }
+            case 'xinlang': {
+              source = '新浪';
+              break;
+            }
+          }
+          return (
+            <span>{source}</span>
+          );
+        }
+      },
+      {
         title: '操作',
         width: 180,
         fixed: 'right',
@@ -37,14 +73,14 @@ class FundList extends PureComponent {
               <Link to={'/article/edit?id=' + record.id}>编辑</Link>
               <Divider type="vertical"/>
               <Popconfirm
-                title="确认删除此记录?"
+                title="确认删除此基金?"
                 onConfirm={() => {
-                  this.deleteHandler(record.id)
+                  this.deleteHandler(record.code)
                 }}
                 okText="确定"
                 cancelText="取消"
               >
-                <a href="#">删除</a>
+                <a>删除</a>
               </Popconfirm>
             </div>
           );

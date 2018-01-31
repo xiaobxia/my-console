@@ -49,6 +49,7 @@ export const myFundActions = {
 
 const myFundStore = {
   myFundList: [],
+  myFundInfo: {},
   currentMyFund: {}
 };
 export const myFundReducers = (state = myFundStore, action) => {
@@ -56,12 +57,13 @@ export const myFundReducers = (state = myFundStore, action) => {
   switch (action.type) {
     case MYFUND_QUERY_MYFUNDS_BEGIN: {
       store.myFundList = [];
-      store.pagination = {};
+      store.myFundInfo = {};
       return store;
     }
     case MYFUND_QUERY_MYFUNDS_SUC: {
       const data = action.data;
       store.myFundList = data.list;
+      store.myFundInfo = data.info;
       return store;
     }
     //TODO 需要有default返回返回旧的state

@@ -16,10 +16,12 @@ class Dashboard extends PureComponent {
   render() {
     consoleRender('Dashboard render');
     return (
-      <Alert message={(<h2>
-        <span>你好, </span>
-        <span>{this.props.app.loginUser.name}</span>
-      </h2>)} type="success" />
+      <div className="route-modules">
+        <Alert message={(<h2>
+          <span>你好, </span>
+          <span>{this.props.app.loginUser.name}</span>
+        </h2>)} type="success" />
+      </div>
     );
   }
 }
