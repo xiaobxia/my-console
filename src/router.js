@@ -6,6 +6,7 @@ import RegisterResult from 'Bundle-loader?lazy!localRoutes/User/RegisterResult'
 import UserActive from 'Bundle-loader?lazy!localRoutes/Active'
 import Dashboard from 'Bundle-loader?lazy!localRoutes/Dashboard'
 import MyFund from 'Bundle-loader?lazy!localRoutes/MyFund'
+import Fund from 'Bundle-loader?lazy!localRoutes/Fund'
 
 //router4就得以这种方式懒加载
 //其实model不需要按需加载，因为本来就不应该太大，应该由组件自己维护状态
@@ -58,6 +59,11 @@ export const baseRoutes = [
     name: 'FundDetail',
     path: '/fund',
     component: getComponent(MyFund)
+  },
+  {
+    name: 'Fund',
+    path: '/funds',
+    component: getComponent(Fund)
   }
 ];
 
@@ -80,6 +86,10 @@ export const menusInfos = [
       {
         pathname: '/valueRecord',
         title: '估值记录'
+      },
+      {
+        pathname: '/funds',
+        title: '基金库'
       }
     ]
   },

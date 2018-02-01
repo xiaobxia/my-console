@@ -4,7 +4,9 @@
 import { combineReducers } from 'redux'
 import {appReducers} from './module/app';
 import {myFundReducers} from './module/myFund';
+import {fundReducers} from './module/fund';
 export default combineReducers({
   app: appReducers,
-  myFund: myFundReducers
+  myFund: myFundReducers,
+  fund: fundReducers
 })

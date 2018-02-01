@@ -7,16 +7,15 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import DocumentTitle from 'react-document-title';
 import {Input, Upload, message, Button, Icon, Row, Col} from 'antd';
-import {myFundActions} from 'localStore/actions'
+import {fundActions} from 'localStore/actions'
 import qs from 'qs'
 import http from 'localUtil/httpUtil';
 import {consoleRender} from 'localUtil/consoleLog'
 import PageHeader from 'localComponent/PageHeader'
 import {getOpenKeyAndMainPath} from '../../router'
-const FileSaver = require('file-saver');
 import FundList from './fundList'
 
-class MyFund extends PureComponent {
+class Fund extends PureComponent {
   constructor(props) {
     super(props);
   }
@@ -35,12 +34,12 @@ class MyFund extends PureComponent {
   }
 
   componentWillUnmount() {
-    console.log('将要卸载MyFund');
+    console.log('将要卸载Fund');
     // this.state.ws.close();
   }
 
   initPage = () => {
-    this.props.myFundActions.queryMyFunds();
+
   };
 
   jumpToDashboard = () => {
@@ -69,8 +68,8 @@ class MyFund extends PureComponent {
   }
 
   getSumInfo = () => {
-    const totalSum = this.props.myFund.myFundInfo.totalSum;
-    const valuationTotalSum = this.props.myFund.myFundInfo.valuationTotalSum;
+    const totalSum = this.props.fund.fundInfo.totalSum;
+    const valuationTotalSum = this.props.fund.fundInfo.valuationTotalSum;
     return (
       <span style={{marginLeft: '0.5em'}}>
             <span>我的持仓金额: <a>{totalSum}</a></span>
@@ -80,29 +79,7 @@ class MyFund extends PureComponent {
     );
   };
 
-  getUploadProps = () => {
-    const initPage = this.initPage;
-    return {
-      name: 'fundFile',
-      action: http.generateUrl('upload/importMyFund'),
-      headers: {
-        token: window._token
-      },
-      onChange(info) {
-        if (info.file.status !== 'uploading') {
-          console.log(info.file, info.fileList);
-        }
-        if (info.file.status === 'done') {
-          message.success('导入成功');
-          initPage();
-        } else if (info.file.status === 'error') {
-          message.error('导入失败');
-        }
-      }
-    };
-  };
-
-  deleteMyFund = (code) => {
+  deleteFund = (code) => {
     http.get('fund/deleteUserFund', {fundCode: code}).then((data) => {
       if (data.success) {
         message.success('删除成功');
@@ -113,17 +90,9 @@ class MyFund extends PureComponent {
     })
   };
 
-  exportMyFundsHandler() {
-    http.post('download/exportMyFund').then((data) => {
-      let blob = new Blob([JSON.stringify(data)], {type: 'application/octet-stream,charset=UTF-8'});
-      let fileName = '我的基金.json';
-      FileSaver.saveAs(blob, fileName);
-    })
-  }
-
-  updateFundsInfoHandler = () => {
+  updateFundInfoHandler = () => {
     this.setState({updateLoading: true});
-    http.get('fund/updateFundsInfo').then((data) => {
+    http.get('fund/updateFundInfo').then((data) => {
       if (data.success) {
         message.success('更新成功');
       } else {
@@ -134,7 +103,7 @@ class MyFund extends PureComponent {
   };
 
   render() {
-    consoleRender('MyFund render');
+    consoleRender('Fund render');
     //query在search里
     let query = qs.parse(this.props.location.search.slice(1));
     const title = this.getTitle();
@@ -142,39 +111,12 @@ class MyFund extends PureComponent {
       <DocumentTitle title={title}>
         <div className="module-my-fund route-modules">
           <PageHeader routeTitle={title}>
-            <Row style={{padding: '12px 0 0 0'}}>
-              <Col span={8}>
-                <Upload {...this.getUploadProps()}>
-                  <Button>
-                    <Icon type="upload"/> 导入我的基金
-                  </Button>
-                </Upload>
-              </Col>
-              <Col span={8} style={{lineHeight: '32px', textAlign: 'center'}}>
-                <Icon type="pay-circle"/>
-                {this.getSumInfo()}
-              </Col>
-              <Col span={8} style={{textAlign: 'right'}}>
-                <Button.Group>
-                  <Button onClick={this.exportMyFundsHandler}>
-                    添加基金
-                  </Button>
-                  <Button onClick={this.updateFundsInfoHandler} loading={this.state.updateLoading}
-                          disabled={this.state.updateLoading}>
-                    更新净值
-                  </Button>
-                  <Button onClick={this.exportMyFundsHandler}>
-                    导出我的基金
-                  </Button>
-                </Button.Group>
-              </Col>
-            </Row>
           </PageHeader>
           <div className="content-card-wrap">
-            <FundList
-              dataSource={this.props.myFund.myFundList}
-              onDeleteHandler={this.deleteMyFund}
-            />
+            {/*<FundList*/}
+              {/*dataSource={this.props.fund.fundList}*/}
+              {/*onDeleteHandler={this.deleteFund}*/}
+            {/*/>*/}
           </div>
         </div>
       </DocumentTitle>
@@ -185,13 +127,13 @@ class MyFund extends PureComponent {
 
 const mapStateToProps = state => {
   return {
-    myFund: state.myFund
+    fund: state.fund
   }
 };
 
 const mapDispatchToProps = dispatch => ({
   //action在此为引入
-  myFundActions: bindActionCreators(myFundActions, dispatch)
+  fundActions: bindActionCreators(fundActions, dispatch)
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MyFund));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Fund));

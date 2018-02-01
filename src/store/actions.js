@@ -3,3 +3,4 @@
  */
 export {appActions} from './module/app';
 export {myFundActions} from './module/myFund'
+export {fundActions} from './module/fund'

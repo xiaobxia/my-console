@@ -16,35 +16,6 @@ export const myFundActions = {
       });
     };
   }
-  // clearCurrentMyFund() {
-  //   return (dispatch, getState) => {
-  //     dispatch({type: MYFUND_QUERY_MYFUND_BEGIN});
-  //   };
-  // },
-  // addMyFund(data) {
-  //   return (dispatch, getState) => {
-  //     return http.post('myFunds/add', data).then((data) => {
-  //       console.log(data)
-  //       return data;
-  //     });
-  //   };
-  // },
-  // saveMyFund(data) {
-  //   return (dispatch, getState) => {
-  //     return http.post('myFunds/save', data).then((data) => {
-  //       console.log(data)
-  //       return data;
-  //     });
-  //   };
-  // },
-  // deleteMyFund(id) {
-  //   return (dispatch, getState) => {
-  //     return http.get('myFunds/delete?id=' + id).then((data) => {
-  //       console.log(data)
-  //       return data;
-  //     });
-  //   };
-  // }
 };
 
 const myFundStore = {
