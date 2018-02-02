@@ -89,12 +89,17 @@ class MyFund extends PureComponent {
         token: window._token
       },
       onChange(info) {
-        if (info.file.status !== 'uploading') {
-          console.log(info.file, info.fileList);
-        }
         if (info.file.status === 'done') {
-          message.success('导入成功');
-          initPage();
+          if (info.file.response.success) {
+            if (info.file.response.data) {
+              message.warn(`有${info.file.response.data.failList.length}项失败`);
+            } else {
+              message.success('导入成功');
+            }
+            initPage();
+          } else {
+            message.error(info.file.response.message);
+          }
         } else if (info.file.status === 'error') {
           message.error('导入失败');
         }
@@ -123,7 +128,7 @@ class MyFund extends PureComponent {
 
   updateFundsInfoHandler = () => {
     this.setState({updateLoading: true});
-    http.get('fund/updateFundsInfo').then((data) => {
+    http.get('fund/updateBaseInfo').then((data) => {
       if (data.success) {
         message.success('更新成功');
       } else {
@@ -159,10 +164,10 @@ class MyFund extends PureComponent {
                   <Button onClick={this.exportMyFundsHandler}>
                     添加基金
                   </Button>
-                  <Button onClick={this.updateFundsInfoHandler} loading={this.state.updateLoading}
-                          disabled={this.state.updateLoading}>
-                    更新净值
-                  </Button>
+                  {/*<Button onClick={this.updateFundsInfoHandler} loading={this.state.updateLoading}*/}
+                          {/*disabled={this.state.updateLoading}>*/}
+                    {/*更新净值*/}
+                  {/*</Button>*/}
                   <Button onClick={this.exportMyFundsHandler}>
                     导出我的基金
                   </Button>

@@ -33,8 +33,9 @@ class FundList extends PureComponent {
         title: '估值',
         render: (record) => {
           const isUp = record.valuationSum > record.sum;
+          const isEqual = record.valuationSum === record.sum;
           return (
-            <span className={isUp ? 'red-text' : 'green-text'}>{record.valuationSum}</span>
+            <span className={isUp ? 'red-text' : isEqual ? '' : 'green-text'}>{record.valuationSum}</span>
           );
         }
       },

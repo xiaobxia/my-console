@@ -90,9 +90,10 @@ class Fund extends PureComponent {
     })
   };
 
-  updateFundInfoHandler = () => {
+
+  updateFundsInfoHandler = () => {
     this.setState({updateLoading: true});
-    http.get('fund/updateFundInfo').then((data) => {
+    http.get('fund/updateBaseInfo').then((data) => {
       if (data.success) {
         message.success('更新成功');
       } else {
@@ -111,6 +112,10 @@ class Fund extends PureComponent {
       <DocumentTitle title={title}>
         <div className="module-my-fund route-modules">
           <PageHeader routeTitle={title}>
+            <Button onClick={this.updateFundsInfoHandler} loading={this.state.updateLoading}
+                    disabled={this.state.updateLoading}>
+              更新基金
+            </Button>
           </PageHeader>
           <div className="content-card-wrap">
             {/*<FundList*/}
