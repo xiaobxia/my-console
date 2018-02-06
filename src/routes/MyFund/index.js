@@ -22,8 +22,6 @@ class MyFund extends PureComponent {
   }
 
   state = {
-    type: 1,
-    user: {name: 'xiaobxia'},
     updateLoading: false
   };
 
@@ -43,31 +41,10 @@ class MyFund extends PureComponent {
     this.props.myFundActions.queryMyFunds();
   };
 
-  jumpToDashboard = () => {
-    //路由跳转
-    let query = qs.stringify({
-      name: 'xiaobxia'
-    });
-    this.props.history.push('/dashboard?' + query);
-  };
-
-  changeName = () => {
-    //react建议把state当做不可变
-    this.setState((preState) => {
-      //this.state和preState是相同的引用
-      let user = preState.user;
-      user.name = 'xiaobxia1';
-      //是一种merge的行为
-      return {
-        user: user
-      }
-    });
-  };
-
   getTitle() {
     return getOpenKeyAndMainPath(this.props.location.pathname).title;
   }
-
+  // 获取持仓信息
   getSumInfo = () => {
     const totalSum = this.props.myFund.myFundInfo.totalSum;
     const valuationTotalSum = this.props.myFund.myFundInfo.valuationTotalSum;
@@ -79,7 +56,7 @@ class MyFund extends PureComponent {
       </span>
     );
   };
-
+  // 上传
   getUploadProps = () => {
     const initPage = this.initPage;
     return {
@@ -140,8 +117,6 @@ class MyFund extends PureComponent {
 
   render() {
     consoleRender('MyFund render');
-    //query在search里
-    let query = qs.parse(this.props.location.search.slice(1));
     const title = this.getTitle();
     return (
       <DocumentTitle title={title}>
@@ -164,10 +139,6 @@ class MyFund extends PureComponent {
                   <Button onClick={this.exportMyFundsHandler}>
                     添加基金
                   </Button>
-                  {/*<Button onClick={this.updateFundsInfoHandler} loading={this.state.updateLoading}*/}
-                          {/*disabled={this.state.updateLoading}>*/}
-                    {/*更新净值*/}
-                  {/*</Button>*/}
                   <Button onClick={this.exportMyFundsHandler}>
                     导出我的基金
                   </Button>

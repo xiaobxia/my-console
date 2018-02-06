@@ -6,12 +6,11 @@ const FUND_QUERY_FUNDS_BEGIN = 'FUND_QUERY_FUNDS_BEGIN';
 const FUND_QUERY_FUNDS_SUC = 'FUND_QUERY_FUNDS_SUC';
 
 export const fundActions = {
-  queryFunds(queryString) {
+  queryFunds(query) {
     return (dispatch, getState) => {
       dispatch({type: FUND_QUERY_FUNDS_BEGIN});
-      return http.get('fund/getFunds').then((data) => {
+      return http.get('fund/getFunds', query).then((data) => {
         dispatch({type: FUND_QUERY_FUNDS_SUC, data: data.data});
-        console.log(data);
         return data;
       });
     };
@@ -20,7 +19,7 @@ export const fundActions = {
 
 const fundStore = {
   fundList: [],
-  fundInfo: {},
+  pagination: {},
   currentFund: {}
 };
 export const fundReducers = (state = fundStore, action) => {
@@ -28,13 +27,13 @@ export const fundReducers = (state = fundStore, action) => {
   switch (action.type) {
     case FUND_QUERY_FUNDS_BEGIN: {
       store.fundList = [];
-      store.fundInfo = {};
+      store.pagination = {};
       return store;
     }
     case FUND_QUERY_FUNDS_SUC: {
       const data = action.data;
       store.fundList = data.list;
-      store.fundInfo = data.info;
+      store.pagination = data.page;
       return store;
     }
     //TODO 需要有default返回返回旧的state

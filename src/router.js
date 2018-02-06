@@ -84,10 +84,6 @@ export const menusInfos = [
         title: '基金持仓'
       },
       {
-        pathname: '/valueRecord',
-        title: '估值记录'
-      },
-      {
         pathname: '/funds',
         title: '基金库'
       }

@@ -14,6 +14,7 @@ import {consoleRender} from 'localUtil/consoleLog'
 import PageHeader from 'localComponent/PageHeader'
 import {getOpenKeyAndMainPath} from '../../router'
 import FundList from './fundList'
+import AddModal from './addModal'
 
 class Fund extends PureComponent {
   constructor(props) {
@@ -21,66 +22,89 @@ class Fund extends PureComponent {
   }
 
   state = {
-    type: 1,
-    user: {name: 'xiaobxia'},
-    updateLoading: false
+    redirectCount: 0,
+    updateLoading: false,
+    addModal: false
   };
 
   componentWillMount() {
     this.initPage();
   }
 
-  componentDidMount() {
-  }
-
-  componentWillUnmount() {
-    console.log('将要卸载Fund');
-    // this.state.ws.close();
-  }
+  // componentDidMount() {
+  // }
+  //
+  // componentWillUnmount() {
+  //   console.log('将要卸载Fund');
+  //   // this.state.ws.close();
+  // }
 
   initPage = () => {
-
-  };
-
-  jumpToDashboard = () => {
-    //路由跳转
-    let query = qs.stringify({
-      name: 'xiaobxia'
-    });
-    this.props.history.push('/dashboard?' + query);
-  };
-
-  changeName = () => {
-    //react建议把state当做不可变
-    this.setState((preState) => {
-      //this.state和preState是相同的引用
-      let user = preState.user;
-      user.name = 'xiaobxia1';
-      //是一种merge的行为
-      return {
-        user: user
-      }
-    });
+    const query = this.getSearch();
+    //初始化页面
+    query.current = query.current || 1;
+    query.pageSize = query.pageSize || 10;
+    this.queryFunds(query);
+    console.log(query)
   };
 
   getTitle() {
     return getOpenKeyAndMainPath(this.props.location.pathname).title;
   }
 
-  getSumInfo = () => {
-    const totalSum = this.props.fund.fundInfo.totalSum;
-    const valuationTotalSum = this.props.fund.fundInfo.valuationTotalSum;
-    return (
-      <span style={{marginLeft: '0.5em'}}>
-            <span>我的持仓金额: <a>{totalSum}</a></span>
-      <span style={{marginLeft: '0.5em'}}>预估净值: <a
-        className={valuationTotalSum > totalSum ? 'red-text' : 'green-text'}>{valuationTotalSum}</a></span>
-      </span>
-    );
+  getSearch = () => {
+    const search = this.props.location.search;
+    let query = {};
+    if (search) {
+      query = qs.parse(search.slice(1));
+    }
+    return query;
   };
 
-  deleteFund = (code) => {
-    http.get('fund/deleteUserFund', {fundCode: code}).then((data) => {
+  queryFunds = (query) => {
+    const {fundActions} = this.props;
+    fundActions.queryFunds(query).then((data) => {
+      //无数据
+      if (data.data.list.length === 0) {
+        const query = this.getSearch();
+        const current = parseInt(query.current, 10);
+        if (current && current > 1) {
+          if (this.state.redirectCount > 1) {
+            this.props.history.push('/404');
+          }
+          this.setState((pre) => {
+            return {
+              redirectCount: pre.redirectCount + 1
+            }
+          });
+          query.current = current - 1;
+          this.queryFundsWithUpdateQuery(query);
+        }
+      } else {
+        this.setState((pre) => {
+          return {
+            redirectCount: 0
+          }
+        });
+      }
+    });
+  };
+  // 请求数据的同时，更新路由
+  queryFundsWithUpdateQuery = (query) => {
+    this.props.history.push('/funds?' + qs.stringify(query));
+    this.queryFunds(query);
+  };
+  // 分页切换
+  tableChangeHandler = (pagination, filters, sorter) => {
+    const query = this.getSearch();
+    query.current = pagination.current;
+    query.pageSize = pagination.pageSize;
+    this.queryFundsWithUpdateQuery(query);
+    console.log(pagination)
+  };
+  // 删除基金
+  tableDeleteHandler = (code) => {
+    http.get('fund/deleteFund', {code}).then((data) => {
       if (data.success) {
         message.success('删除成功');
       } else {
@@ -89,40 +113,97 @@ class Fund extends PureComponent {
       this.initPage();
     })
   };
-
-
-  updateFundsInfoHandler = () => {
-    this.setState({updateLoading: true});
-    http.get('fund/updateBaseInfo').then((data) => {
-      if (data.success) {
-        message.success('更新成功');
-      } else {
-        message.error('更新失败');
+  // 上传
+  getUploadProps = () => {
+    const initPage = this.initPage;
+    return {
+      name: 'fundFile',
+      action: http.generateUrl('upload/importFund'),
+      headers: {
+        token: window._token
+      },
+      onChange(info) {
+        if (info.file.status === 'done') {
+          if (info.file.response.success) {
+            if (info.file.response.data) {
+              message.warn(`有${info.file.response.data.failList.length}项失败`);
+            } else {
+              message.success('导入成功');
+            }
+            initPage();
+          } else {
+            message.error(info.file.response.message);
+          }
+        } else if (info.file.status === 'error') {
+          message.error('导入失败');
+        }
       }
-      this.setState({updateLoading: false});
-    })
+    };
+  };
+
+  openModalHandler = () => {
+    this.setState({
+      addModal: true
+    });
+  };
+
+  closeModalHandler = () => {
+    this.setState({
+      addModal: false
+    });
+  };
+
+  addFund = (code) => {
+    return http.post('fund/addFund', {code}).then((data) => {
+      if (data.success) {
+        this.initPage();
+      }
+      return data;
+    });
   };
 
   render() {
+    const {fund} = this.props;
+    const {pagination} = fund;
     consoleRender('Fund render');
-    //query在search里
-    let query = qs.parse(this.props.location.search.slice(1));
     const title = this.getTitle();
+    const listProps = {
+      pagination: {...pagination, showTotal: total => `共 ${total} 条记录`},
+      dataSource: fund.fundList,
+      onChange: this.tableChangeHandler,
+      onDelete: this.tableDeleteHandler
+    };
+    const modalProps = {
+      onClose: this.closeModalHandler,
+      onAdd: this.addFund
+    };
     return (
       <DocumentTitle title={title}>
         <div className="module-my-fund route-modules">
           <PageHeader routeTitle={title}>
-            <Button onClick={this.updateFundsInfoHandler} loading={this.state.updateLoading}
-                    disabled={this.state.updateLoading}>
-              更新基金
-            </Button>
+            <Row style={{padding: '12px 0 0 0'}}>
+              <Col span={8}>
+                <Upload {...this.getUploadProps()}>
+                  <Button>
+                    <Icon type="upload"/> 导入自选基金
+                  </Button>
+                </Upload>
+              </Col>
+              <Col span={8} style={{lineHeight: '32px', textAlign: 'center'}}>
+              </Col>
+              <Col span={8} style={{textAlign: 'right'}}>
+                <Button.Group>
+                  <Button onClick={this.openModalHandler}>
+                    添加基金
+                  </Button>
+                </Button.Group>
+              </Col>
+            </Row>
           </PageHeader>
           <div className="content-card-wrap">
-            {/*<FundList*/}
-              {/*dataSource={this.props.fund.fundList}*/}
-              {/*onDeleteHandler={this.deleteFund}*/}
-            {/*/>*/}
+            <FundList {...listProps}/>
           </div>
+          {this.state.addModal && <AddModal {...modalProps}/>}
         </div>
       </DocumentTitle>
     );
