@@ -4,10 +4,15 @@
 import React, {PureComponent} from 'react'
 import {Table, Button, Divider, Popconfirm} from 'antd';
 import {Link} from 'react-router-dom'
+import EditableCell from 'localComponent/EditableCell'
 
 class FundList extends PureComponent {
   deleteHandler = (code) => {
     this.props.onDeleteHandler(code);
+  };
+
+  onCountCellChange = (rowKey, value) => {
+    this.props.onCountChangeHandler(rowKey, value);
   };
 
   render() {
@@ -23,14 +28,24 @@ class FundList extends PureComponent {
       },
       {
         title: '持仓(份)',
-        dataIndex: 'count'
+        width: 140,
+        dataIndex: 'count',
+        render: (text, record) => (
+          <EditableCell
+            rowKey={record.code}
+            value={text}
+            onChange={this.onCountCellChange}
+          />
+        )
       },
       {
         title: '持仓净值',
+        width: 120,
         dataIndex: 'sum'
       },
       {
         title: '估值',
+        width: 120,
         render: (record) => {
           const isUp = record.valuationSum > record.sum;
           const isEqual = record.valuationSum === record.sum;
@@ -41,6 +56,7 @@ class FundList extends PureComponent {
       },
       {
         title: '估值源',
+        width: 80,
         render: (record) => {
           let source = '---';
           switch (record.valuationSource) {
@@ -69,9 +85,7 @@ class FundList extends PureComponent {
         render: (record) => {
           return (
             <div>
-              <Link to={'/article/view?id=' + record.id} style={{margin: '0 .5em'}}>查看</Link>
-              <Divider type="vertical"/>
-              <Link to={'/article/edit?id=' + record.id}>编辑</Link>
+              <Link to={'/fund/' + record.code} style={{margin: '0 .5em'}}>查看</Link>
               <Divider type="vertical"/>
               <Popconfirm
                 title="确认删除此基金?"
@@ -88,7 +102,7 @@ class FundList extends PureComponent {
         }
       }
     ];
-    const {dataSource} = this.props;
+    const {dataSource, tableLoading} = this.props;
     return (
       <Table
         dataSource={dataSource}
@@ -96,6 +110,7 @@ class FundList extends PureComponent {
         simple
         pagination={false}
         size="small"
+        loading={tableLoading}
         rowKey={record => record.code}
       />
     );

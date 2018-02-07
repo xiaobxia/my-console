@@ -171,7 +171,8 @@ class Fund extends PureComponent {
       pagination: {...pagination, showTotal: total => `共 ${total} 条记录`},
       dataSource: fund.fundList,
       onChange: this.tableChangeHandler,
-      onDelete: this.tableDeleteHandler
+      onDelete: this.tableDeleteHandler,
+      tableLoading: fund.tableLoading
     };
     const modalProps = {
       onClose: this.closeModalHandler,

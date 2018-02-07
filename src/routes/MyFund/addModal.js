@@ -2,33 +2,78 @@
  * Created by xiaobxia on 2018/1/31.
  */
 import React, {PureComponent} from 'react'
-import { Modal, Button } from 'antd';
+import {Modal, Form, Input} from 'antd';
+
+const FormItem = Form.Item;
 
 class AddModal extends PureComponent {
   handleOk = (e) => {
-    console.log(e);
-    this.setState({
-      visible: false,
+    const {
+      onClose,
+      onAdd,
+      form: {
+        validateFields,
+        getFieldsValue
+      }
+    } = this.props;
+    validateFields((errors) => {
+      if (errors) {
+        return;
+      }
+      let data = {
+        ...getFieldsValue()
+      };
+      onAdd(data.code, data.count).then((res) => {
+        if (res.success) {
+          onClose();
+        }
+      });
     });
   };
   handleCancel = (e) => {
-
+    this.props.onClose();
   };
+
   render() {
+    const {
+      form: {
+        getFieldDecorator
+      }
+    } = this.props;
     return (
       <div>
         <Modal
-          title="Basic Modal"
+          title="添加我的基金"
+          visible={true}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
+          <Form>
+            <FormItem label="代码">
+              {getFieldDecorator('code', {
+                rules: [
+                  {required: true, message: '请输入代码'},
+                  {pattern: /^\d{6}$/, message: '请输入合法代码'}
+                ]
+              })(
+                <Input/>
+              )}
+            </FormItem>
+            <FormItem label="持仓份额">
+              {getFieldDecorator('count', {
+                rules: [
+                  {required: true, message: '请输入份额'},
+                  {pattern: /^\d+(\.\d+)?$/, message: '请输入合法份额'}
+                ]
+              })(
+                <Input/>
+              )}
+            </FormItem>
+          </Form>
         </Modal>
       </div>
     );
   }
 }
 
-export default AddModal;
+export default Form.create()(AddModal);

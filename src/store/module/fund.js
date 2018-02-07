@@ -18,6 +18,7 @@ export const fundActions = {
 };
 
 const fundStore = {
+  tableLoading: false,
   fundList: [],
   pagination: {},
   currentFund: {}
@@ -26,14 +27,16 @@ export const fundReducers = (state = fundStore, action) => {
   let store = Object.assign({}, state);
   switch (action.type) {
     case FUND_QUERY_FUNDS_BEGIN: {
-      store.fundList = [];
-      store.pagination = {};
+      store.tableLoading = true;
+      // store.fundList = [];
+      // store.pagination = {};
       return store;
     }
     case FUND_QUERY_FUNDS_SUC: {
       const data = action.data;
       store.fundList = data.list;
       store.pagination = data.page;
+      store.tableLoading = false;
       return store;
     }
     //TODO 需要有default返回返回旧的state

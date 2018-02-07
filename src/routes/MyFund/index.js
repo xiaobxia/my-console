@@ -15,6 +15,7 @@ import PageHeader from 'localComponent/PageHeader'
 import {getOpenKeyAndMainPath} from '../../router'
 const FileSaver = require('file-saver');
 import FundList from './fundList'
+import AddModal from './addModal'
 
 class MyFund extends PureComponent {
   constructor(props) {
@@ -22,7 +23,8 @@ class MyFund extends PureComponent {
   }
 
   state = {
-    updateLoading: false
+    updateLoading: false,
+    addModal: false
   };
 
   componentWillMount() {
@@ -44,15 +46,16 @@ class MyFund extends PureComponent {
   getTitle() {
     return getOpenKeyAndMainPath(this.props.location.pathname).title;
   }
+
   // 获取持仓信息
   getSumInfo = () => {
-    const totalSum = this.props.myFund.myFundInfo.totalSum;
-    const valuationTotalSum = this.props.myFund.myFundInfo.valuationTotalSum;
+    const totalSum = this.props.myFund.myFundInfo.totalSum || 0;
+    const valuationTotalSum = this.props.myFund.myFundInfo.valuationTotalSum || 0;
     return (
       <span style={{marginLeft: '0.5em'}}>
             <span>我的持仓金额: <a>{totalSum}</a></span>
-      <span style={{marginLeft: '0.5em'}}>预估净值: <a
-        className={valuationTotalSum > totalSum ? 'red-text' : 'green-text'}>{valuationTotalSum}</a></span>
+      <span style={{marginLeft: '0.5em'}}>预估盈亏: <a
+        className={valuationTotalSum > totalSum ? 'red-text' : 'green-text'}>{valuationTotalSum - totalSum}</a></span>
       </span>
     );
   };
@@ -84,8 +87,19 @@ class MyFund extends PureComponent {
     };
   };
 
+  countChangeHandler = (code, count) => {
+    http.post('fund/updateUserFund', {code, count}).then((data) => {
+      if (data.success) {
+        message.success('更新成功');
+      } else {
+        message.error('更新失败');
+      }
+      this.initPage();
+    })
+  };
+
   deleteMyFund = (code) => {
-    http.get('fund/deleteUserFund', {fundCode: code}).then((data) => {
+    http.get('fund/deleteUserFund', {code}).then((data) => {
       if (data.success) {
         message.success('删除成功');
       } else {
@@ -103,21 +117,35 @@ class MyFund extends PureComponent {
     })
   }
 
-  updateFundsInfoHandler = () => {
-    this.setState({updateLoading: true});
-    http.get('fund/updateBaseInfo').then((data) => {
+  openModalHandler = () => {
+    this.setState({
+      addModal: true
+    });
+  };
+
+  closeModalHandler = () => {
+    this.setState({
+      addModal: false
+    });
+  };
+
+  addFund = (code, count) => {
+    return http.post('fund/addUserFund', {code, count}).then((data) => {
       if (data.success) {
-        message.success('更新成功');
-      } else {
-        message.error('更新失败');
+        this.initPage();
       }
-      this.setState({updateLoading: false});
-    })
+      return data;
+    });
   };
 
   render() {
     consoleRender('MyFund render');
     const title = this.getTitle();
+    const myFund = this.props.myFund;
+    const modalProps = {
+      onClose: this.closeModalHandler,
+      onAdd: this.addFund
+    };
     return (
       <DocumentTitle title={title}>
         <div className="module-my-fund route-modules">
@@ -136,7 +164,7 @@ class MyFund extends PureComponent {
               </Col>
               <Col span={8} style={{textAlign: 'right'}}>
                 <Button.Group>
-                  <Button onClick={this.exportMyFundsHandler}>
+                  <Button onClick={this.openModalHandler}>
                     添加基金
                   </Button>
                   <Button onClick={this.exportMyFundsHandler}>
@@ -148,10 +176,13 @@ class MyFund extends PureComponent {
           </PageHeader>
           <div className="content-card-wrap">
             <FundList
-              dataSource={this.props.myFund.myFundList}
+              dataSource={myFund.myFundList}
               onDeleteHandler={this.deleteMyFund}
+              tableLoading={myFund.tableLoading}
+              onCountChangeHandler={this.countChangeHandler}
             />
           </div>
+          {this.state.addModal && <AddModal {...modalProps}/>}
         </div>
       </DocumentTitle>
     );

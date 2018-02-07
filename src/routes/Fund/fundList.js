@@ -11,7 +11,7 @@ class FundList extends PureComponent {
   };
 
   render() {
-    const {pagination, dataSource, onChange} = this.props;
+    const {pagination, dataSource, onChange, tableLoading} = this.props;
     const columns = [
       {
         title: '代码',
@@ -38,7 +38,7 @@ class FundList extends PureComponent {
         render: (record) => {
           return (
             <div>
-              <Link to={'/broadcast/view?id=' + record.code} style={{margin: '0 .5em'}}>查看</Link>
+              <Link to={'/fund/' + record.code} style={{margin: '0 .5em'}}>查看</Link>
               <Divider type="vertical"/>
               <Popconfirm
                 title="确认删除此记录?"
@@ -63,6 +63,7 @@ class FundList extends PureComponent {
         size="small"
         columns={columns}
         simple
+        loading={tableLoading}
         rowKey={record => record._id}
       />
     );
