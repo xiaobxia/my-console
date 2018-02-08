@@ -76,5 +76,8 @@
     background-color: #fff;
     border-radius: 2px;
     box-shadow: 0 0 2px rgba(0, 21, 41, .1);
+    &.no-padding{
+      padding: 0;
+    }
   }
 }

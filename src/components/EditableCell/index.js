@@ -30,25 +30,25 @@ class EditableCell extends PureComponent {
         {
           editable
             ? <div className="editable-cell-input-wrapper">
-              <Input
-                value={value}
-                onChange={this.handleChange}
-                onPressEnter={this.check}
-              />
-              <Icon
-                type="check"
-                className="editable-cell-icon-check"
-                onClick={this.check}
-              />
-            </div>
+            <Input
+              value={value}
+              onChange={this.handleChange}
+              onPressEnter={this.check}
+            />
+            <Icon
+              type="check"
+              className="editable-cell-icon-check"
+              onClick={this.check}
+            />
+          </div>
             : <div className="editable-cell-text-wrapper">
-              {value || ' '}
-              <Icon
-                type="edit"
-                className="editable-cell-icon"
-                onClick={this.edit}
-              />
-            </div>
+            {value}
+            <Icon
+              type="edit"
+              className="editable-cell-icon"
+              onClick={this.edit}
+            />
+          </div>
         }
       </div>
     );

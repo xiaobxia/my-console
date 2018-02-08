@@ -15,6 +15,10 @@ class FundList extends PureComponent {
     this.props.onCountChangeHandler(rowKey, value);
   };
 
+  getRate = (valuation, netValue) => {
+    return parseInt(10000 * (valuation - netValue) / netValue) / 100;
+  };
+
   render() {
     const columns = [
       {
@@ -51,6 +55,21 @@ class FundList extends PureComponent {
           const isEqual = record.valuationSum === record.sum;
           return (
             <span className={isUp ? 'red-text' : isEqual ? '' : 'green-text'}>{record.valuationSum}</span>
+          );
+        }
+      },
+      {
+        title: '幅度',
+        width: 80,
+        render: (record) => {
+          if (!record.valuation || !record.netValue) {
+            return '---'
+          }
+          const isUp = record.valuation > record.netValue;
+          const isEqual = record.valuation === record.netValue;
+          return (
+            <span
+              className={isUp ? 'red-text' : isEqual ? '' : 'green-text'}>{`${this.getRate(record.valuation, record.netValue)}%`}</span>
           );
         }
       },

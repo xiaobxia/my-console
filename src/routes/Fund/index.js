@@ -31,14 +31,6 @@ class Fund extends PureComponent {
     this.initPage();
   }
 
-  // componentDidMount() {
-  // }
-  //
-  // componentWillUnmount() {
-  //   console.log('将要卸载Fund');
-  //   // this.state.ws.close();
-  // }
-
   initPage = () => {
     const query = this.getSearch();
     //初始化页面
@@ -91,7 +83,7 @@ class Fund extends PureComponent {
   };
   // 请求数据的同时，更新路由
   queryFundsWithUpdateQuery = (query) => {
-    this.props.history.push('/funds?' + qs.stringify(query));
+    this.props.history.push('/fund?' + qs.stringify(query));
     this.queryFunds(query);
   };
   // 分页切换
@@ -182,7 +174,7 @@ class Fund extends PureComponent {
       <DocumentTitle title={title}>
         <div className="module-my-fund route-modules">
           <PageHeader routeTitle={title}>
-            <Row style={{padding: '12px 0 0 0'}}>
+            <Row className="page-header-content">
               <Col span={8}>
                 <Upload {...this.getUploadProps()}>
                   <Button>

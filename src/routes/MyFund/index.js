@@ -47,16 +47,25 @@ class MyFund extends PureComponent {
     return getOpenKeyAndMainPath(this.props.location.pathname).title;
   }
 
+  getRate = (valuation, netValue) => {
+    return parseInt(10000 * (valuation - netValue) / netValue) / 100;
+  };
+
   // 获取持仓信息
   getSumInfo = () => {
-    const totalSum = this.props.myFund.myFundInfo.totalSum || 0;
-    const valuationTotalSum = this.props.myFund.myFundInfo.valuationTotalSum || 0;
+    const myFundInfo = this.props.myFund.myFundInfo;
+    const totalSum = myFundInfo.totalSum || 0;
+    const valuationTotalSum = myFundInfo.valuationTotalSum || 0;
     return (
-      <span style={{marginLeft: '0.5em'}}>
-            <span>我的持仓金额: <a>{totalSum}</a></span>
-      <span style={{marginLeft: '0.5em'}}>预估盈亏: <a
-        className={valuationTotalSum > totalSum ? 'red-text' : 'green-text'}>{valuationTotalSum - totalSum}</a></span>
-      </span>
+      <div>
+        <p>
+          <Icon type="pay-circle"/>
+          <span style={{marginLeft: '0.5em'}}>我的持仓金额: <a>{totalSum}</a></span>
+          <span style={{marginLeft: '0.5em'}}>预估盈亏: <a
+            className={valuationTotalSum > totalSum ? 'red-text' : 'green-text'}>{`${valuationTotalSum - totalSum}(${this.getRate(valuationTotalSum, totalSum)}%)`}</a></span>
+        </p>
+        <p>估算时间：{new Date(myFundInfo.valuationDate).toLocaleString()}</p>
+      </div>
     );
   };
   // 上传
@@ -150,7 +159,7 @@ class MyFund extends PureComponent {
       <DocumentTitle title={title}>
         <div className="module-my-fund route-modules">
           <PageHeader routeTitle={title}>
-            <Row style={{padding: '12px 0 0 0'}}>
+            <Row className="page-header-content">
               <Col span={8}>
                 <Upload {...this.getUploadProps()}>
                   <Button>
@@ -159,7 +168,6 @@ class MyFund extends PureComponent {
                 </Upload>
               </Col>
               <Col span={8} style={{lineHeight: '32px', textAlign: 'center'}}>
-                <Icon type="pay-circle"/>
                 {this.getSumInfo()}
               </Col>
               <Col span={8} style={{textAlign: 'right'}}>
