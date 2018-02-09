@@ -76,26 +76,7 @@ class FundList extends PureComponent {
       {
         title: '估值源',
         width: 80,
-        render: (record) => {
-          let source = '---';
-          switch (record.valuationSource) {
-            case 'tiantian': {
-              source = '天天';
-              break;
-            }
-            case 'haomai': {
-              source = '好买';
-              break;
-            }
-            case 'xinlang': {
-              source = '新浪';
-              break;
-            }
-          }
-          return (
-            <span>{source}</span>
-          );
-        }
+        dataIndex: 'valuationSource'
       },
       {
         title: '操作',

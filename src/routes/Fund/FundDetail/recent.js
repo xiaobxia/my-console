@@ -83,9 +83,8 @@ class Recent extends PureComponent {
   };
 
   render() {
-    const {
-      recentData
-    } = this.props;
+    const recentData = this.props.recentData;
+    const result = recentData.result || {};
     console.log(recentData);
     return (
       <Card title="近期涨跌" bordered={false}>
@@ -93,6 +92,8 @@ class Recent extends PureComponent {
           <Col span={12}>
             {this.getUpAndDownCountText(recentData.upAndDownCount)}
             {this.getMaxUpAndDownText(recentData.maxUpAndDown)}
+            <p>从涨跌分布来看，下一天涨的概率是{result.distribution}%</p>
+            <p>从涨跌连续性来看，下一天涨的概率是{result.internal}%</p>
           </Col>
           <Col span={12}>
             <ReactEcharts

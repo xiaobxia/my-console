@@ -48,6 +48,9 @@ class MyFund extends PureComponent {
   }
 
   getRate = (valuation, netValue) => {
+    if (netValue === 0) {
+      return 0;
+    }
     return parseInt(10000 * (valuation - netValue) / netValue) / 100;
   };
 
@@ -64,7 +67,7 @@ class MyFund extends PureComponent {
           <span style={{marginLeft: '0.5em'}}>预估盈亏: <a
             className={valuationTotalSum > totalSum ? 'red-text' : 'green-text'}>{`${valuationTotalSum - totalSum}(${this.getRate(valuationTotalSum, totalSum)}%)`}</a></span>
         </p>
-        <p>估算时间：{new Date(myFundInfo.valuationDate).toLocaleString()}</p>
+        <p>估算时间：{myFundInfo.valuationDate ? new Date(myFundInfo.valuationDate).toLocaleString() : ''}</p>
       </div>
     );
   };

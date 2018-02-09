@@ -31,8 +31,6 @@ class FundDetail extends PureComponent {
   initPage = () => {
     const code = this.props.match.params.code;
     const {fundActions} = this.props;
-    fundActions.queryFundAnalyzeBase(code).then((data) => {
-    });
     fundActions.queryFund(code).then((data) => {
     });
     fundActions.queryFundAnalyzeRecent(code).then((data) => {
@@ -52,10 +50,13 @@ class FundDetail extends PureComponent {
   };
 
   getRate = (valuation, netValue) => {
+    if (netValue === 0) {
+      return 0;
+    }
     return parseInt(10000 * (valuation - netValue) / netValue) / 100;
   };
 
-  getValuationRate = (valuation, netValue) => {
+  getValuationRate = (valuation = 0, netValue = 0) => {
     return <span
       className={valuation > netValue ? 'red-text' : 'green-text'}>{`${valuation}(${this.getRate(valuation, netValue)}%)`}</span>
   };
@@ -63,7 +64,6 @@ class FundDetail extends PureComponent {
   render() {
     const {
       currentFund,
-      currentFundAnalyzeBase,
       currentFundAnalyzeRecent
     } = this.props.fund;
     consoleRender('Fund render');
@@ -85,11 +85,11 @@ class FundDetail extends PureComponent {
                 </p>
                 <p>
                   <span
-                    className="info-item">估值：{this.getValuationRate(currentFundAnalyzeBase.valuation, currentFund.net_value)}</span>
+                    className="info-item">估值：{this.getValuationRate(currentFund.valuation, currentFund.net_value)}</span>
                   <span
-                    className="info-item">估值源：{currentFundAnalyzeBase.valuationSource}</span>
+                    className="info-item">估值源：{currentFund.valuationSource}</span>
                   <span
-                    className="info-item">估值日期：{currentFundAnalyzeBase.valuation_date ? new Date(currentFundAnalyzeBase.valuation_date).toLocaleString() : '---'}</span>
+                    className="info-item">估值日期：{currentFund.valuation_date ? new Date(currentFund.valuation_date).toLocaleString() : '---'}</span>
                 </p>
               </div>
             </Row>
@@ -97,7 +97,6 @@ class FundDetail extends PureComponent {
           <div className="content-card-wrap no-padding">
             <Recent
               recentData={currentFundAnalyzeRecent}
-              analyzeBase={currentFundAnalyzeBase}
             />
           </div>
         </div>
