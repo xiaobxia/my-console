@@ -8,7 +8,6 @@ import {withRouter} from 'react-router-dom'
 import DocumentTitle from 'react-document-title';
 import {Input, Upload, message, Button, Icon, Row, Col} from 'antd';
 import {myFundActions} from 'localStore/actions'
-import qs from 'qs'
 import http from 'localUtil/httpUtil';
 import {consoleRender} from 'localUtil/consoleLog'
 import PageHeader from 'localComponent/PageHeader'

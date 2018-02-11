@@ -97,6 +97,7 @@ class FundDetail extends PureComponent {
           <div className="content-card-wrap no-padding">
             <Recent
               recentData={currentFundAnalyzeRecent}
+              valuation ={currentFund.valuation}
             />
           </div>
         </div>
