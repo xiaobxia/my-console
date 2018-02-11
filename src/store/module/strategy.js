@@ -6,10 +6,10 @@ const STRATEGY_QUERY_STRATEGYS_BEGIN = 'STRATEGY_QUERY_STRATEGYS_BEGIN';
 const STRATEGY_QUERY_STRATEGYS_SUC = 'STRATEGY_QUERY_STRATEGYS_SUC';
 
 export const strategyActions = {
-  queryStrategy(queryString) {
+  queryStrategy(force) {
     return (dispatch, getState) => {
       dispatch({type: STRATEGY_QUERY_STRATEGYS_BEGIN});
-      return http.get('analyze/getStrategy').then((data) => {
+      return http.get('analyze/getStrategy', {force}).then((data) => {
         dispatch({type: STRATEGY_QUERY_STRATEGYS_SUC, data: data.data});
         console.log(data)
         return data;

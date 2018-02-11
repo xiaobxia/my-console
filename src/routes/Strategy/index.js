@@ -38,7 +38,15 @@ class Strategy extends PureComponent {
   }
 
   initPage = () => {
-    this.props.strategyActions.queryStrategy();
+    this.queryStrategy();
+  };
+
+  queryStrategy = (force) => {
+    this.props.strategyActions.queryStrategy(force);
+  };
+
+  queryStrategyForce = () => {
+    this.queryStrategy(true);
   };
 
   getTitle() {
@@ -63,7 +71,15 @@ class Strategy extends PureComponent {
     return (
       <DocumentTitle title={title}>
         <div className="module-my-fund route-modules">
-          <PageHeader routeTitle={title}/>
+          <PageHeader routeTitle={title}>
+            <Row className="page-header-content">
+              <Col span={8}>
+                <Button onClick={this.queryStrategyForce}>
+                  <Icon type="upload"/> 更新
+                </Button>
+              </Col>
+            </Row>
+          </PageHeader>
           <div className="content-card-wrap">
             <FundList
               dataSource={strategy.strategyList}
