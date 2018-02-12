@@ -52,6 +52,15 @@
 .green-text {
   color: green !important;
 }
+
+table {
+  td {
+    p {
+      margin: 0;
+    }
+  }
+}
+
 @import "component/editablecell";
 @import "component/pageHeader";
 @import "module/auth";

@@ -15,6 +15,7 @@ import PageHeader from 'localComponent/PageHeader'
 import {getOpenKeyAndMainPath} from '../../router'
 import FundList from './fundList'
 import AddModal from './addModal'
+import Search from './search'
 
 class Fund extends PureComponent {
   constructor(props) {
@@ -154,6 +155,12 @@ class Fund extends PureComponent {
     });
   };
 
+  searchHandler = (data) => {
+    data.current = 1;
+    data.pageSize = 10;
+    this.queryFundsWithUpdateQuery(data);
+  };
+
   render() {
     const {fund} = this.props;
     const {pagination} = fund;
@@ -183,6 +190,7 @@ class Fund extends PureComponent {
                 </Upload>
               </Col>
               <Col span={8} style={{lineHeight: '32px', textAlign: 'center'}}>
+                <Search onSearch={this.searchHandler}/>
               </Col>
               <Col span={8} style={{textAlign: 'right'}}>
                 <Button.Group>

@@ -23,12 +23,20 @@ class FundList extends PureComponent {
           const rule = record.rule;
           return (
             <p>
+              {rule.indexOf('isSlump') !== -1 && <Tag color="green">近期暴跌</Tag>}
               {rule.indexOf('distribution') !== -1 && <Tag color="orange">幅度</Tag>}
               {rule.indexOf('internal') !== -1 && <Tag color="gold">连续性</Tag>}
               {rule.indexOf('isMin') !== -1 && <Tag color="lime">新低</Tag>}
-              {rule.indexOf('isSlump') !== -1 && <Tag color="green">近期暴跌</Tag>}
+              {rule.indexOf('isLow') !== -1 && <Tag color="purple">低位</Tag>}
             </p>
           );
+        }
+      },
+      {
+        title: '是否持有',
+        dataIndex: 'has',
+        render: (has) => {
+          return has ? <span className="red-text">是</span> : '否';
         }
       },
       {

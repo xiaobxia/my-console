@@ -4,13 +4,25 @@
 import http from 'localUtil/httpUtil';
 const STRATEGY_QUERY_STRATEGYS_BEGIN = 'STRATEGY_QUERY_STRATEGYS_BEGIN';
 const STRATEGY_QUERY_STRATEGYS_SUC = 'STRATEGY_QUERY_STRATEGYS_SUC';
+const STRATEGY_QUERY_MY_STRATEGYS_BEGIN = 'STRATEGY_QUERY_MY_STRATEGYS_BEGIN';
+const STRATEGY_QUERY_MY_STRATEGYS_SUC = 'STRATEGY_QUERY_MY_STRATEGYS_SUC';
 
 export const strategyActions = {
   queryStrategy(force) {
     return (dispatch, getState) => {
       dispatch({type: STRATEGY_QUERY_STRATEGYS_BEGIN});
-      return http.get('analyze/getStrategy', {force}).then((data) => {
+      return http.get('strategy/getStrategy', {force}).then((data) => {
         dispatch({type: STRATEGY_QUERY_STRATEGYS_SUC, data: data.data});
+        console.log(data)
+        return data;
+      });
+    };
+  },
+  queryMyStrategy(force) {
+    return (dispatch, getState) => {
+      dispatch({type: STRATEGY_QUERY_MY_STRATEGYS_BEGIN});
+      return http.get('strategy/getMyStrategy', {force}).then((data) => {
+        dispatch({type: STRATEGY_QUERY_MY_STRATEGYS_SUC, data: data.data});
         console.log(data)
         return data;
       });
@@ -20,7 +32,9 @@ export const strategyActions = {
 
 const strategyStore = {
   tableLoading: false,
-  strategyList: []
+  strategyList: [],
+  myStrategyList: [],
+  myTableLoading: false
 };
 export const strategyReducers = (state = strategyStore, action) => {
   let store = Object.assign({}, state);
@@ -34,6 +48,17 @@ export const strategyReducers = (state = strategyStore, action) => {
       const data = action.data;
       store.strategyList = data.strategy;
       store.tableLoading = false;
+      return store;
+    }
+    case STRATEGY_QUERY_MY_STRATEGYS_BEGIN: {
+      store.strategyList = [];
+      store.myTableLoading = true;
+      return store;
+    }
+    case STRATEGY_QUERY_MY_STRATEGYS_SUC: {
+      const data = action.data;
+      store.myStrategyList = data.strategy;
+      store.myTableLoading = false;
       return store;
     }
     //TODO 需要有default返回返回旧的state

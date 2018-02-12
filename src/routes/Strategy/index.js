@@ -6,14 +6,15 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import DocumentTitle from 'react-document-title';
-import {Input, Upload, message, Button, Icon, Row, Col} from 'antd';
+import {Input, Upload, message, Button, Icon, Row, Col, Tabs} from 'antd';
 import {strategyActions} from 'localStore/actions'
-import http from 'localUtil/httpUtil';
 import {consoleRender} from 'localUtil/consoleLog'
 import PageHeader from 'localComponent/PageHeader'
 import {getOpenKeyAndMainPath} from '../../router'
-const FileSaver = require('file-saver');
 import FundList from './fundList'
+import qs from 'qs'
+
+const {TabPane} = Tabs;
 
 class Strategy extends PureComponent {
   constructor(props) {
@@ -22,10 +23,15 @@ class Strategy extends PureComponent {
 
   state = {
     updateLoading: false,
-    addModal: false
+    addModal: false,
+    tabKey: '1'
   };
 
   componentWillMount() {
+    const query = this.getSearch();
+    if (query.key) {
+      this.setState({tabKey: query.key});
+    }
     this.initPage();
   }
 
@@ -34,11 +40,20 @@ class Strategy extends PureComponent {
 
   componentWillUnmount() {
     console.log('将要卸载Strategy');
-    // this.state.ws.close();
   }
+
+  getSearch = () => {
+    const search = this.props.location.search;
+    let query = {};
+    if (search) {
+      query = qs.parse(search.slice(1));
+    }
+    return query;
+  };
 
   initPage = () => {
     this.queryStrategy();
+    this.props.strategyActions.queryMyStrategy();
   };
 
   queryStrategy = (force) => {
@@ -49,16 +64,16 @@ class Strategy extends PureComponent {
     this.queryStrategy(true);
   };
 
+  tabChangeHandler = (value) => {
+    console.log(value)
+    this.props.history.push('/strategy?' + qs.stringify({
+      key: value
+    }));
+  };
+
   getTitle() {
     return getOpenKeyAndMainPath(this.props.location.pathname).title;
   }
-
-  getRate = (valuation, netValue) => {
-    if (netValue === 0) {
-      return 0;
-    }
-    return parseInt(10000 * (valuation - netValue) / netValue) / 100;
-  };
 
   render() {
     consoleRender('Strategy render');
@@ -81,11 +96,20 @@ class Strategy extends PureComponent {
             </Row>
           </PageHeader>
           <div className="content-card-wrap">
-            <FundList
-              dataSource={strategy.strategyList}
-              tableLoading={strategy.tableLoading}
-              onCountChangeHandler={this.countChangeHandler}
-            />
+            <Tabs defaultActiveKey={this.state.tabKey} onChange={this.tabChangeHandler}>
+              <TabPane tab="买" key="1">
+                <FundList
+                  dataSource={strategy.strategyList}
+                  tableLoading={strategy.tableLoading}
+                />
+              </TabPane>
+              <TabPane tab="卖" key="2">
+                <FundList
+                  dataSource={strategy.myStrategyList}
+                  tableLoading={strategy.myTableLoading}
+                />
+              </TabPane>
+            </Tabs>
           </div>
           {this.state.addModal && <AddModal {...modalProps}/>}
         </div>
