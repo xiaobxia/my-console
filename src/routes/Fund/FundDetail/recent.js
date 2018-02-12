@@ -171,8 +171,10 @@ class Recent extends PureComponent {
             {this.getMaxUpAndDownText(recentData.maxUpAndDown)}
             <p>从涨跌分布来看，下一天涨的概率是{result.distribution}%</p>
             <p>从涨跌连续性来看，下一天涨的概率是{result.internal}%</p>
+            <p>是否是低位：{result.isLow ? '是' : '不是'}</p>
             <p>是否是新低: {result.isMin ? '是' : '不是'}</p>
             <p>近期是否暴跌: {result.isSlump ? '是' : '不是'}</p>
+            <p>近期是否处于支撑: {result.isSupport ? '是' : '不是'}</p>
             <p>{this.getRecentSlump(recentData.recentSlump)}</p>
           </Col>
           <Col span={12}>

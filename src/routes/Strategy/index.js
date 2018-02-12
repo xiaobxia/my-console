@@ -90,7 +90,7 @@ class Strategy extends PureComponent {
             <Row className="page-header-content">
               <Col span={8}>
                 <Button onClick={this.queryStrategyForce}>
-                  <Icon type="upload"/> 更新
+                  <Icon type="sync"/> 更新
                 </Button>
               </Col>
             </Row>
