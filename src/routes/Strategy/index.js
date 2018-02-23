@@ -95,7 +95,7 @@ class Strategy extends PureComponent {
               </Col>
             </Row>
           </PageHeader>
-          <div className="content-card-wrap">
+          <div className="content-card-wrap no-padding-top">
             <Tabs defaultActiveKey={this.state.tabKey} onChange={this.tabChangeHandler}>
               <TabPane tab="买" key="1">
                 <FundList

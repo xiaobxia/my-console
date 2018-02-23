@@ -16,6 +16,7 @@ import {getOpenKeyAndMainPath} from '../../router'
 import FundList from './fundList'
 import AddModal from './addModal'
 import Search from './search'
+import OptionBlock from './optionBlock'
 
 class Fund extends PureComponent {
   constructor(props) {
@@ -24,7 +25,6 @@ class Fund extends PureComponent {
 
   state = {
     redirectCount: 0,
-    updateLoading: false,
     addModal: false
   };
 
@@ -201,6 +201,9 @@ class Fund extends PureComponent {
               </Col>
             </Row>
           </PageHeader>
+          <div className="content-card-wrap" style={{textAlign: 'center'}}>
+            <OptionBlock/>
+          </div>
           <div className="content-card-wrap">
             <FundList {...listProps}/>
           </div>
