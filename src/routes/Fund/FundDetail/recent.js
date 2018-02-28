@@ -23,8 +23,11 @@ class Recent extends PureComponent {
   };
 
   getRecentSlump = (data) => {
-    data = data || [0, 0, 0];
-    return (<p>幅度(包括今日)：近5日{data[0]}，近10日{data[1]}，近15日{data[2]}</p>);
+    if (data) {
+      return (<p>幅度(包括今日)：{data ? data.map(function (item, index) {
+        return `近${item.day}日:${item.rate}${index === data.length - 1 ? '。' : '，'}`;
+      }) : '暂无数据'}</p>);
+    }
   };
 
   getDistributionOption = () => {
