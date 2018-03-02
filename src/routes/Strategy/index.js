@@ -12,6 +12,7 @@ import {consoleRender} from 'localUtil/consoleLog'
 import PageHeader from 'localComponent/PageHeader'
 import {getOpenKeyAndMainPath} from '../../router'
 import FundList from './fundList'
+import MyFundList from './myFundList'
 import qs from 'qs'
 
 const {TabPane} = Tabs;
@@ -103,8 +104,8 @@ class Strategy extends PureComponent {
                   tableLoading={strategy.tableLoading}
                 />
               </TabPane>
-              <TabPane tab="卖" key="2">
-                <FundList
+              <TabPane tab="我的" key="2">
+                <MyFundList
                   dataSource={strategy.myStrategyList}
                   tableLoading={strategy.myTableLoading}
                 />
