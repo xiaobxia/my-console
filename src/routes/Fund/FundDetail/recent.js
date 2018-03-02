@@ -6,6 +6,14 @@ import {Card, Row, Col} from 'antd';
 import ReactEcharts from 'echarts-for-react';
 
 class Recent extends PureComponent {
+  colorText = (flag, trueText, falseText) => {
+    if (flag) {
+      return (<span className="red-text">{trueText}</span>);
+    } else {
+      return (<span className="green-text">{falseText}</span>);
+    }
+  };
+
   getUpAndDownCountText = (data) => {
     data = data || {};
     return (<p>
@@ -24,8 +32,11 @@ class Recent extends PureComponent {
 
   getRecentSlump = (data) => {
     if (data) {
-      return (<p>幅度(包括今日)：{data ? data.map(function (item, index) {
-        return `近${item.day}日:${item.rate}${index === data.length - 1 ? '。' : '，'}`;
+      return (<p>幅度(包括今日)：{data ? data.map((item, index) => {
+        return (<span>近{item.day}日:
+          {this.colorText(item.rate > 0, item.rate, item.rate)}
+          {index === data.length - 1 ? '。' : '，'}
+          </span>);
       }) : '暂无数据'}</p>);
     }
   };
@@ -174,10 +185,10 @@ class Recent extends PureComponent {
             {this.getMaxUpAndDownText(recentData.maxUpAndDown)}
             <p>从涨跌分布来看，下一天涨的概率是{result.distribution}%</p>
             <p>从涨跌连续性来看，下一天涨的概率是{result.internal}%</p>
-            <p>是否是低位：{result.isLow ? '是' : '不是'}</p>
-            <p>是否是新低: {result.isMin ? '是' : '不是'}</p>
-            <p>近期是否暴跌: {result.isSlump ? '是' : '不是'}</p>
-            <p>近期是否处于支撑: {result.isSupport ? '是' : '不是'}</p>
+            <p>是否是低位：{this.colorText(result.isLow, '是', '不是')}</p>
+            <p>是否是新低: {this.colorText(result.isMin, '是', '不是')}</p>
+            <p>近期是否暴跌: {this.colorText(result.isSlump, '是', '不是')}</p>
+            <p>近期是否处于支撑: {this.colorText(result.isSupport, '是', '不是')}</p>
             <p>{this.getRecentSlump(recentData.recentSlump)}</p>
           </Col>
           <Col span={12}>
