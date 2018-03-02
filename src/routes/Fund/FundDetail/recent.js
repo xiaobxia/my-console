@@ -164,7 +164,116 @@ class Recent extends PureComponent {
           type: 'line',
           markPoint: {
             data: [
-              {name: '估值', value: point.times, xAxis: point.index, yAxis: point.times}
+              {
+                name: '估值',
+                value: point.times,
+                xAxis: point.index,
+                yAxis: point.times,
+                itemStyle: {
+                  color: 'blue'
+                }
+              }
+            ]
+          }
+        }
+      ]
+    };
+    return option;
+  };
+
+  getRecentNetValueOption = () => {
+    const {recentData} = this.props;
+    if (!recentData.recentNetValue) {
+      return {};
+    }
+    const recentNetValue = recentData.recentNetValue;
+    let xData = [];
+    let yData = [];
+    recentNetValue.forEach(function (item) {
+      xData.unshift(item['net_value_date']);
+      yData.unshift(item['net_value']);
+    });
+    // const point = this.getCloseData(this.props.valuation, netValueDistribution);
+    // console.log(point)
+    let option = {
+      title: {
+        text: '净值变化',
+        textStyle: {
+          color: 'rgba(0, 0, 0, 0.85)',
+          fontWeight: '500'
+        }
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      calculable: true,
+      xAxis: {
+        type: 'category',
+        data: xData
+      },
+      yAxis: {
+        type: 'value',
+        scale: true
+      },
+      series: [
+        {
+          name: '净值',
+          data: yData,
+          type: 'line',
+          markLine: {
+            data: [
+              {
+                label: {
+                  normal: {
+                    position: 'end',
+                    formatter: '{c}'
+                  }
+                },
+                type: 'average',
+                name: '平均值',
+                lineStyle: {
+                  color: '#000'
+                }
+              },
+              {
+                label: {
+                  normal: {
+                    position: 'end',
+                    formatter: '{c}'
+                  }
+                },
+                type: 'max',
+                name: '最高点',
+                lineStyle: {
+                  color: 'red'
+                }
+              },
+              {
+                label: {
+                  normal: {
+                    position: 'end',
+                    formatter: '{c}'
+                  }
+                },
+                type: 'min',
+                name: '最小值',
+                lineStyle: {
+                  color: 'green'
+                }
+              },
+              {
+                label: {
+                  normal: {
+                    position: 'end',
+                    formatter: '{c}'
+                  }
+                },
+                name: '当前',
+                lineStyle: {
+                  color: 'blue'
+                },
+                yAxis: this.props.valuation
+              }
             ]
           }
         }
@@ -193,16 +302,23 @@ class Recent extends PureComponent {
           </Col>
           <Col span={12}>
             <ReactEcharts
-              option={this.getDistributionOption()}
+              option={this.getRecentNetValueOption()}
               notMerge={true}
-              style={{height: '220px'}}
+              style={{height: '350px'}}
               lazyUpdate={true}
               theme={'theme_name'}
             />
             <ReactEcharts
               option={this.getNetValueDistributionOption()}
               notMerge={true}
-              style={{height: '220px'}}
+              style={{height: '300px'}}
+              lazyUpdate={true}
+              theme={'theme_name'}
+            />
+            <ReactEcharts
+              option={this.getDistributionOption()}
+              notMerge={true}
+              style={{height: '250px'}}
               lazyUpdate={true}
               theme={'theme_name'}
             />
