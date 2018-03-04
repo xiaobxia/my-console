@@ -26,6 +26,7 @@ class FundList extends PureComponent {
               {rule.indexOf('isSlump') !== -1 && <Tag color="green">近期暴跌</Tag>}
               {rule.indexOf('isSupport') !== -1 && <Tag color="magenta">支撑</Tag>}
               {rule.indexOf('isLow') !== -1 && <Tag color="purple">低位</Tag>}
+              {rule.indexOf('isLowHalf') !== -1 && <Tag color="purple">半年低位</Tag>}
               {rule.indexOf('internal') !== -1 && <Tag color="gold">连续性</Tag>}
               {rule.indexOf('isMin') !== -1 && <Tag color="lime">新低</Tag>}
               {rule.indexOf('distribution') !== -1 && <Tag color="orange">幅度</Tag>}

@@ -187,6 +187,7 @@ class Recent extends PureComponent {
       return {};
     }
     const recentNetValue = recentData.recentNetValue;
+    const result = recentData.result;
     let xData = [];
     let yData = [];
     recentNetValue.forEach(function (item) {
@@ -263,6 +264,19 @@ class Recent extends PureComponent {
                 lineStyle: {
                   color: 'green'
                 }
+              },
+              {
+                label: {
+                  normal: {
+                    position: 'end',
+                    formatter: '{c}'
+                  }
+                },
+                name: '半年均线',
+                lineStyle: {
+                  color: '#f50'
+                },
+                yAxis: result.costLineHalf
               },
               {
                 label: {
