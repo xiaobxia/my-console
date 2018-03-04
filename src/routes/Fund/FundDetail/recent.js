@@ -312,6 +312,7 @@ class Recent extends PureComponent {
             <p>从涨跌分布来看，下一天涨的概率是{result.distribution}%</p>
             <p>从涨跌连续性来看，下一天涨的概率是{result.internal}%</p>
             <p>是否是低位：{this.colorText(result.isLow, '是', '不是')}</p>
+            <p>是否是半年低位：{this.colorText(result.isLowHalf, '是', '不是')}</p>
             <p>是否是新低: {this.colorText(result.isMin, '是', '不是')}</p>
             <p>近期是否暴跌: {this.colorText(result.isSlump, '是', '不是')}</p>
             <p>近期是否处于支撑: {this.colorText(result.isSupport, '是', '不是')}</p>
