@@ -170,7 +170,7 @@ class Recent extends PureComponent {
                 xAxis: point.index,
                 yAxis: point.times,
                 itemStyle: {
-                  color: 'blue'
+                  color: '#1890ff'
                 }
               }
             ]
@@ -204,7 +204,10 @@ class Recent extends PureComponent {
         }
       },
       tooltip: {
-        trigger: 'axis'
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross'
+        }
       },
       calculable: true,
       xAxis: {
@@ -270,7 +273,7 @@ class Recent extends PureComponent {
                 },
                 name: '当前',
                 lineStyle: {
-                  color: 'blue'
+                  color: '#1890ff'
                 },
                 yAxis: this.props.valuation
               }
@@ -299,19 +302,21 @@ class Recent extends PureComponent {
             <p>近期是否暴跌: {this.colorText(result.isSlump, '是', '不是')}</p>
             <p>近期是否处于支撑: {this.colorText(result.isSupport, '是', '不是')}</p>
             <p>{this.getRecentSlump(recentData.recentSlump)}</p>
+            <div style={{marginTop: 50}}>
+              <ReactEcharts
+                option={this.getNetValueDistributionOption()}
+                notMerge={true}
+                style={{height: '300px'}}
+                lazyUpdate={true}
+                theme={'theme_name'}
+              />
+            </div>
           </Col>
           <Col span={12}>
             <ReactEcharts
               option={this.getRecentNetValueOption()}
               notMerge={true}
-              style={{height: '350px'}}
-              lazyUpdate={true}
-              theme={'theme_name'}
-            />
-            <ReactEcharts
-              option={this.getNetValueDistributionOption()}
-              notMerge={true}
-              style={{height: '300px'}}
+              style={{height: '450px'}}
               lazyUpdate={true}
               theme={'theme_name'}
             />
