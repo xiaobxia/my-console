@@ -61,7 +61,7 @@ class FundList extends PureComponent {
                 okText="确定"
                 cancelText="取消"
               >
-                <a href="#">删除</a>
+                <a href="#">删除基金</a>
               </Popconfirm>
             </div>
           );
