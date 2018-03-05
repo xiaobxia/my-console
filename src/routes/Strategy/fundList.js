@@ -6,6 +6,9 @@ import {Table, Button, Divider, Popconfirm, Tag} from 'antd';
 import {Link} from 'react-router-dom'
 
 class FundList extends PureComponent {
+  deleteHandler = (code) => {
+    this.props.onDelete(code);
+  };
   render() {
     const columns = [
       {
@@ -49,6 +52,17 @@ class FundList extends PureComponent {
           return (
             <div>
               <Link to={'/fund/' + record.code}>查看</Link>
+              <Divider type="vertical"/>
+              <Popconfirm
+                title="确认删除此记录?"
+                onConfirm={() => {
+                  this.deleteHandler(record.code)
+                }}
+                okText="确定"
+                cancelText="取消"
+              >
+                <a href="#">删除</a>
+              </Popconfirm>
             </div>
           );
         }

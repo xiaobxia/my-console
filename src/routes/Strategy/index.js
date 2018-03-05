@@ -11,6 +11,7 @@ import {strategyActions} from 'localStore/actions'
 import {consoleRender} from 'localUtil/consoleLog'
 import PageHeader from 'localComponent/PageHeader'
 import {getOpenKeyAndMainPath} from '../../router'
+import http from 'localUtil/httpUtil';
 import FundList from './fundList'
 import MyFundList from './myFundList'
 import qs from 'qs'
@@ -72,6 +73,18 @@ class Strategy extends PureComponent {
     }));
   };
 
+  // 删除基金
+  tableDeleteHandler = (code) => {
+    http.get('fund/deleteFund', {code}).then((data) => {
+      if (data.success) {
+        message.success('删除成功');
+      } else {
+        message.error('删除失败');
+      }
+      this.initPage();
+    })
+  };
+
   getTitle() {
     return getOpenKeyAndMainPath(this.props.location.pathname).title;
   }
@@ -102,6 +115,7 @@ class Strategy extends PureComponent {
                 <FundList
                   dataSource={strategy.strategyList}
                   tableLoading={strategy.tableLoading}
+                  onDelete={this.tableDeleteHandler}
                 />
               </TabPane>
               <TabPane tab="我的" key="2">
