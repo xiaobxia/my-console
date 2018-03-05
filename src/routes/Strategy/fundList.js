@@ -39,6 +39,20 @@ class FundList extends PureComponent {
         }
       },
       {
+        title: '幅度',
+        render: (record) => {
+          if (!record.valuationRate) {
+            return '---'
+          }
+          const isUp = record.valuationRate > 0;
+          const isEqual = record.valuationRate === 0;
+          return (
+            <span
+              className={isUp ? 'red-text' : isEqual ? '' : 'green-text'}>{`${record.valuationRate}%`}</span>
+          );
+        }
+      },
+      {
         title: '是否持有',
         dataIndex: 'has',
         filters: [{
