@@ -9,6 +9,7 @@ class FundList extends PureComponent {
   deleteHandler = (code) => {
     this.props.onDelete(code);
   };
+
   render() {
     const columns = [
       {
@@ -40,6 +41,17 @@ class FundList extends PureComponent {
       {
         title: '是否持有',
         dataIndex: 'has',
+        filters: [{
+          text: '是',
+          value: true
+        }, {
+          text: '否',
+          value: false
+        }],
+        onFilter: (value, record) => {
+          let valueTemp = value === 'true';
+          return record.has === valueTemp;
+        },
         render: (has) => {
           return has ? <span className="red-text">是</span> : '否';
         }
