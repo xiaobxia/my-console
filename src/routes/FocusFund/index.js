@@ -138,7 +138,7 @@ class FocusFund extends PureComponent {
               </Col>
             </Row>
           </PageHeader>
-          <div className="content-card-wrap no-padding-top">
+          <div className="content-card-wrap">
             <FundList
               dataSource={focusFund.focusFundList}
               tableLoading={focusFund.tableLoading}

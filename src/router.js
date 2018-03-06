@@ -121,17 +121,6 @@ export const menusInfos = [
         pathname: '/focusFund'
       }
     ]
-  },
-  {
-    key: 'website',
-    title: '主站',
-    icon: 'ie',
-    children: [
-      {
-        pathname: '/resume',
-        title: '简历'
-      }
-    ]
   }
 ];
 export function getOpenKeyAndMainPath(pathname) {
