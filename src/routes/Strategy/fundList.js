@@ -41,7 +41,7 @@ class FundList extends PureComponent {
       {
         title: '幅度',
         render: (record) => {
-          if (!record.valuationRate) {
+          if (!record) {
             return '---'
           }
           const isUp = record.valuationRate > 0;

@@ -5,3 +5,5 @@ export {appActions} from './module/app';
 export {myFundActions} from './module/myFund'
 export {fundActions} from './module/fund'
 export {strategyActions} from './module/strategy'
+export {focusFundActions} from './module/focusFund'
+export {scheduleActions} from './module/schedule'

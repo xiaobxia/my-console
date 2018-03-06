@@ -1,11 +1,15 @@
 /**
- * Created by xiaobxia on 2018/3/2.
+ * Created by xiaobxia on 2018/1/26.
  */
 import React, {PureComponent} from 'react'
 import {Table, Button, Divider, Popconfirm, Tag} from 'antd';
 import {Link} from 'react-router-dom'
 
-class MyFundList extends PureComponent {
+class FundList extends PureComponent {
+  deleteHandler = (code) => {
+    this.props.onDelete(code);
+  };
+
   render() {
     const columns = [
       {
@@ -49,6 +53,24 @@ class MyFundList extends PureComponent {
         }
       },
       {
+        title: '是否持有',
+        dataIndex: 'has',
+        filters: [{
+          text: '是',
+          value: true
+        }, {
+          text: '否',
+          value: false
+        }],
+        onFilter: (value, record) => {
+          let valueTemp = value === 'true';
+          return record.has === valueTemp;
+        },
+        render: (has) => {
+          return has ? <span className="red-text">是</span> : '否';
+        }
+      },
+      {
         title: '操作',
         width: 180,
         fixed: 'right',
@@ -56,6 +78,17 @@ class MyFundList extends PureComponent {
           return (
             <div>
               <Link to={'/fund/' + record.code}>查看</Link>
+              <Divider type="vertical"/>
+              <Popconfirm
+                title="确认取消关注?"
+                onConfirm={() => {
+                  this.deleteHandler(record.code)
+                }}
+                okText="确定"
+                cancelText="取消"
+              >
+                <a href="#">取消关注</a>
+              </Popconfirm>
             </div>
           );
         }
@@ -76,4 +109,4 @@ class MyFundList extends PureComponent {
   }
 }
 
-export default MyFundList;
+export default FundList;
