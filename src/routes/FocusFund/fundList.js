@@ -44,7 +44,7 @@ class FundList extends PureComponent {
           const rule = record.saleRule;
           return (
             <p>
-              {rule.indexOf('isBoom') !== -1 && <Tag color="#87d068">近期暴涨</Tag>}
+              {rule.indexOf('isBoom') !== -1 && <Tag color="#f50">近期暴涨</Tag>}
               {rule.indexOf('isHigh') !== -1 && <Tag color="#108ee9">高位</Tag>}
               {rule.indexOf('isHighHalf') !== -1 && <Tag color="#108ee9">半年高位</Tag>}
             </p>
@@ -75,6 +75,7 @@ class FundList extends PureComponent {
           text: '否',
           value: false
         }],
+        filterMultiple: false,
         onFilter: (value, record) => {
           let valueTemp = value === 'true';
           return record.has === valueTemp;
