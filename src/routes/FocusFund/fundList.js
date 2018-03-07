@@ -22,7 +22,7 @@ class FundList extends PureComponent {
         dataIndex: 'name'
       },
       {
-        title: '上榜标签',
+        title: '买入理由',
         render: (record) => {
           const rule = record.rule;
           return (
@@ -34,6 +34,19 @@ class FundList extends PureComponent {
               {rule.indexOf('internal') !== -1 && <Tag color="gold">连续性</Tag>}
               {rule.indexOf('isMin') !== -1 && <Tag color="lime">新低</Tag>}
               {rule.indexOf('distribution') !== -1 && <Tag color="orange">幅度</Tag>}
+            </p>
+          );
+        }
+      },
+      {
+        title: '卖出理由',
+        render: (record) => {
+          const rule = record.saleRule;
+          return (
+            <p>
+              {rule.indexOf('isBoom') !== -1 && <Tag color="#87d068">近期暴涨</Tag>}
+              {rule.indexOf('isHigh') !== -1 && <Tag color="#108ee9">高位</Tag>}
+              {rule.indexOf('isHighHalf') !== -1 && <Tag color="#108ee9">半年高位</Tag>}
             </p>
           );
         }
