@@ -28,6 +28,7 @@ class FundList extends PureComponent {
           return (
             <p>
               {rule.indexOf('isSlump') !== -1 && <Tag color="green">近期暴跌</Tag>}
+              {rule.indexOf('isWeekSlump') !== -1 && <Tag color="green">超短暴跌</Tag>}
               {rule.indexOf('isSupport') !== -1 && <Tag color="magenta">支撑</Tag>}
               {rule.indexOf('isLow') !== -1 && <Tag color="purple">低位</Tag>}
               {rule.indexOf('isLowHalf') !== -1 && <Tag color="purple">半年低位</Tag>}
@@ -92,17 +93,6 @@ class FundList extends PureComponent {
           return (
             <div>
               <Link to={'/fund/' + record.code}>查看</Link>
-              <Divider type="vertical"/>
-              <Popconfirm
-                title="确认取消关注?"
-                onConfirm={() => {
-                  this.deleteHandler(record.code)
-                }}
-                okText="确定"
-                cancelText="取消"
-              >
-                <a href="#">取消关注</a>
-              </Popconfirm>
             </div>
           );
         }
