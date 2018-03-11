@@ -2,10 +2,16 @@
  * Created by xiaobxia on 2018/1/26.
  */
 import http from 'localUtil/httpUtil';
+const LOWRATEFUND_INIT_STORE = 'LOWRATEFUND_INIT_STORE';
 const LOWRATEFUND_QUERY_LOWRATEFUNDS_BEGIN = 'LOWRATEFUND_QUERY_LOWRATEFUNDS_BEGIN';
 const LOWRATEFUND_QUERY_LOWRATEFUNDS_SUC = 'LOWRATEFUND_QUERY_LOWRATEFUNDS_SUC';
 
 export const lowRateFundActions = {
+  initStore() {
+    return (dispatch, getState) => {
+      dispatch({type: LOWRATEFUND_INIT_STORE});
+    };
+  },
   queryLowRateFunds(queryString) {
     return (dispatch, getState) => {
       dispatch({type: LOWRATEFUND_QUERY_LOWRATEFUNDS_BEGIN});
@@ -26,6 +32,10 @@ const lowRateFundStore = {
 export const lowRateFundReducers = (state = lowRateFundStore, action) => {
   let store = Object.assign({}, state);
   switch (action.type) {
+    case LOWRATEFUND_INIT_STORE: {
+      store = Object.assign({}, lowRateFundStore);
+      return store;
+    }
     case LOWRATEFUND_QUERY_LOWRATEFUNDS_BEGIN: {
       store.lowRateFundList = [];
       store.tableLoading = true;

@@ -32,6 +32,11 @@ class Fund extends PureComponent {
     this.initPage();
   }
 
+  componentWillUnmount() {
+    this.props.fundActions.initStore();
+    console.log('将要卸载Fund');
+  }
+
   initPage = () => {
     const query = this.getSearch();
     //初始化页面

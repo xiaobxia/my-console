@@ -34,6 +34,7 @@ class MyFund extends PureComponent {
   }
 
   componentWillUnmount() {
+    this.props.myFundActions.initStore();
     console.log('将要卸载MyFund');
     // this.state.ws.close();
   }

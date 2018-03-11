@@ -28,6 +28,12 @@ class FundDetail extends PureComponent {
     this.initPage();
   }
 
+
+  componentWillUnmount() {
+    this.props.fundActions.initStore();
+    console.log('将要卸载FundDetail');
+  }
+
   initPage = () => {
     const code = this.props.match.params.code;
     const {fundActions} = this.props;

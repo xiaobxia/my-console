@@ -33,6 +33,7 @@ class Schedule extends PureComponent {
   }
 
   componentWillUnmount() {
+    this.props.scheduleActions.initStore();
     console.log('将要卸载Schedule');
   }
 

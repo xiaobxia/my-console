@@ -34,6 +34,7 @@ class LowRateFund extends PureComponent {
   }
 
   componentWillUnmount() {
+    this.props.lowRateFundActions.initStore();
     console.log('将要卸载LowRateFund');
   }
 

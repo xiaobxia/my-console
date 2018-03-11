@@ -34,6 +34,7 @@ class FocusFund extends PureComponent {
   }
 
   componentWillUnmount() {
+    this.props.focusFundActions.initStore();
     console.log('将要卸载FocusFund');
   }
 

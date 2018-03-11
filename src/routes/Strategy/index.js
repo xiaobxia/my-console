@@ -41,6 +41,7 @@ class Strategy extends PureComponent {
   }
 
   componentWillUnmount() {
+    this.props.strategyActions.initStore();
     console.log('将要卸载Strategy');
   }
 
