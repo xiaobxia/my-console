@@ -10,6 +10,7 @@ import Fund from 'Bundle-loader?lazy!localRoutes/Fund'
 import FundDetail from 'Bundle-loader?lazy!localRoutes/Fund/FundDetail'
 import Strategy from 'Bundle-loader?lazy!localRoutes/Strategy'
 import FocusFund from 'Bundle-loader?lazy!localRoutes/FocusFund'
+import LowRateFund from 'Bundle-loader?lazy!localRoutes/LowRateFund'
 import Schedule from 'Bundle-loader?lazy!localRoutes/Schedule'
 
 //router4就得以这种方式懒加载
@@ -80,6 +81,11 @@ export const baseRoutes = [
     component: getComponent(FocusFund)
   },
   {
+    name: 'LowRateFund',
+    path: '/lowRateFund',
+    component: getComponent(LowRateFund)
+  },
+  {
     name: 'Schedule',
     path: '/schedule',
     component: getComponent(Schedule)
@@ -115,6 +121,10 @@ export const menusInfos = [
       {
         title: '策略',
         pathname: '/strategy'
+      },
+      {
+        title: '低费率基金',
+        pathname: '/lowRateFund'
       },
       {
         title: '我的关注',

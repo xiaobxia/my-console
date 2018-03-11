@@ -7,6 +7,7 @@ import {myFundReducers} from './module/myFund';
 import {fundReducers} from './module/fund';
 import {strategyReducers} from './module/strategy';
 import {focusFundReducers} from './module/focusFund';
+import {lowRateFundReducers} from './module/lowRateFund';
 import {scheduleReducers} from './module/schedule';
 export default combineReducers({
   app: appReducers,
@@ -14,5 +15,6 @@ export default combineReducers({
   fund: fundReducers,
   strategy: strategyReducers,
   focusFund: focusFundReducers,
+  lowRateFund: lowRateFundReducers,
   schedule: scheduleReducers
 })
