@@ -36,7 +36,7 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      "/myService": {
+      "/myServiceV2": {
         // "target": "http://39.108.114.91:3002/"
         "target": "http://localhost:3002/"
       }

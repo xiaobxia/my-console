@@ -1,6 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
-const basePath = '/myService/';
+const basePath = '/myServiceV2/';
 
 axios.interceptors.request.use(function (config) {
   config.headers.token = window._token || '';
