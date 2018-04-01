@@ -57,8 +57,8 @@ class Schedule extends PureComponent {
     });
   };
 
-  addSchedule = (name, describe) => {
-    return http.post('schedule/addSchedule', {name, describe}).then((data) => {
+  addSchedule = (data) => {
+    return http.post('schedule/addSchedule', {...data}).then((data) => {
       if (data.success) {
         this.initPage();
       }
@@ -66,9 +66,9 @@ class Schedule extends PureComponent {
     });
   };
 
-  onChangeHandler = (name) => {
+  onChangeHandler = (key) => {
     return (checked) => {
-      http.get('schedule/updateSchedule', {name, open: checked}).then((data) => {
+      http.post('schedule/changeScheduleStatus', {key, value: checked ? 'open' : 'close'}).then((data) => {
         if (data.success) {
           this.initPage();
         }
@@ -112,8 +112,8 @@ class Schedule extends PureComponent {
                   <span>{item.describe}</span>
                   <span style={{marginLeft: 50}}>
                     <Switch
-                      checked={item.open}
-                      onChange={this.onChangeHandler(item.name)}
+                      checked={item.value === 'open'}
+                      onChange={this.onChangeHandler(item.key)}
                     />
                   </span>
                 </List.Item>)

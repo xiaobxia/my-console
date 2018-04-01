@@ -2,9 +2,10 @@
  * Created by xiaobxia on 2018/1/31.
  */
 import React, {PureComponent} from 'react'
-import {Modal, Form, Input} from 'antd';
+import {Modal, Form, Input, Select} from 'antd';
 
 const FormItem = Form.Item;
+const Option = Select.Option;
 
 class AddModal extends PureComponent {
   handleOk = (e) => {
@@ -23,7 +24,7 @@ class AddModal extends PureComponent {
       let data = {
         ...getFieldsValue()
       };
-      onAdd(data.name, data.describe).then((res) => {
+      onAdd(data).then((res) => {
         if (res.success) {
           onClose();
         }
@@ -50,7 +51,7 @@ class AddModal extends PureComponent {
         >
           <Form>
             <FormItem label="名称">
-              {getFieldDecorator('name', {
+              {getFieldDecorator('key', {
                 rules: [
                   {required: true, message: '请输入名称'}
                 ]
@@ -65,6 +66,18 @@ class AddModal extends PureComponent {
                 ]
               })(
                 <Input/>
+              )}
+            </FormItem>
+            <FormItem label="值">
+              {getFieldDecorator('value', {
+                rules: [
+                  {required: true, message: '请输入值'}
+                ]
+              })(
+                <Select style={{ width: '100%' }}>
+                  <Option value="open">开启</Option>
+                  <Option value="close">关闭</Option>
+                </Select>
               )}
             </FormItem>
           </Form>

@@ -25,7 +25,9 @@ export const myFundActions = {
 };
 
 const myFundStore = {
-  myFundList: [],
+  myFundList1: [],
+  myFundList2: [],
+  myFundList3: [],
   myFundInfo: {},
   currentMyFund: {}
 };
@@ -37,13 +39,25 @@ export const myFundReducers = (state = myFundStore, action) => {
       return store;
     }
     case MYFUND_QUERY_MYFUNDS_BEGIN: {
-      store.myFundList = [];
+      store.myFundList1 = [];
+      store.myFundList2 = [];
+      store.myFundList3 = [];
       store.myFundInfo = {};
       return store;
     }
     case MYFUND_QUERY_MYFUNDS_SUC: {
       const data = action.data;
-      store.myFundList = data.list;
+      let temp = {
+        myFundList1: [],
+        myFundList2: [],
+        myFundList3: []
+      };
+      data.list.forEach((item) => {
+        temp[`myFundList${item.strategy}`].push(item);
+      });
+      store.myFundList1 = temp.myFundList1;
+      store.myFundList2 = temp.myFundList2;
+      store.myFundList3 = temp.myFundList3;
       store.myFundInfo = data.info;
       return store;
     }

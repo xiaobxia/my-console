@@ -23,7 +23,9 @@ class MyFund extends PureComponent {
 
   state = {
     updateLoading: false,
-    addModal: false
+    addModal: false,
+    modalType: 'add',
+    record: {}
   };
 
   componentWillMount() {
@@ -67,47 +69,18 @@ class MyFund extends PureComponent {
           <span style={{marginLeft: '0.5em'}}>预估盈亏: <a
             className={valuationTotalSum > totalSum ? 'red-text' : 'green-text'}>{`${valuationTotalSum - totalSum}(${this.getRate(valuationTotalSum, totalSum)}%)`}</a></span>
         </p>
-        <p>估算时间：{myFundInfo.valuationDate ? new Date(myFundInfo.valuationDate).toLocaleString() : ''}</p>
+        <p>估算时间：{myFundInfo.valuationDate}</p>
       </div>
     );
   };
-  // 上传
-  getUploadProps = () => {
-    const initPage = this.initPage;
-    return {
-      name: 'fundFile',
-      action: http.generateUrl('upload/importMyFund'),
-      headers: {
-        token: window._token
-      },
-      onChange(info) {
-        if (info.file.status === 'done') {
-          if (info.file.response.success) {
-            if (info.file.response.data) {
-              message.warn(`有${info.file.response.data.failList.length}项失败`);
-            } else {
-              message.success('导入成功');
-            }
-            initPage();
-          } else {
-            message.error(info.file.response.message);
-          }
-        } else if (info.file.status === 'error') {
-          message.error('导入失败');
-        }
-      }
-    };
-  };
 
-  countChangeHandler = (code, count) => {
-    http.post('fund/updateUserFund', {code, count}).then((data) => {
-      if (data.success) {
-        message.success('更新成功');
-      } else {
-        message.error('更新失败');
-      }
-      this.initPage();
-    })
+  editHandler = (data) => {
+    console.log('in')
+    this.setState({
+      addModal: true,
+      modalType: 'edit',
+      record: data
+    });
   };
 
   deleteMyFund = (code) => {
@@ -121,17 +94,11 @@ class MyFund extends PureComponent {
     })
   };
 
-  exportMyFundsHandler() {
-    http.post('download/exportMyFund').then((data) => {
-      let blob = new Blob([JSON.stringify(data)], {type: 'application/octet-stream,charset=UTF-8'});
-      let fileName = '我的基金.json';
-      FileSaver.saveAs(blob, fileName);
-    })
-  }
-
   openModalHandler = () => {
     this.setState({
-      addModal: true
+      addModal: true,
+      modalType: 'add',
+      record: {}
     });
   };
 
@@ -141,13 +108,30 @@ class MyFund extends PureComponent {
     });
   };
 
-  addFund = (code, count) => {
-    return http.post('fund/addUserFund', {code, count}).then((data) => {
+  addFund = (data) => {
+    return http.post('fund/addUserFund', data).then((data) => {
       if (data.success) {
         this.initPage();
       }
       return data;
     });
+  };
+
+  updateFund = (data) => {
+    return http.post('fund/updateUserFund', data).then((data) => {
+      if (data.success) {
+        this.initPage();
+      }
+      return data;
+    });
+  };
+
+  countSum = (data) => {
+    let sum = 0;
+    data.forEach((item) => {
+      sum += item.sum;
+    });
+    return sum;
   };
 
   render() {
@@ -156,7 +140,10 @@ class MyFund extends PureComponent {
     const myFund = this.props.myFund;
     const modalProps = {
       onClose: this.closeModalHandler,
-      onAdd: this.addFund
+      onUpdate: this.updateFund,
+      onAdd: this.addFund,
+      type: this.state.modalType,
+      record: this.state.record
     };
     return (
       <DocumentTitle title={title}>
@@ -164,11 +151,6 @@ class MyFund extends PureComponent {
           <PageHeader routeTitle={title}>
             <Row className="page-header-content">
               <Col span={8}>
-                <Upload {...this.getUploadProps()}>
-                  <Button>
-                    <Icon type="upload"/> 导入我的基金
-                  </Button>
-                </Upload>
               </Col>
               <Col span={8} style={{lineHeight: '32px', textAlign: 'center'}}>
                 {this.getSumInfo()}
@@ -178,19 +160,35 @@ class MyFund extends PureComponent {
                   <Button onClick={this.openModalHandler}>
                     添加基金
                   </Button>
-                  <Button onClick={this.exportMyFundsHandler}>
-                    导出我的基金
-                  </Button>
                 </Button.Group>
               </Col>
             </Row>
           </PageHeader>
           <div className="content-card-wrap">
+            <h3 className="red-text">超跌搏反：建议持仓日期7天，当前模块持仓{this.countSum(myFund.myFundList1)}</h3>
             <FundList
-              dataSource={myFund.myFundList}
+              dataSource={myFund.myFundList1}
               onDeleteHandler={this.deleteMyFund}
               tableLoading={myFund.tableLoading}
-              onCountChangeHandler={this.countChangeHandler}
+              onEditHandler={this.editHandler}
+            />
+          </div>
+          <div className="content-card-wrap">
+            <h3 className="red-text">高风偏追涨：建议持仓日期7天，当前模块持仓{this.countSum(myFund.myFundList2)}</h3>
+            <FundList
+              dataSource={myFund.myFundList2}
+              onDeleteHandler={this.deleteMyFund}
+              tableLoading={myFund.tableLoading}
+              onEditHandler={this.editHandler}
+            />
+          </div>
+          <div className="content-card-wrap">
+            <h3 className="red-text">顺应大势：建议持仓日期14天，当前模块持仓{this.countSum(myFund.myFundList3)}</h3>
+            <FundList
+              dataSource={myFund.myFundList3}
+              onDeleteHandler={this.deleteMyFund}
+              tableLoading={myFund.tableLoading}
+              onEditHandler={this.editHandler}
             />
           </div>
           {this.state.addModal && <AddModal {...modalProps}/>}

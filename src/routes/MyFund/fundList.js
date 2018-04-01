@@ -11,8 +11,8 @@ class FundList extends PureComponent {
     this.props.onDeleteHandler(code);
   };
 
-  onCountCellChange = (rowKey, value) => {
-    this.props.onCountChangeHandler(rowKey, value);
+  editHandler = (data) => {
+    this.props.onEditHandler(data);
   };
 
   getRate = (valuation, netValue) => {
@@ -31,25 +31,44 @@ class FundList extends PureComponent {
         dataIndex: 'name'
       },
       {
-        title: '持仓(份)',
-        width: 140,
-        dataIndex: 'count',
-        render: (text, record) => (
-          <EditableCell
-            rowKey={record.code}
-            value={text}
-            onChange={this.onCountCellChange}
-          />
-        )
+        title: '成本',
+        width: 90,
+        dataIndex: 'cost'
+      },
+      {
+        title: '份额(份)',
+        width: 90,
+        dataIndex: 'shares'
       },
       {
         title: '持仓净值',
-        width: 120,
+        width: 90,
         dataIndex: 'sum'
       },
       {
+        title: '购买日期',
+        width: 140,
+        dataIndex: 'buy_date'
+      },
+      {
+        title: '持有天数',
+        width: 90,
+        dataIndex: 'has_days'
+      },
+      {
         title: '估值',
-        width: 120,
+        width: 90,
+        render: (record) => {
+          const isUp = record.valuation > record.netValue;
+          const isEqual = record.valuation === record.netValue;
+          return (
+            <span className={isUp ? 'red-text' : isEqual ? '' : 'green-text'}>{record.valuation}</span>
+          );
+        }
+      },
+      {
+        title: '持仓估值',
+        width: 90,
         render: (record) => {
           const isUp = record.valuationSum > record.sum;
           const isEqual = record.valuationSum === record.sum;
@@ -60,7 +79,7 @@ class FundList extends PureComponent {
       },
       {
         title: '幅度',
-        width: 80,
+        width: 90,
         render: (record) => {
           if (!record.valuation || !record.netValue) {
             return '---'
@@ -75,8 +94,45 @@ class FundList extends PureComponent {
       },
       {
         title: '估值源',
-        width: 80,
+        width: 90,
         dataIndex: 'valuationSource'
+      },
+      {
+        title: '收益率',
+        width: 90,
+        render: (record) => {
+          if (!record.valuation || !record.cost) {
+            return '---'
+          }
+          const rate = this.getRate(record.valuation, record.cost);
+          const isUp = rate > 0;
+          const isEqual = rate === 0;
+          return (
+            <span
+              className={isUp ? 'red-text' : isEqual ? '' : 'green-text'}>{`${rate}%`}</span>
+          );
+        }
+      },
+      {
+        title: '目标净值',
+        width: 90,
+        dataIndex: 'target_net_value'
+      },
+      {
+        title: '目标收益率',
+        width: 90,
+        render: (record) => {
+          if (!record.target_net_value || !record.cost) {
+            return '---'
+          }
+          const rate = this.getRate(record.target_net_value, record.cost);
+          const isUp = rate > 0;
+          const isEqual = rate === 0;
+          return (
+            <span
+              className={isUp ? 'red-text' : isEqual ? '' : 'green-text'}>{`${rate}%`}</span>
+          );
+        }
       },
       {
         title: '操作',
@@ -86,6 +142,10 @@ class FundList extends PureComponent {
           return (
             <div>
               <Link to={'/fund/' + record.code} style={{margin: '0 .5em'}}>查看</Link>
+              <Divider type="vertical"/>
+              <a onClick={() => {
+                this.editHandler(record)
+              }}>编辑</a>
               <Divider type="vertical"/>
               <Popconfirm
                 title="确认删除此基金?"
