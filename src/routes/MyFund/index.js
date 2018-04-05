@@ -9,6 +9,7 @@ import DocumentTitle from 'react-document-title';
 import {Input, Upload, message, Button, Icon, Row, Col} from 'antd';
 import {myFundActions} from 'localStore/actions'
 import http from 'localUtil/httpUtil';
+import numberUtil from 'localUtil/numberUtil';
 import {consoleRender} from 'localUtil/consoleLog'
 import PageHeader from 'localComponent/PageHeader'
 import {getOpenKeyAndMainPath} from '../../router'
@@ -38,7 +39,6 @@ class MyFund extends PureComponent {
   componentWillUnmount() {
     this.props.myFundActions.initStore();
     console.log('将要卸载MyFund');
-    // this.state.ws.close();
   }
 
   initPage = () => {
@@ -48,13 +48,6 @@ class MyFund extends PureComponent {
   getTitle() {
     return getOpenKeyAndMainPath(this.props.location.pathname).title;
   }
-
-  getRate = (valuation, netValue) => {
-    if (netValue === 0) {
-      return 0;
-    }
-    return parseInt(10000 * (valuation - netValue) / netValue) / 100;
-  };
 
   // 获取持仓信息
   getSumInfo = () => {
@@ -66,8 +59,8 @@ class MyFund extends PureComponent {
         <p>
           <Icon type="pay-circle"/>
           <span style={{marginLeft: '0.5em'}}>我的持仓金额: <a>{totalSum}</a></span>
-          <span style={{marginLeft: '0.5em'}}>预估盈亏: <a
-            className={valuationTotalSum > totalSum ? 'red-text' : 'green-text'}>{`${valuationTotalSum - totalSum}(${this.getRate(valuationTotalSum, totalSum)}%)`}</a></span>
+          <span style={{marginLeft: '0.5em'}}>预估当日盈亏: <a
+            className={valuationTotalSum > totalSum ? 'red-text' : 'green-text'}>{`${numberUtil.keepTwoDecimals(valuationTotalSum - totalSum)}(${numberUtil.countDifferenceRate(valuationTotalSum, totalSum)}%)`}</a></span>
         </p>
         <p>估算时间：{myFundInfo.valuationDate}</p>
       </div>
@@ -75,7 +68,6 @@ class MyFund extends PureComponent {
   };
 
   editHandler = (data) => {
-    console.log('in')
     this.setState({
       addModal: true,
       modalType: 'edit',
@@ -126,12 +118,12 @@ class MyFund extends PureComponent {
     });
   };
 
-  countSum = (data) => {
+  countSum = (data, key) => {
     let sum = 0;
     data.forEach((item) => {
-      sum += item.sum;
+      sum += item[key];
     });
-    return sum;
+    return numberUtil.keepTwoDecimals(sum);
   };
 
   render() {
@@ -165,7 +157,9 @@ class MyFund extends PureComponent {
             </Row>
           </PageHeader>
           <div className="content-card-wrap">
-            <h3 className="red-text">超跌搏反：建议持仓日期7天，当前模块持仓{this.countSum(myFund.myFundList1)}</h3>
+            <h3 className="blue-text">
+              超跌搏反：建议持仓日期7天，当前模块持仓成本{this.countSum(myFund.myFundList1, 'costSum')}元
+            </h3>
             <FundList
               dataSource={myFund.myFundList1}
               onDeleteHandler={this.deleteMyFund}
@@ -174,7 +168,9 @@ class MyFund extends PureComponent {
             />
           </div>
           <div className="content-card-wrap">
-            <h3 className="red-text">高风偏追涨：建议持仓日期7天，当前模块持仓{this.countSum(myFund.myFundList2)}</h3>
+            <h3 className="blue-text">
+              高风偏追涨：建议持仓日期7天，当前模块持仓成本{this.countSum(myFund.myFundList2, 'costSum')}元
+            </h3>
             <FundList
               dataSource={myFund.myFundList2}
               onDeleteHandler={this.deleteMyFund}
@@ -183,7 +179,9 @@ class MyFund extends PureComponent {
             />
           </div>
           <div className="content-card-wrap">
-            <h3 className="red-text">顺应大势：建议持仓日期14天，当前模块持仓{this.countSum(myFund.myFundList3)}</h3>
+            <h3 className="blue-text">
+              顺应大势：建议持仓日期14天，当前模块持仓成本{this.countSum(myFund.myFundList3, 'costSum')}元
+            </h3>
             <FundList
               dataSource={myFund.myFundList3}
               onDeleteHandler={this.deleteMyFund}

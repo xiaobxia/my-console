@@ -4,6 +4,7 @@
 import React, {PureComponent} from 'react'
 import {Table, Button, Divider, Popconfirm} from 'antd';
 import {Link} from 'react-router-dom'
+import numberUtil from 'localUtil/numberUtil';
 import EditableCell from 'localComponent/EditableCell'
 
 class FundList extends PureComponent {
@@ -15,10 +16,6 @@ class FundList extends PureComponent {
     this.props.onEditHandler(data);
   };
 
-  getRate = (valuation, netValue) => {
-    return parseInt(10000 * (valuation - netValue) / netValue) / 100;
-  };
-
   render() {
     const columns = [
       {
@@ -28,22 +25,23 @@ class FundList extends PureComponent {
       },
       {
         title: '名称',
-        dataIndex: 'name'
+        render: (record) => {
+          if (record.name.length > 20) {
+            return record.name.substr(0, 17) + '...';
+          } else {
+            return record.name;
+          }
+        }
       },
-      {
-        title: '成本',
-        width: 90,
-        dataIndex: 'cost'
-      },
+      // {
+      //   title: '成本',
+      //   width: 90,
+      //   dataIndex: 'cost'
+      // },
       {
         title: '份额(份)',
         width: 90,
         dataIndex: 'shares'
-      },
-      {
-        title: '持仓净值',
-        width: 90,
-        dataIndex: 'sum'
       },
       {
         title: '购买日期',
@@ -55,16 +53,26 @@ class FundList extends PureComponent {
         width: 90,
         dataIndex: 'has_days'
       },
+      // {
+      //   title: '估值',
+      //   width: 90,
+      //   render: (record) => {
+      //     const isUp = record.valuation > record.netValue;
+      //     const isEqual = record.valuation === record.netValue;
+      //     return (
+      //       <span className={isUp ? 'red-text' : isEqual ? '' : 'green-text'}>{record.valuation}</span>
+      //     );
+      //   }
+      // },
       {
-        title: '估值',
+        title: '持仓成本',
         width: 90,
-        render: (record) => {
-          const isUp = record.valuation > record.netValue;
-          const isEqual = record.valuation === record.netValue;
-          return (
-            <span className={isUp ? 'red-text' : isEqual ? '' : 'green-text'}>{record.valuation}</span>
-          );
-        }
+        dataIndex: 'costSum'
+      },
+      {
+        title: '持仓净值',
+        width: 90,
+        dataIndex: 'sum'
       },
       {
         title: '持仓估值',
@@ -78,7 +86,22 @@ class FundList extends PureComponent {
         }
       },
       {
-        title: '幅度',
+        title: '当天收益',
+        width: 90,
+        render: (record) => {
+          if (!record.valuationSum || !record.sum) {
+            return '---'
+          }
+          const isUp = record.valuationSum > record.sum;
+          const isEqual = record.valuationSum === record.sum;
+          return (
+            <span
+              className={isUp ? 'red-text' : isEqual ? '' : 'green-text'}>{numberUtil.keepTwoDecimals(record.valuationSum - record.sum)}</span>
+          );
+        }
+      },
+      {
+        title: '当天涨幅',
         width: 90,
         render: (record) => {
           if (!record.valuation || !record.netValue) {
@@ -88,15 +111,15 @@ class FundList extends PureComponent {
           const isEqual = record.valuation === record.netValue;
           return (
             <span
-              className={isUp ? 'red-text' : isEqual ? '' : 'green-text'}>{`${this.getRate(record.valuation, record.netValue)}%`}</span>
+              className={isUp ? 'red-text' : isEqual ? '' : 'green-text'}>{`${numberUtil.countDifferenceRate(record.valuation, record.netValue)}%`}</span>
           );
         }
       },
-      {
-        title: '估值源',
-        width: 90,
-        dataIndex: 'valuationSource'
-      },
+      // {
+      //   title: '估值源',
+      //   width: 90,
+      //   dataIndex: 'valuationSource'
+      // },
       {
         title: '收益率',
         width: 90,
@@ -104,7 +127,7 @@ class FundList extends PureComponent {
           if (!record.valuation || !record.cost) {
             return '---'
           }
-          const rate = this.getRate(record.valuation, record.cost);
+          const rate = numberUtil.countDifferenceRate(record.valuation, record.cost);
           const isUp = rate > 0;
           const isEqual = rate === 0;
           return (
@@ -113,11 +136,11 @@ class FundList extends PureComponent {
           );
         }
       },
-      {
-        title: '目标净值',
-        width: 90,
-        dataIndex: 'target_net_value'
-      },
+      // {
+      //   title: '目标净值',
+      //   width: 90,
+      //   dataIndex: 'target_net_value'
+      // },
       {
         title: '目标收益率',
         width: 90,
@@ -125,7 +148,7 @@ class FundList extends PureComponent {
           if (!record.target_net_value || !record.cost) {
             return '---'
           }
-          const rate = this.getRate(record.target_net_value, record.cost);
+          const rate = numberUtil.countDifferenceRate(record.target_net_value, record.cost);
           const isUp = rate > 0;
           const isEqual = rate === 0;
           return (

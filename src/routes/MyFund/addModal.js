@@ -4,14 +4,12 @@
 import React, {PureComponent} from 'react'
 import {Modal, Form, Input, Select, DatePicker} from 'antd';
 import moment from 'moment'
+import numberUtil from 'localUtil/numberUtil';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
 
 class AddModal extends PureComponent {
-  getRate = (valuation, netValue) => {
-    return parseInt(10000 * (valuation - netValue) / netValue) / 100;
-  };
   handleOk = (e) => {
     const {
       onClose,
@@ -127,7 +125,7 @@ class AddModal extends PureComponent {
             </FormItem>
             <FormItem label="目标收益率">
               {getFieldDecorator('target_rate', {
-                initialValue: record.target_net_value && record.cost ? this.getRate(record.target_net_value, record.cost) : '',
+                initialValue: record.target_net_value && record.cost ? numberUtil.countDifferenceRate(record.target_net_value, record.cost) : '',
                 rules: [
                   {required: true, message: '请输入目标收益率'},
                   {pattern: /^\d+(\.\d+)?$/, message: '请输入合法目标收益率'}

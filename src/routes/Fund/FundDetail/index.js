@@ -8,6 +8,7 @@ import {withRouter} from 'react-router-dom'
 import DocumentTitle from 'react-document-title';
 import {Input, message, Button, Icon, Row, Col, Tag} from 'antd';
 import {fundActions} from 'localStore/actions'
+import numberUtil from 'localUtil/numberUtil';
 import {consoleRender} from 'localUtil/consoleLog'
 import PageHeader from 'localComponent/PageHeader'
 import {getOpenKeyAndMainPath} from '../../../router'
@@ -55,16 +56,9 @@ class FundDetail extends PureComponent {
     }
   };
 
-  getRate = (valuation, netValue) => {
-    if (netValue === 0) {
-      return 0;
-    }
-    return parseInt(10000 * (valuation - netValue) / netValue) / 100;
-  };
-
   getValuationRate = (valuation = 0, netValue = 0) => {
     return <span
-      className={valuation > netValue ? 'red-text' : 'green-text'}>{`${valuation}(${this.getRate(valuation, netValue)}%)`}</span>
+      className={valuation > netValue ? 'red-text' : 'green-text'}>{`${valuation}(${numberUtil.countDifferenceRate(valuation, netValue)}%)`}</span>
   };
 
   render() {
