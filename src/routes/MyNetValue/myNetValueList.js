@@ -10,6 +10,10 @@ class MyNetValueList extends PureComponent {
     this.props.onDelete(code);
   };
 
+  editHandler = (data) => {
+    this.props.onEditHandler(data);
+  };
+
   render() {
     const {pagination, dataSource, onChange, tableLoading} = this.props;
     const columns = [
@@ -39,6 +43,10 @@ class MyNetValueList extends PureComponent {
           return (
             <div>
               <Link to={'/fund/' + record.code} style={{margin: '0 .5em'}}>查看</Link>
+              <Divider type="vertical"/>
+              <a onClick={() => {
+                this.editHandler(record)
+              }}>编辑</a>
               <Divider type="vertical"/>
               <Popconfirm
                 title="确认删除此记录?"

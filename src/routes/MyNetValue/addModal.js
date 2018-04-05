@@ -29,7 +29,7 @@ class AddModal extends PureComponent {
         ...getFieldsValue()
       };
       data.target_net_value = Math.round(10000 * ((data.target_rate / 100) + 1) * data.cost) / 10000;
-      data.buy_date = data.buy_date.format('YYYY-MM-DD');
+      data.net_value_date = data.net_value_date.format('YYYY-MM-DD');
       if (type === 'add') {
         onAdd(data).then((res) => {
           if (res.success) {
@@ -60,48 +60,12 @@ class AddModal extends PureComponent {
     return (
       <div>
         <Modal
-          title={type === 'add' ? '添加我的基金' : '更新我的基金'}
+          title={type === 'add' ? '添加我的记录' : '更新我的记录'}
           visible={true}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
           <Form>
-            <FormItem label="代码">
-              {getFieldDecorator('code', {
-                initialValue: record.code,
-                rules: [
-                  {required: true, message: '请输入代码'},
-                  {pattern: /^\d{6}$/, message: '请输入合法代码'}
-                ]
-              })(
-                <Input/>
-              )}
-            </FormItem>
-            <FormItem label="策略组">
-              {getFieldDecorator('strategy', {
-                initialValue: record.strategy,
-                rules: [
-                  {required: true, message: '请选择策略组'}
-                ]
-              })(
-                <Select style={{width: '100%'}}>
-                  <Option value="1">超跌搏反</Option>
-                  <Option value="2">高风偏追涨</Option>
-                  <Option value="3">顺应大势</Option>
-                </Select>
-              )}
-            </FormItem>
-            <FormItem label="持仓成本">
-              {getFieldDecorator('cost', {
-                initialValue: record.cost,
-                rules: [
-                  {required: true, message: '请输入持仓成本'},
-                  {pattern: /^\d+(\.\d+)?$/, message: '请输入合法持仓成本'}
-                ]
-              })(
-                <Input/>
-              )}
-            </FormItem>
             <FormItem label="份额">
               {getFieldDecorator('shares', {
                 initialValue: record.shares,
@@ -114,24 +78,13 @@ class AddModal extends PureComponent {
               )}
             </FormItem>
             <FormItem label="购买日期">
-              {getFieldDecorator('buy_date', {
-                initialValue: record.buy_date ? moment(record.buy_date) : null,
+              {getFieldDecorator('net_value_date', {
+                initialValue: record.net_value_date ? moment(record.net_value_date) : null,
                 rules: [
                   {required: true, message: '请选择购买日期'}
                 ]
               })(
                 <DatePicker style={{width: '100%'}}/>
-              )}
-            </FormItem>
-            <FormItem label="目标收益率">
-              {getFieldDecorator('target_rate', {
-                initialValue: record.target_net_value && record.cost ? numberUtil.countDifferenceRate(record.target_net_value, record.cost) : '',
-                rules: [
-                  {required: true, message: '请输入目标收益率'},
-                  {pattern: /^\d+(\.\d+)?$/, message: '请输入合法目标收益率'}
-                ]
-              })(
-                <Input/>
               )}
             </FormItem>
           </Form>

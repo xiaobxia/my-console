@@ -24,7 +24,9 @@ class MyNetValue extends PureComponent {
 
   state = {
     redirectCount: 0,
-    addModal: false
+    addModal: false,
+    modalType: 'add',
+    record: {}
   };
 
   componentWillMount() {
@@ -113,7 +115,9 @@ class MyNetValue extends PureComponent {
 
   openModalHandler = () => {
     this.setState({
-      addModal: true
+      addModal: true,
+      modalType: 'add',
+      record: {}
     });
   };
 
@@ -123,8 +127,25 @@ class MyNetValue extends PureComponent {
     });
   };
 
+  editHandler = (data) => {
+    this.setState({
+      addModal: true,
+      modalType: 'edit',
+      record: data
+    });
+  };
+
   addMyNetValue = (code) => {
     return http.post('fund/addMyNetValue', {code}).then((data) => {
+      if (data.success) {
+        this.initPage();
+      }
+      return data;
+    });
+  };
+
+  updateMyNetValue = (data) => {
+    return http.post('fund/updateMyNetValue', data).then((data) => {
       if (data.success) {
         this.initPage();
       }
@@ -148,11 +169,15 @@ class MyNetValue extends PureComponent {
       dataSource: myNetValue.myNetValueList,
       onChange: this.tableChangeHandler,
       onDelete: this.tableDeleteHandler,
-      tableLoading: myNetValue.tableLoading
+      tableLoading: myNetValue.tableLoading,
+      onEditHandler: this.editHandler
     };
     const modalProps = {
       onClose: this.closeModalHandler,
-      onAdd: this.addMyNetValue
+      onAdd: this.addMyNetValue,
+      onUpdate: this.updateMyNetValue,
+      type: this.state.modalType,
+      record: this.state.record
     };
     return (
       <DocumentTitle title={title}>
