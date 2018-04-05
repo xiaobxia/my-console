@@ -12,6 +12,7 @@ import Strategy from 'Bundle-loader?lazy!localRoutes/Strategy'
 import FocusFund from 'Bundle-loader?lazy!localRoutes/FocusFund'
 import LowRateFund from 'Bundle-loader?lazy!localRoutes/LowRateFund'
 import Schedule from 'Bundle-loader?lazy!localRoutes/Schedule'
+import MyNetValue from 'Bundle-loader?lazy!localRoutes/MyNetValue'
 
 //router4就得以这种方式懒加载
 //其实model不需要按需加载，因为本来就不应该太大，应该由组件自己维护状态
@@ -89,6 +90,11 @@ export const baseRoutes = [
     name: 'Schedule',
     path: '/schedule',
     component: getComponent(Schedule)
+  },
+  {
+    name: 'MyNetValue',
+    path: '/myNetValue',
+    component: getComponent(MyNetValue)
   }
 ];
 
@@ -129,6 +135,10 @@ export const menusInfos = [
       {
         title: '我的关注',
         pathname: '/focusFund'
+      },
+      {
+        pathname: '/myNetValue',
+        title: '我的净值记录'
       }
     ]
   }
