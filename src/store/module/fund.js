@@ -37,7 +37,7 @@ export const fundActions = {
   queryFundAnalyzeRecent(code) {
     return (dispatch, getState) => {
       dispatch({type: FUND_QUERY_FUND_ANALYZE_RECENT_BEGIN});
-      return http.get('analyze/getFundAnalyzeRecent', {code}).then((data) => {
+      return http.get('fund/getFundAnalyzeRecent', {code}).then((data) => {
         dispatch({type: FUND_QUERY_FUND_ANALYZE_RECENT_SUC, data: data.data});
         return data;
       });

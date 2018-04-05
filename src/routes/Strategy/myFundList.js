@@ -20,17 +20,14 @@ class MyFundList extends PureComponent {
       {
         title: '买入理由',
         render: (record) => {
-          const rule = record.rule;
+          const result = record.result;
           return (
             <p>
-              {rule.indexOf('isSlump') !== -1 && <Tag color="#52c41a">近期暴跌</Tag>}
-              {rule.indexOf('isWeekSlump') !== -1 && <Tag color="#b7eb8f">超短暴跌</Tag>}
-              {rule.indexOf('isSupport') !== -1 && <Tag color="#f50">支撑</Tag>}
-              {rule.indexOf('isLow') !== -1 && <Tag color="#722ed1">低位</Tag>}
-              {rule.indexOf('isLowHalf') !== -1 && <Tag color="#d3adf7">半年低位</Tag>}
-              {rule.indexOf('internal') !== -1 && <Tag color="#13c2c2">连续性</Tag>}
-              {rule.indexOf('isMin') !== -1 && <Tag color="#108ee9">新低</Tag>}
-              {rule.indexOf('distribution') !== -1 && <Tag color="#f50">幅度</Tag>}
+              {result.isMonthSlump && <Tag color="#52c41a">一月暴跌</Tag>}
+              {result.isHalfMonthSlump && <Tag color="#52c41a">半月暴跌</Tag>}
+              {result.isLow && <Tag color="#108ee9">低位</Tag>}
+              {result.isLowHalf && <Tag color="#108ee9">半年低位</Tag>}
+              {result.isMin && <Tag color="#13c2c2">新低</Tag>}
             </p>
           );
         }
@@ -38,14 +35,13 @@ class MyFundList extends PureComponent {
       {
         title: '卖出理由',
         render: (record) => {
-          const rule = record.saleRule;
+          const result = record.result;
           return (
             <p>
-              {rule.indexOf('isBoom') !== -1 && <Tag color="red">近期暴涨</Tag>}
-              {rule.indexOf('isWeekBoom') !== -1 && <Tag color="magenta">超短暴涨</Tag>}
-              {rule.indexOf('isHigh') !== -1 && <Tag color="gold">高位</Tag>}
-              {rule.indexOf('isHighHalf') !== -1 && <Tag color="orange">半年高位</Tag>}
-              {rule.indexOf('downInternal') !== -1 && <Tag color="cyan">连续性</Tag>}
+              {result.isMonthBoom && <Tag color="magenta">近期暴涨</Tag>}
+              {result.isHalfMonthBoom && <Tag color="magenta">超短暴涨</Tag>}
+              {result.isHigh && <Tag color="gold">高位</Tag>}
+              {result.isHighHalf && <Tag color="gold">半年高位</Tag>}
             </p>
           );
         }

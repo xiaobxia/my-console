@@ -37,7 +37,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       "/myServiceV2": {
-        // "target": "http://39.108.114.91:3002/"
+        // "target": "http://39.108.114.91:3003/"
         "target": "http://localhost:3002/"
       }
     //your-business': {

@@ -17,7 +17,6 @@ export const lowRateFundActions = {
       dispatch({type: LOWRATEFUND_QUERY_LOWRATEFUNDS_BEGIN});
       return http.get('strategy/getLowRateStrategy').then((data) => {
         dispatch({type: LOWRATEFUND_QUERY_LOWRATEFUNDS_SUC, data: data.data});
-        console.log(data)
         return data;
       });
     };

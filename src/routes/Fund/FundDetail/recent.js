@@ -13,68 +13,32 @@ class Recent extends PureComponent {
       return (<span className="green-text">{falseText}</span>);
     }
   };
-
-  getUpAndDownCountText = (data) => {
-    data = data || {};
-    return (<p>
-      近{data.total}天当中：
-      上涨<span className="red-text">{data.up}</span>天，
-      下跌<span className="green-text">{data.down}</span>天，
-      平{data.equal}天</p>);
-  };
-
-  getMaxUpAndDownText = (data) => {
-    data = data || {};
-    return (<p>最大单日涨跌幅：<span className="red-text">{data.maxUp}</span>，
-      最大单日跌幅：<span className="green-text">{data.maxDown}</span>
-    </p>);
-  };
-
-  getRecentSlump = (data) => {
-    if (data) {
-      return (<p>幅度(包括今日)：{data ? data.map((item, index) => {
-        return (<span>近{item.day}日:
-          {this.colorText(item.rate > 0, item.rate, item.rate)}
-          {index === data.length - 1 ? '。' : '，'}
-          </span>);
-      }) : '暂无数据'}</p>);
-    }
-  };
-
-  getDistributionOption = () => {
+  getMonthRateOption = () => {
     const {recentData} = this.props;
-    if (!recentData.upAndDownDistribution) {
+    if (!recentData.listMonth) {
       return {};
     }
-    const upAndDownDistribution = recentData.upAndDownDistribution.list;
+    const listMonth = recentData.listMonth;
     let xData = [];
     let yData = [];
-    let y2Data = [];
-    upAndDownDistribution.forEach(function (item) {
-      xData.push(item.range);
-      yData.push(item.times);
-      y2Data.push(item.continues.times)
+    // listMonth.reverse();
+    listMonth.forEach(function (item, index) {
+      xData.push(index + 1);
+      yData.push(item);
     });
-    let option = {
+    return {
       title: {
-        text: '涨跌值分布',
+        text: '近期幅度',
+        left: 'center',
         textStyle: {
           color: 'rgba(0, 0, 0, 0.85)',
           fontWeight: '500'
         }
       },
       tooltip: {
-        trigger: 'axis'
-      },
-      legend: {
-        data: ['次数', '延续次数']
-      },
-      toolbox: {
-        show: true,
-        feature: {
-          magicType: {show: true, type: ['line', 'bar']},
-          restore: {show: true},
-          saveAsImage: {show: true}
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross'
         }
       },
       calculable: true,
@@ -83,102 +47,20 @@ class Recent extends PureComponent {
         data: xData
       },
       yAxis: {
-        type: 'value'
+        type: 'value',
+        scale: true
       },
       series: [
         {
-          name: '次数',
-          data: yData,
-          type: 'bar'
-        },
-        {
-          name: '延续次数',
-          data: y2Data,
-          type: 'line'
-        }
-      ]
-    };
-    return option;
-  };
-
-  getCloseData = (value, list) => {
-    let temp = 1;
-    let data = {};
-    list.forEach(function (item, index) {
-      if (Math.abs(value - item.netValue) < temp) {
-        temp = Math.abs(value - item.netValue);
-        data = {
-          index,
-          times: item.times
-        };
-      }
-    });
-    return data;
-  };
-
-  getNetValueDistributionOption = () => {
-    const {recentData} = this.props;
-    if (!recentData.netValueDistribution) {
-      return {};
-    }
-    const netValueDistribution = recentData.netValueDistribution;
-    let xData = [];
-    let yData = [];
-    netValueDistribution.forEach(function (item) {
-      xData.push(item.netValue);
-      yData.push(item.times);
-    });
-    const point = this.getCloseData(this.props.valuation, netValueDistribution);
-    console.log(point)
-    let option = {
-      title: {
-        text: '净值值分布',
-        textStyle: {
-          color: 'rgba(0, 0, 0, 0.85)',
-          fontWeight: '500'
-        }
-      },
-      tooltip: {
-        trigger: 'axis'
-      },
-      toolbox: {
-        show: true,
-        feature: {
-          magicType: {show: true, type: ['line', 'bar']},
-          restore: {show: true},
-          saveAsImage: {show: true}
-        }
-      },
-      calculable: true,
-      xAxis: {
-        type: 'category',
-        data: xData
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [
-        {
-          name: '次数',
+          name: '幅度',
           data: yData,
           type: 'line',
-          markPoint: {
-            data: [
-              {
-                name: '估值',
-                value: point.times,
-                xAxis: point.index,
-                yAxis: point.times,
-                itemStyle: {
-                  color: '#1890ff'
-                }
-              }
-            ]
+          lineStyle: {
+            color: '#f50'
           }
         }
       ]
     };
-    return option;
   };
 
   getRecentNetValueOption = () => {
@@ -194,11 +76,10 @@ class Recent extends PureComponent {
       xData.unshift(item['net_value_date']);
       yData.unshift(item['net_value']);
     });
-    // const point = this.getCloseData(this.props.valuation, netValueDistribution);
-    // console.log(point)
-    let option = {
+    return {
       title: {
         text: '净值变化',
+        left: 'center',
         textStyle: {
           color: 'rgba(0, 0, 0, 0.85)',
           fontWeight: '500'
@@ -224,6 +105,9 @@ class Recent extends PureComponent {
           name: '净值',
           data: yData,
           type: 'line',
+          lineStyle: {
+            color: '#1890ff'
+          },
           markLine: {
             data: [
               {
@@ -296,7 +180,6 @@ class Recent extends PureComponent {
         }
       ]
     };
-    return option;
   };
 
   render() {
@@ -304,45 +187,34 @@ class Recent extends PureComponent {
     const result = recentData.result || {};
     console.log(recentData);
     return (
+
       <Card title="近期涨跌" bordered={false}>
         <Row>
-          <Col span={12}>
-            {this.getUpAndDownCountText(recentData.upAndDownCount)}
-            {this.getMaxUpAndDownText(recentData.maxUpAndDown)}
-            <p>从涨跌分布来看，下一天涨的概率是{result.distribution}%</p>
-            <p>从涨跌连续性来看，下一天涨的概率是{result.internal}%</p>
+          <Col span={12} style={{textAlign: 'center'}}>
+            <p>近一月是否暴跌: {this.colorText(result.isMonthSlump, '是', '不是')}</p>
+            <p>近半月是否暴跌: {this.colorText(result.isHalfMonthSlump, '是', '不是')}</p>
             <p>是否是低位：{this.colorText(result.isLow, '是', '不是')}</p>
             <p>是否是半年低位：{this.colorText(result.isLowHalf, '是', '不是')}</p>
             <p>是否是新低: {this.colorText(result.isMin, '是', '不是')}</p>
-            <p>近期是否暴跌: {this.colorText(result.isSlump, '是', '不是')}</p>
-            <p>近期是否处于支撑: {this.colorText(result.isSupport, '是', '不是')}</p>
-            <p>{this.getRecentSlump(recentData.recentSlump)}</p>
-            <div style={{marginTop: 50}}>
-              <ReactEcharts
-                option={this.getNetValueDistributionOption()}
-                notMerge={true}
-                style={{height: '300px'}}
-                lazyUpdate={true}
-                theme={'theme_name'}
-              />
-            </div>
           </Col>
           <Col span={12}>
             <ReactEcharts
-              option={this.getRecentNetValueOption()}
+              option={this.getMonthRateOption()}
               notMerge={true}
-              style={{height: '450px'}}
-              lazyUpdate={true}
-              theme={'theme_name'}
-            />
-            <ReactEcharts
-              option={this.getDistributionOption()}
-              notMerge={true}
-              style={{height: '250px'}}
+              style={{height: '300px'}}
               lazyUpdate={true}
               theme={'theme_name'}
             />
           </Col>
+        </Row>
+        <Row>
+          <ReactEcharts
+            option={this.getRecentNetValueOption()}
+            notMerge={true}
+            style={{height: '600px'}}
+            lazyUpdate={true}
+            theme={'theme_name'}
+          />
         </Row>
       </Card>
     );

@@ -16,7 +16,7 @@ class OptionBlock extends PureComponent {
 
   updateBaseInfoHandler = () => {
     this.setState({updateBaseInfoLoading: true});
-    http.get('analyze/updateBaseInfo').then(() => {
+    http.get('schedule/updateBaseInfo').then(() => {
       this.setState({updateBaseInfoLoading: false});
       message.success('成功');
     })
@@ -24,28 +24,28 @@ class OptionBlock extends PureComponent {
 
   updateValuationHandler = () => {
     this.setState({updateValuationLoading: true});
-    http.get('analyze/updateValuation').then(() => {
+    http.get('schedule/updateValuation').then(() => {
       this.setState({updateValuationLoading: false});
       message.success('成功');
     })
   };
   betterValuationHandler = () => {
     this.setState({betterValuationLoading: true});
-    http.get('analyze/betterValuation').then(() => {
+    http.get('schedule/betterValuation').then(() => {
       this.setState({betterValuationLoading: false});
       message.success('成功');
     })
   };
   updateRecentNetValueHandler = () => {
     this.setState({updateRecentNetValueLoading: true});
-    http.get('analyze/updateRecentNetValue').then(() => {
+    http.get('schedule/updateRecentNetValue').then(() => {
       this.setState({updateRecentNetValueLoading: false});
       message.success('成功');
     })
   };
   addRecentNetValueHandler = () => {
     this.setState({addRecentNetValueLoading: true});
-    http.get('analyze/addRecentNetValue').then(() => {
+    http.get('schedule/addRecentNetValue').then(() => {
       this.setState({addRecentNetValueLoading: false});
       message.success('成功');
     })
