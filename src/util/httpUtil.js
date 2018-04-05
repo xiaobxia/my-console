@@ -1,7 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
 import {message} from 'antd';
-const basePath = '/myServiceV2/';
+const basePath = '/myService/';
 
 axios.interceptors.request.use(function (config) {
   config.headers.token = window._token || '';
