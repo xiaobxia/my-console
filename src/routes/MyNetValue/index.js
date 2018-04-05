@@ -102,8 +102,8 @@ class MyNetValue extends PureComponent {
     console.log(pagination)
   };
   // 删除基金
-  tableDeleteHandler = (code) => {
-    http.get('fund/deleteMyNetValue', {code}).then((data) => {
+  tableDeleteHandler = (netValueDate) => {
+    http.get('fund/deleteUserNetValue', {net_value_date: netValueDate}).then((data) => {
       if (data.success) {
         message.success('删除成功');
       } else {
@@ -135,8 +135,8 @@ class MyNetValue extends PureComponent {
     });
   };
 
-  addMyNetValue = (code) => {
-    return http.post('fund/addMyNetValue', {code}).then((data) => {
+  addMyNetValue = (data) => {
+    return http.post('fund/addUserNetValue', data).then((data) => {
       if (data.success) {
         this.initPage();
       }
@@ -145,7 +145,7 @@ class MyNetValue extends PureComponent {
   };
 
   updateMyNetValue = (data) => {
-    return http.post('fund/updateMyNetValue', data).then((data) => {
+    return http.post('fund/updateUserNetValue', data).then((data) => {
       if (data.success) {
         this.initPage();
       }

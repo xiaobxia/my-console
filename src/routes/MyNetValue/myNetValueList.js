@@ -18,22 +18,20 @@ class MyNetValueList extends PureComponent {
     const {pagination, dataSource, onChange, tableLoading} = this.props;
     const columns = [
       {
-        title: '代码',
-        dataIndex: 'code'
+        title: '资产',
+        dataIndex: 'asset'
       },
       {
-        title: '名称',
-        dataIndex: 'name'
+        title: '份额',
+        dataIndex: 'shares'
       },
       {
         title: '净值',
         dataIndex: 'net_value'
       },
       {
-        title: '可购',
-        render: (record) => {
-          return record.sell ? '可购' : '不可购';
-        }
+        title: '日期',
+        dataIndex: 'net_value_date'
       },
       {
         title: '操作',
@@ -42,8 +40,6 @@ class MyNetValueList extends PureComponent {
         render: (record) => {
           return (
             <div>
-              <Link to={'/fund/' + record.code} style={{margin: '0 .5em'}}>查看</Link>
-              <Divider type="vertical"/>
               <a onClick={() => {
                 this.editHandler(record)
               }}>编辑</a>
@@ -51,7 +47,7 @@ class MyNetValueList extends PureComponent {
               <Popconfirm
                 title="确认删除此记录?"
                 onConfirm={() => {
-                  this.deleteHandler(record.code)
+                  this.deleteHandler(record.net_value_date)
                 }}
                 okText="确定"
                 cancelText="取消"

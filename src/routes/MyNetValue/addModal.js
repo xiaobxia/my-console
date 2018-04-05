@@ -28,7 +28,6 @@ class AddModal extends PureComponent {
       let data = {
         ...getFieldsValue()
       };
-      data.target_net_value = Math.round(10000 * ((data.target_rate / 100) + 1) * data.cost) / 10000;
       data.net_value_date = data.net_value_date.format('YYYY-MM-DD');
       if (type === 'add') {
         onAdd(data).then((res) => {
@@ -66,6 +65,17 @@ class AddModal extends PureComponent {
           onCancel={this.handleCancel}
         >
           <Form>
+            <FormItem label="资产">
+              {getFieldDecorator('asset', {
+                initialValue: record.asset,
+                rules: [
+                  {required: true, message: '请输入资产'},
+                  {pattern: /^\d+(\.\d+)?$/, message: '请输入资产'}
+                ]
+              })(
+                <Input/>
+              )}
+            </FormItem>
             <FormItem label="份额">
               {getFieldDecorator('shares', {
                 initialValue: record.shares,
@@ -77,11 +87,11 @@ class AddModal extends PureComponent {
                 <Input/>
               )}
             </FormItem>
-            <FormItem label="购买日期">
+            <FormItem label="净值日期">
               {getFieldDecorator('net_value_date', {
                 initialValue: record.net_value_date ? moment(record.net_value_date) : null,
                 rules: [
-                  {required: true, message: '请选择购买日期'}
+                  {required: true, message: '请选择净值日期'}
                 ]
               })(
                 <DatePicker style={{width: '100%'}}/>
