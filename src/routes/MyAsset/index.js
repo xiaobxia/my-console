@@ -105,7 +105,7 @@ class MyAsset extends PureComponent {
     listChuangye.reverse();
     listHushen = listHushen.slice(0, startIndex + 1);
     listHushen.reverse();
-    if (listShangzheng.length < 1 || listChuangye.length < 1|| listHushen.length < 1) {
+    if (listShangzheng.length < 1 || listChuangye.length < 1 || listHushen.length < 1) {
       return {};
     }
     const baseShangzheng = listShangzheng[0].kline.close;
@@ -177,7 +177,7 @@ class MyAsset extends PureComponent {
         },
         {
           name: '沪深300指数',
-          data: y3Data,
+          data: y4Data,
           type: 'line',
           lineStyle: {
             color: '#52c41a'
