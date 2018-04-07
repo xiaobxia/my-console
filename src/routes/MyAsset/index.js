@@ -24,7 +24,8 @@ class MyAsset extends PureComponent {
   state = {
     list: [],
     shangzheng: [],
-    chuangye: []
+    chuangye: [],
+    hushen: []
   };
 
   componentWillMount() {
@@ -62,6 +63,24 @@ class MyAsset extends PureComponent {
         })
       }
     });
+    http.get('webData/getWebStockdaybar', {
+      code: 'sz399006'
+    }).then((data) => {
+      if (data.success) {
+        this.setState({
+          chuangye: data.data.list
+        })
+      }
+    });
+    http.get('webData/getWebStockdaybar', {
+      code: 'sz399300'
+    }).then((data) => {
+      if (data.success) {
+        this.setState({
+          hushen: data.data.list
+        })
+      }
+    });
   };
 
   getTitle() {
@@ -72,6 +91,7 @@ class MyAsset extends PureComponent {
     const listMonth = this.state.list;
     let listShangzheng = this.state.shangzheng;
     let listChuangye = this.state.chuangye;
+    let listHushen = this.state.hushen;
     let startIndex = 0;
     for (let i = 0; i < listShangzheng.length; i++) {
       if (listShangzheng[i].date === 20180312) {
@@ -83,23 +103,28 @@ class MyAsset extends PureComponent {
     listShangzheng.reverse();
     listChuangye = listChuangye.slice(0, startIndex + 1);
     listChuangye.reverse();
-    if (listShangzheng.length < 1 || listChuangye.length < 1) {
+    listHushen = listHushen.slice(0, startIndex + 1);
+    listHushen.reverse();
+    if (listShangzheng.length < 1 || listChuangye.length < 1|| listHushen.length < 1) {
       return {};
     }
     const baseShangzheng = listShangzheng[0].kline.close;
     const baseChuangye = listChuangye[0].kline.close;
+    const baseHushen = listHushen[0].kline.close;
     let xData = [];
     let yData = [];
     let y2Data = [];
     let y3Data = [];
+    let y4Data = [];
     listMonth.forEach(function (item, index) {
       xData.push(item['net_value_date']);
       yData.push(numberUtil.keepTwoDecimals((item['net_value'] - 1) * 100));
       y2Data.push(numberUtil.keepTwoDecimals(((listShangzheng[index].kline.close - baseShangzheng) / baseShangzheng) * 100));
       y3Data.push(numberUtil.keepTwoDecimals(((listChuangye[index].kline.close - baseChuangye) / baseChuangye) * 100));
+      y4Data.push(numberUtil.keepTwoDecimals(((listHushen[index].kline.close - baseHushen) / baseHushen) * 100));
     });
     return {
-      color: ['#1890ff', '#f50', '#13c2c2'],
+      color: ['#1890ff', '#f50', '#13c2c2', '#52c41a'],
       title: {
         text: '净值曲线',
         textStyle: {
@@ -114,7 +139,7 @@ class MyAsset extends PureComponent {
         }
       },
       legend: {
-        data: ['我的组合', '上证指数', '创业指数']
+        data: ['我的组合', '上证指数', '创业指数', '沪深300指数']
       },
       calculable: true,
       xAxis: {
@@ -148,6 +173,14 @@ class MyAsset extends PureComponent {
           type: 'line',
           lineStyle: {
             color: '#13c2c2'
+          }
+        },
+        {
+          name: '沪深300指数',
+          data: y3Data,
+          type: 'line',
+          lineStyle: {
+            color: '#52c41a'
           }
         }
       ]
