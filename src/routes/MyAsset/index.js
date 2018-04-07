@@ -22,7 +22,9 @@ class MyAsset extends PureComponent {
   }
 
   state = {
-    list: []
+    list: [],
+    shangzheng: [],
+    chuangye: []
   };
 
   componentWillMount() {
@@ -41,7 +43,25 @@ class MyAsset extends PureComponent {
           list: data.data.list
         })
       }
-    })
+    });
+    http.get('webData/getWebStockdaybar', {
+      code: 'sh000001'
+    }).then((data) => {
+      if (data.success) {
+        this.setState({
+          shangzheng: data.data.list
+        })
+      }
+    });
+    http.get('webData/getWebStockdaybar', {
+      code: 'sz399006'
+    }).then((data) => {
+      if (data.success) {
+        this.setState({
+          chuangye: data.data.list
+        })
+      }
+    });
   };
 
   getTitle() {
@@ -50,16 +70,38 @@ class MyAsset extends PureComponent {
 
   getNetValueOption = () => {
     const listMonth = this.state.list;
+    let listShangzheng = this.state.shangzheng;
+    let listChuangye = this.state.chuangye;
+    let startIndex = 0;
+    for (let i = 0; i < listShangzheng.length; i++) {
+      if (listShangzheng[i].date === 20180312) {
+        startIndex = i;
+        break;
+      }
+    }
+    listShangzheng = listShangzheng.slice(0, startIndex + 1);
+    listShangzheng.reverse();
+    listChuangye = listChuangye.slice(0, startIndex + 1);
+    listChuangye.reverse();
+    if (listShangzheng.length < 1 || listChuangye.length < 1) {
+      return {};
+    }
+    const baseShangzheng = listShangzheng[0].kline.close;
+    const baseChuangye = listChuangye[0].kline.close;
     let xData = [];
     let yData = [];
+    let y2Data = [];
+    let y3Data = [];
     listMonth.forEach(function (item, index) {
       xData.push(item['net_value_date']);
       yData.push(numberUtil.keepTwoDecimals((item['net_value'] - 1) * 100));
+      y2Data.push(numberUtil.keepTwoDecimals(((listShangzheng[index].kline.close - baseShangzheng) / baseShangzheng) * 100));
+      y3Data.push(numberUtil.keepTwoDecimals(((listChuangye[index].kline.close - baseChuangye) / baseChuangye) * 100));
     });
     return {
+      color: ['#1890ff', '#f50', '#13c2c2'],
       title: {
         text: '净值曲线',
-        left: 'center',
         textStyle: {
           color: 'rgba(0, 0, 0, 0.85)',
           fontWeight: '500'
@@ -70,6 +112,9 @@ class MyAsset extends PureComponent {
         axisPointer: {
           type: 'cross'
         }
+      },
+      legend: {
+        data: ['我的组合', '上证指数', '创业指数']
       },
       calculable: true,
       xAxis: {
@@ -82,11 +127,27 @@ class MyAsset extends PureComponent {
       },
       series: [
         {
-          name: '涨幅',
+          name: '我的组合',
           data: yData,
           type: 'line',
           lineStyle: {
             color: '#1890ff'
+          }
+        },
+        {
+          name: '上证指数',
+          data: y2Data,
+          type: 'line',
+          lineStyle: {
+            color: '#f50'
+          }
+        },
+        {
+          name: '创业指数',
+          data: y3Data,
+          type: 'line',
+          lineStyle: {
+            color: '#13c2c2'
           }
         }
       ]

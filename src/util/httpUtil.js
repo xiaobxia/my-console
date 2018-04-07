@@ -35,7 +35,7 @@ const Http = {
     } else {
       queryString = qs.stringify({timestamp: new Date().getTime()});
     }
-    return axios.get(makeUrl(url + (queryString ? '?' + queryString : ''))).then(data => data.data);
+    return axios.get(makeUrl(url + (queryString ? '?' + queryString : '')), options).then(data => data.data);
   },
 
   getRaw (url, query, options) {
@@ -46,7 +46,7 @@ const Http = {
     } else {
       queryString = qs.stringify({timestamp: new Date().getTime()});
     }
-    return axios.get(makeUrl(url + (queryString ? '?' + queryString : '')));
+    return axios.get(makeUrl(url + (queryString ? '?' + queryString : '')), options);
   },
 
   post (url, param, options) {
