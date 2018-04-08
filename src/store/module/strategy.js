@@ -38,7 +38,8 @@ export const strategyActions = {
 
 const strategyStore = {
   tableLoading: false,
-  strategyList: [],
+  strategyListSlump: [],
+  strategyListBoom: [],
   myStrategyList: [],
   myTableLoading: false
 };
@@ -50,18 +51,20 @@ export const strategyReducers = (state = strategyStore, action) => {
       return store;
     }
     case STRATEGY_QUERY_STRATEGYS_BEGIN: {
-      store.strategyList = [];
+      store.strategyListSlump = [];
+      store.strategyListBoom = [];
       store.tableLoading = true;
       return store;
     }
     case STRATEGY_QUERY_STRATEGYS_SUC: {
       const data = action.data;
-      store.strategyList = data.strategy;
+      store.strategyListSlump = data.slump;
+      store.strategyListBoom = data.boom;
       store.tableLoading = false;
       return store;
     }
     case STRATEGY_QUERY_MY_STRATEGYS_BEGIN: {
-      store.strategyList = [];
+      store.myStrategyList = [];
       store.myTableLoading = true;
       return store;
     }

@@ -114,7 +114,14 @@ class Strategy extends PureComponent {
             <Tabs defaultActiveKey={this.state.tabKey} onChange={this.tabChangeHandler}>
               <TabPane tab="买" key="1">
                 <FundList
-                  dataSource={strategy.strategyList}
+                  dataSource={strategy.strategyListSlump}
+                  tableLoading={strategy.tableLoading}
+                  onDelete={this.tableDeleteHandler}
+                />
+              </TabPane>
+              <TabPane tab="买2" key="3">
+                <FundList
+                  dataSource={strategy.strategyListBoom}
                   tableLoading={strategy.tableLoading}
                   onDelete={this.tableDeleteHandler}
                 />
