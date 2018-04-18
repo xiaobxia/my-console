@@ -64,15 +64,6 @@ class MyAsset extends PureComponent {
       }
     });
     http.get('webData/getWebStockdaybar', {
-      code: 'sz399006'
-    }).then((data) => {
-      if (data.success) {
-        this.setState({
-          chuangye: data.data.list
-        })
-      }
-    });
-    http.get('webData/getWebStockdaybar', {
       code: 'sz399300'
     }).then((data) => {
       if (data.success) {
