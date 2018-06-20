@@ -45,6 +45,10 @@
   }
 }
 
+.ant-table-tbody > tr.active > td {
+  background: #e6f7ff !important;
+}
+
 .red-text {
   color: red !important;
 }

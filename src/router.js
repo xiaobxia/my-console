@@ -14,6 +14,7 @@ import LowRateFund from 'Bundle-loader?lazy!localRoutes/LowRateFund'
 import Schedule from 'Bundle-loader?lazy!localRoutes/Schedule'
 import MyNetValue from 'Bundle-loader?lazy!localRoutes/MyNetValue'
 import MyAsset from 'Bundle-loader?lazy!localRoutes/MyAsset'
+import IndexInfo from 'Bundle-loader?lazy!localRoutes/IndexInfo'
 
 //router4就得以这种方式懒加载
 //其实model不需要按需加载，因为本来就不应该太大，应该由组件自己维护状态
@@ -101,6 +102,11 @@ export const baseRoutes = [
     name: 'MyAsset',
     path: '/myAsset',
     component: getComponent(MyAsset)
+  },
+  {
+    name: 'IndexInfo',
+    path: '/indexInfo',
+    component: getComponent(IndexInfo)
   }
 ];
 
@@ -110,6 +116,12 @@ export const menusInfos = [
     pathname: '/',
     title: '主页',
     icon: 'home'
+  },
+  {
+    key: 'indexInfo',
+    pathname: '/indexInfo',
+    title: '指数分析',
+    icon: 'schedule'
   },
   {
     key: 'schedule',
