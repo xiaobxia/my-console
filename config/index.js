@@ -38,7 +38,7 @@ module.exports = {
     proxyTable: {
       "/myService": {
         // "target": "http://39.108.114.91:3003/"
-        "target": "http://localhost:3002/"
+        "target": "http://47.98.140.76:3002/"
       }
     //your-business': {
     //  target: 'http://11.111.111.11/'
