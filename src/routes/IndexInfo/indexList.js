@@ -39,25 +39,53 @@ class IndexList extends PureComponent {
     return numberUtil.countDifferenceRate(record.high, record.preClose) < -0.5;
   };
 
-  ifSellShangzheng = (record) => {
+  ifSellShangzheng = (record, oneDayRecord, twoDayRecord) => {
     const ifUpOpen = this.ifUpOpen(record);
     const ifUpClose = this.ifUpClose(record);
     const ifSessionDown = this.ifSessionDown(record);
     const ifSessionUpClose = this.ifSessionUpClose(record);
     const ifSessionUp = this.ifSessionUp(record);
     const ifSessionDownClose = this.ifSessionDownClose(record);
-    if (ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+    const ifUpOpenOne = this.ifUpOpen(oneDayRecord);
+    const ifUpCloseOne = this.ifUpClose(oneDayRecord);
+    const ifSessionDownOne = this.ifSessionDown(oneDayRecord);
+    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord);
+    const ifSessionUpOne = this.ifSessionUp(oneDayRecord);
+    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord);
+    if (ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose && !ifSessionDownCloseOne) {
       return true;
     }
-    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionUpOne && !ifSessionDownClose) {
       return true;
+    }
+    if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      if (record.netChangeRatio > 0 && oneDayRecord.netChangeRatio > 0 && twoDayRecord.netChangeRatio > 0) {
+        return true;
+      }
     }
     return false
   };
 
-  ifBuyShangzheng = (record) => {
-    if (this.ifHighPreCloseDown(record) && this.ifSessionUpClose(record)) {
+  ifBuyShangzheng = (record, oneDayRecord) => {
+    const ifUpOpen = this.ifUpOpen(record);
+    const ifUpClose = this.ifUpClose(record);
+    const ifSessionDown = this.ifSessionDown(record);
+    const ifSessionUpClose = this.ifSessionUpClose(record);
+    const ifSessionUp = this.ifSessionUp(record);
+    const ifSessionDownClose = this.ifSessionDownClose(record);
+    const ifUpOpenOne = this.ifUpOpen(oneDayRecord);
+    const ifUpCloseOne = this.ifUpClose(oneDayRecord);
+    const ifSessionDownOne = this.ifSessionDown(oneDayRecord);
+    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord);
+    const ifSessionUpOne = this.ifSessionUp(oneDayRecord);
+    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord);
+    if (this.ifHighPreCloseDown(record) && ifSessionDownCloseOne) {
       return true;
+    }
+    if (!ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (!ifUpOpenOne && !ifSessionUpOne && !ifSessionUpCloseOne && !ifSessionDownCloseOne) {
+        return true;
+      }
     }
     return false
   };
@@ -67,10 +95,12 @@ class IndexList extends PureComponent {
     let xData = [];
     let yData = [];
     let points = [];
-    recentNetValue.forEach((item) => {
+    recentNetValue.forEach((item, index) => {
       xData.unshift(item['date']);
       yData.unshift(item['close']);
-      if (this.ifBuyShangzheng(item)) {
+      const oneDayRecord = recentNetValue[index < recentNetValue.length - 1 ? index + 1 : index];
+      const twoDayRecord = recentNetValue[index < recentNetValue.length - 2 ? index + 2 : index + 1];
+      if (this.ifBuyShangzheng(item, oneDayRecord, twoDayRecord)) {
         points.push({
           coord: [item['date'], item['close']],
           itemStyle: {
@@ -83,7 +113,7 @@ class IndexList extends PureComponent {
           }
         })
       }
-      if (this.ifSellShangzheng(item)) {
+      if (this.ifSellShangzheng(item, oneDayRecord, twoDayRecord)) {
         points.push({
           coord: [item['date'], item['close']],
           itemStyle: {
@@ -238,8 +268,11 @@ class IndexList extends PureComponent {
           size="small"
           rowKey={record => record.date}
           rowClassName={(record, index) => {
+            const recentNetValue = dataSource;
+            const oneDayRecord = recentNetValue[index < recentNetValue.length - 1 ? index + 1 : index];
+            const twoDayRecord = recentNetValue[index < recentNetValue.length - 2 ? index + 2 : index + 1];
             let active = false;
-            if (this.ifBuyShangzheng(record)) {
+            if (this.ifBuyShangzheng(record, oneDayRecord, twoDayRecord)) {
               active = true;
             }
             return active ? 'active' : 'false'

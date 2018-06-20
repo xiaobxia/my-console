@@ -13,6 +13,7 @@ var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = process.env.NODE_ENV === 'testing'
   ? require('./webpack.prod.conf')
   : require('./webpack.dev.conf')
+var mock = require('../mock')
 
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
@@ -49,6 +50,10 @@ Object.keys(proxyTable).forEach(function (context) {
     options = { target: options }
   }
   app.use(proxyMiddleware(options.filter || context, options))
+})
+
+mock.forEach(function (route) {
+  app.use(route.path, route.controller)
 })
 
 // handle fallback for HTML5 history API

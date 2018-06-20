@@ -34,7 +34,8 @@ class IndexInfo extends PureComponent {
   }
 
   initPage = () => {
-    http.get('webData/getWebStockdaybarAll', {
+    //webData/getWebStockdaybarAll
+    http.get('/mock/getWebStockdaybarAll', {
       code: 'sh000001'
     }).then((data) => {
       if (data.success) {
