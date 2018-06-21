@@ -6,13 +6,15 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import DocumentTitle from 'react-document-title';
-import {Input, Upload, message, Button, Icon, Row, Col} from 'antd';
+import {Input, Upload, message, Button, Icon, Row, Col, Radio} from 'antd';
 import http from 'localUtil/httpUtil';
 import numberUtil from 'localUtil/numberUtil';
 import {consoleRender} from 'localUtil/consoleLog'
 import PageHeader from 'localComponent/PageHeader'
 import {getOpenKeyAndMainPath} from '../../router'
 import IndexList from './indexList'
+const RadioButton = Radio.Button;
+const RadioGroup = Radio.Group;
 
 class IndexInfo extends PureComponent {
   constructor(props) {
@@ -20,7 +22,9 @@ class IndexInfo extends PureComponent {
   }
 
   state = {
-    list: []
+    list: [],
+    threshold: 0.5,
+    nowType: 'chuangye'
   };
 
   componentWillMount() {
@@ -33,27 +37,46 @@ class IndexInfo extends PureComponent {
   componentWillUnmount() {
   }
 
-  initPage = () => {
+  initPage = (code) => {
     //webData/getWebStockdaybarAll
-    http.get('/mock/getWebStockdaybarAll', {
-      code: 'sh000001'
+    code = code || 'sz399006';
+    http.get('webData/getWebStockdaybarAll', {
+      code: code
     }).then((data) => {
       if (data.success) {
         const list = data.data.list
         let listTemp = [];
+        let allRate = 0;
+        let allRate3 = 0;
         for (let i = 0; i < list.length; i++) {
+          allRate += numberUtil.countDifferenceRate(list[i].kline.high, list[i].kline.low);
+          allRate3 += Math.abs(numberUtil.countDifferenceRate(list[i].kline.close, list[i].kline.open));
           listTemp.push({
             date: '' + list[i].date,
             ...list[i].kline
           })
         }
-        this.setState({list: listTemp});
+        let a = (allRate / 2) / list.length;
+        let c = (allRate3) / list.length;
+        let threshold = numberUtil.keepTwoDecimals((a + c) / 2);
+        console.log(threshold)
+        this.setState({list: listTemp, threshold: threshold});
       }
     })
   };
 
   getTitle() {
     return getOpenKeyAndMainPath(this.props.location.pathname).title;
+  }
+
+  onChange=(e) => {
+    const codeMap = {
+      'shangzheng': 'sh000001',
+      'chuangye': 'sz399006'
+    };
+    this.setState({nowType: e.target.value});
+    this.initPage(codeMap[e.target.value]);
+    console.log(e.target.value)
   }
 
   render() {
@@ -63,12 +86,18 @@ class IndexInfo extends PureComponent {
       <DocumentTitle title={title}>
         <div className="module-my-fund route-modules">
           <PageHeader routeTitle={title}>
+            <RadioGroup onChange={this.onChange} defaultValue="chuangye">
+              <RadioButton value="shangzheng">上证</RadioButton>
+              <RadioButton value="chuangye">创业</RadioButton>
+            </RadioGroup>
           </PageHeader>
           <div className="content-card-wrap">
             <h3 className="blue-text">
             </h3>
             <IndexList
               dataSource={this.state.list}
+              nowType={this.state.nowType}
+              threshold={this.state.threshold}
             />
           </div>
         </div>

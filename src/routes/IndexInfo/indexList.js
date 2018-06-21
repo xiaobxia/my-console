@@ -19,24 +19,34 @@ class IndexList extends PureComponent {
   };
   //盘中下跌
   ifSessionDown = (record) => {
-    return numberUtil.countDifferenceRate(record.low, record.preClose) <= -0.5;
+    const threshold = this.props.threshold;
+    return numberUtil.countDifferenceRate(record.low, record.preClose) <= -threshold;
   };
   //收盘拉起
   ifSessionUpClose = (record) => {
-    return numberUtil.countDifferenceRate(record.close, record.low) >= 0.5;
+    const threshold = this.props.threshold;
+    return numberUtil.countDifferenceRate(record.close, record.low) >= threshold;
   };
 
   //盘中上升
   ifSessionUp = (record) => {
-    return numberUtil.countDifferenceRate(record.high, record.preClose) >= 0.5;
+    const threshold = this.props.threshold;
+    return numberUtil.countDifferenceRate(record.high, record.preClose) >= threshold;
   };
   //收盘回落
   ifSessionDownClose = (record) => {
-    return numberUtil.countDifferenceRate(record.close, record.high) <= -0.5;
+    const threshold = this.props.threshold;
+    return numberUtil.countDifferenceRate(record.close, record.high) <= -threshold;
   };
   ifHighPreCloseDown = (record) => {
     //有用，买入信号，上证0.5
-    return numberUtil.countDifferenceRate(record.high, record.preClose) < -0.5;
+    const threshold = this.props.threshold;
+    return numberUtil.countDifferenceRate(record.high, record.preClose) < -threshold;
+  };
+
+  ifLowPreCloseHigh = (record) => {
+    const threshold = this.props.threshold;
+    return numberUtil.countDifferenceRate(record.low, record.preClose) > threshold;
   };
 
   ifSellShangzheng = (record, oneDayRecord, twoDayRecord) => {
@@ -59,9 +69,27 @@ class IndexList extends PureComponent {
       return true;
     }
     if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (record.netChangeRatio > 0 && oneDayRecord.netChangeRatio > 0 && twoDayRecord.netChangeRatio > 0) {
+      if (ifSessionUpCloseOne) {
         return true;
       }
+    }
+    if (!ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      if (ifSessionUpOne) {
+        return true;
+      }
+    }
+    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      if (!ifUpOpenOne && ifSessionUpCloseOne) {
+        return true;
+      }
+    }
+    if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      if (ifUpCloseOne) {
+        return true;
+      }
+    }
+    if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      return true;
     }
     return false
   };
@@ -87,6 +115,135 @@ class IndexList extends PureComponent {
         return true;
       }
     }
+    if (!ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (!(ifUpOpenOne && !ifUpCloseOne)) {
+        return true;
+      }
+    }
+    if (ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (!(ifUpOpenOne && !ifUpCloseOne)) {
+        return true;
+      }
+    }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (ifSessionDownCloseOne && !ifSessionUpOne) {
+        return true;
+      }
+    }
+    // 新
+    // if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+    //   if (ifUpOpenOne && ifUpCloseOne && !ifSessionDownOne && !ifSessionDownCloseOne) {
+    //     return true
+    //   }
+    // }
+    return false
+  };
+
+  ifSellChuangye = (record, oneDayRecord, twoDayRecord) => {
+    const ifUpOpen = this.ifUpOpen(record);
+    const ifUpClose = this.ifUpClose(record);
+    const ifSessionDown = this.ifSessionDown(record);
+    const ifSessionUpClose = this.ifSessionUpClose(record);
+    const ifSessionUp = this.ifSessionUp(record);
+    const ifSessionDownClose = this.ifSessionDownClose(record);
+    const ifUpOpenOne = this.ifUpOpen(oneDayRecord);
+    const ifUpCloseOne = this.ifUpClose(oneDayRecord);
+    const ifSessionDownOne = this.ifSessionDown(oneDayRecord);
+    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord);
+    const ifSessionUpOne = this.ifSessionUp(oneDayRecord);
+    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord);
+    if (record.date === '20180212') {
+      console.log('in')
+    }
+    if (ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose && !ifSessionDownCloseOne) {
+      return true;
+    }
+    if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      if (record.netChangeRatio > 0 && oneDayRecord.netChangeRatio > 0 && twoDayRecord.netChangeRatio > 0) {
+        return true;
+      }
+    }
+    if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      return true;
+    }
+    if (!ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      if (ifSessionUpOne) {
+        return true;
+      }
+    }
+    if (ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+      return true;
+    }
+    if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      return true;
+    }
+    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+      if (ifUpOpenOne) {
+        return true;
+      }
+    }
+    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      if (!ifUpOpenOne && ifSessionUpCloseOne) {
+        return true;
+      }
+    }
+    if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      if (ifUpCloseOne) {
+        return true;
+      }
+    }
+    if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      if (ifUpCloseOne) {
+        return true;
+      }
+    }
+    return false
+  };
+
+  ifBuyChuangye = (record, oneDayRecord) => {
+    const ifUpOpen = this.ifUpOpen(record);
+    const ifUpClose = this.ifUpClose(record);
+    const ifSessionDown = this.ifSessionDown(record);
+    const ifSessionUpClose = this.ifSessionUpClose(record);
+    const ifSessionUp = this.ifSessionUp(record);
+    const ifSessionDownClose = this.ifSessionDownClose(record);
+    const ifUpOpenOne = this.ifUpOpen(oneDayRecord);
+    const ifUpCloseOne = this.ifUpClose(oneDayRecord);
+    const ifSessionDownOne = this.ifSessionDown(oneDayRecord);
+    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord);
+    const ifSessionUpOne = this.ifSessionUp(oneDayRecord);
+    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord);
+    if (this.ifHighPreCloseDown(record) && ifSessionUpCloseOne) {
+      return true;
+    }
+    if (!ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (!ifUpOpenOne && !ifSessionUpOne && !ifSessionUpCloseOne && !ifSessionDownCloseOne) {
+        return true;
+      }
+    }
+    if (!ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (!(ifUpOpenOne && !ifUpCloseOne)) {
+        return true;
+      }
+    }
+    if (ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (!(ifUpOpenOne && !ifUpCloseOne)) {
+        return true;
+      }
+    }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (ifSessionDownCloseOne && !ifSessionUpOne) {
+        return true;
+      }
+    }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      return true
+    }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      if (ifUpOpenOne && ifUpCloseOne && !ifSessionDownOne && !ifSessionDownCloseOne) {
+        return true
+      }
+    }
     return false
   };
 
@@ -95,12 +252,18 @@ class IndexList extends PureComponent {
     let xData = [];
     let yData = [];
     let points = [];
+    const fnMap = {
+      shangzhengBuy: 'ifBuyShangzheng',
+      shangzhengSell: 'ifSellShangzheng',
+      chuangyeBuy: 'ifBuyChuangye',
+      chuangyeSell: 'ifSellChuangye'
+    };
     recentNetValue.forEach((item, index) => {
       xData.unshift(item['date']);
       yData.unshift(item['close']);
       const oneDayRecord = recentNetValue[index < recentNetValue.length - 1 ? index + 1 : index];
       const twoDayRecord = recentNetValue[index < recentNetValue.length - 2 ? index + 2 : index + 1];
-      if (this.ifBuyShangzheng(item, oneDayRecord, twoDayRecord)) {
+      if (this[fnMap[this.props.nowType + 'Buy']](item, oneDayRecord, twoDayRecord)) {
         points.push({
           coord: [item['date'], item['close']],
           itemStyle: {
@@ -113,7 +276,7 @@ class IndexList extends PureComponent {
           }
         })
       }
-      if (this.ifSellShangzheng(item, oneDayRecord, twoDayRecord)) {
+      if (this[fnMap[this.props.nowType + 'Sell']](item, oneDayRecord, twoDayRecord)) {
         points.push({
           coord: [item['date'], item['close']],
           itemStyle: {
@@ -245,8 +408,8 @@ class IndexList extends PureComponent {
         title: '最低对昨日收盘大涨',
         width: 80,
         render: (record) => {
-          const rate = numberUtil.countDifferenceRate(record.low, record.preClose) > 0.5;
-          return <span className={rate ? 'red-text' : 'green-text'}>{rate ? '是' : '否'}</span>
+          const flag = this.ifLowPreCloseHigh(record);
+          return <span className={flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
         }
       }
     ];
@@ -272,7 +435,7 @@ class IndexList extends PureComponent {
             const oneDayRecord = recentNetValue[index < recentNetValue.length - 1 ? index + 1 : index];
             const twoDayRecord = recentNetValue[index < recentNetValue.length - 2 ? index + 2 : index + 1];
             let active = false;
-            if (this.ifBuyShangzheng(record, oneDayRecord, twoDayRecord)) {
+            if (this.ifBuyChuangye(record, oneDayRecord, twoDayRecord)) {
               active = true;
             }
             return active ? 'active' : 'false'
