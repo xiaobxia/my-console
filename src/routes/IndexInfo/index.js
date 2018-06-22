@@ -24,7 +24,7 @@ class IndexInfo extends PureComponent {
   state = {
     list: [],
     threshold: 0.5,
-    nowType: 'jungong'
+    nowType: 'yiyao'
   };
 
   componentWillMount() {
@@ -39,7 +39,7 @@ class IndexInfo extends PureComponent {
 
   initPage = (code) => {
     //webData/getWebStockdaybarAll
-    code = code || 'sz399959';
+    code = code || 'sh000037';
     http.get('/mock/getWebStockdaybarAll', {
       code: code
     }).then((data) => {
@@ -74,7 +74,8 @@ class IndexInfo extends PureComponent {
       'shangzheng': 'sh000001',
       'chuangye': 'sz399006',
       'gangtie': 'sz399440',
-      'jungong': 'sz399959'
+      'jungong': 'sz399959',
+      'yiyao': 'sh000037'
     };
     this.setState({nowType: e.target.value});
     this.initPage(codeMap[e.target.value]);
@@ -88,11 +89,12 @@ class IndexInfo extends PureComponent {
       <DocumentTitle title={title}>
         <div className="module-my-fund route-modules">
           <PageHeader routeTitle={title}>
-            <RadioGroup onChange={this.onChange} defaultValue="jungong">
+            <RadioGroup onChange={this.onChange} defaultValue="yiyao">
               <RadioButton value="shangzheng">上证</RadioButton>
               <RadioButton value="chuangye">创业</RadioButton>
               <RadioButton value="gangtie">钢铁</RadioButton>
               <RadioButton value="jungong">军工</RadioButton>
+              <RadioButton value="yiyao">医药</RadioButton>
             </RadioGroup>
           </PageHeader>
           <div className="content-card-wrap">
