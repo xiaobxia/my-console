@@ -783,18 +783,32 @@ class IndexList extends PureComponent {
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord);
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord);
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord);
-    // if (this.ifHighPreCloseDown(record) && ifSessionUpCloseOne) {
-    //   return true;
-    // }
-    // if (ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
-    //   return true
-    // }
+    if (this.ifHighPreCloseDown(record) && ifSessionUpCloseOne) {
+      return true
+    }
+    if (ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+      return true
+    }
     if (!ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
       if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return false
+        return true
       }
       if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
-        return false
+        return true
+      }
+    }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+      if (!ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
       }
       //return true
     }
