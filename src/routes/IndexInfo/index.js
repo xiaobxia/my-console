@@ -24,7 +24,7 @@ class IndexInfo extends PureComponent {
   state = {
     list: [],
     threshold: 0.5,
-    nowType: 'meitan'
+    nowType: 'youse'
   };
 
   componentWillMount() {
@@ -39,12 +39,12 @@ class IndexInfo extends PureComponent {
 
   initPage = (code) => {
     //webData/getWebStockdaybarAll
-    code = code || 'sz399998';
+    code = code || 'sh000823';
     http.get('/mock/getWebStockdaybarAll', {
       code: code
     }).then((data) => {
       if (data.success) {
-        const list = data.data.list
+        const list = data.data.list;
         let listTemp = [];
         let allRate = 0;
         let allRate3 = 0;
@@ -59,7 +59,7 @@ class IndexInfo extends PureComponent {
         let a = (allRate / 2) / list.length;
         let c = (allRate3) / list.length;
         let threshold = numberUtil.keepTwoDecimals((a + c) / 2);
-        console.log(threshold)
+        console.log(threshold);
         this.setState({list: listTemp, threshold: threshold});
       }
     })
@@ -76,7 +76,8 @@ class IndexInfo extends PureComponent {
       'gangtie': 'sz399440',
       'jungong': 'sz399959',
       'yiyao': 'sh000037',
-      'meitan': 'sz399998'
+      'meitan': 'sz399998',
+      'youse': 'sh000823'
     };
     this.setState({nowType: e.target.value});
     this.initPage(codeMap[e.target.value]);
@@ -90,13 +91,14 @@ class IndexInfo extends PureComponent {
       <DocumentTitle title={title}>
         <div className="module-my-fund route-modules">
           <PageHeader routeTitle={title}>
-            <RadioGroup onChange={this.onChange} defaultValue="meitan">
+            <RadioGroup onChange={this.onChange} defaultValue="youse">
               <RadioButton value="shangzheng">上证</RadioButton>
               <RadioButton value="chuangye">创业</RadioButton>
               <RadioButton value="gangtie">钢铁</RadioButton>
               <RadioButton value="jungong">军工</RadioButton>
               <RadioButton value="yiyao">医药</RadioButton>
               <RadioButton value="meitan">煤炭</RadioButton>
+              <RadioButton value="youse">有色</RadioButton>
             </RadioGroup>
           </PageHeader>
           <div className="content-card-wrap">
