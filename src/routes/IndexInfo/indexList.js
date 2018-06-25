@@ -493,6 +493,83 @@ class IndexList extends PureComponent {
     return false
   };
 
+  ifSellMeitan = (record, oneDayRecord, twoDayRecord) => {
+    const ifUpOpen = this.ifUpOpen(record);
+    const ifUpClose = this.ifUpClose(record);
+    const ifSessionDown = this.ifSessionDown(record);
+    const ifSessionUpClose = this.ifSessionUpClose(record);
+    const ifSessionUp = this.ifSessionUp(record);
+    const ifSessionDownClose = this.ifSessionDownClose(record);
+    const ifUpOpenOne = this.ifUpOpen(oneDayRecord);
+    const ifUpCloseOne = this.ifUpClose(oneDayRecord);
+    const ifSessionDownOne = this.ifSessionDown(oneDayRecord);
+    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord);
+    const ifSessionUpOne = this.ifSessionUp(oneDayRecord);
+    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord);
+    if (ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+      return true;
+    }
+    if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+      return true;
+    }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      if (ifSessionDownOne) {
+        return true;
+      }
+    }
+    if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+      return true;
+    }
+    if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
+        return true
+      }
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+    }
+    if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      if (!ifSessionDownCloseOne) {
+        return true;
+      }
+    }
+    if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      if (!ifSessionDownOne && !ifSessionDownCloseOne && !ifSessionUpOne) {
+        return true;
+      }
+    }
+    return false
+  };
+
+  ifBuyMeitan= (record, oneDayRecord) => {
+    const ifUpOpen = this.ifUpOpen(record);
+    const ifUpClose = this.ifUpClose(record);
+    const ifSessionDown = this.ifSessionDown(record);
+    const ifSessionUpClose = this.ifSessionUpClose(record);
+    const ifSessionUp = this.ifSessionUp(record);
+    const ifSessionDownClose = this.ifSessionDownClose(record);
+    const ifUpOpenOne = this.ifUpOpen(oneDayRecord);
+    const ifUpCloseOne = this.ifUpClose(oneDayRecord);
+    const ifSessionDownOne = this.ifSessionDown(oneDayRecord);
+    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord);
+    const ifSessionUpOne = this.ifSessionUp(oneDayRecord);
+    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord);
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+      return true
+    }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (!ifSessionUpOne && ifSessionDownCloseOne) {
+        if (!(ifSessionDownOne && !ifSessionUpCloseOne)) {
+          return true
+        }
+      }
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+    }
+    return false
+  };
+
   getChartOption = () => {
     const recentNetValue = this.props.dataSource;
     let xData = [];
@@ -508,7 +585,9 @@ class IndexList extends PureComponent {
       jungongBuy: 'ifBuyJungong',
       jungongSell: 'ifSellJungong',
       yiyaoBuy: 'ifBuyYiyao',
-      yiyaoSell: 'ifSellYiyao'
+      yiyaoSell: 'ifSellYiyao',
+      meitanBuy: 'ifBuyMeitan',
+      meitanSell: 'ifSellMeitan'
     };
     recentNetValue.forEach((item, index) => {
       xData.unshift(item['date']);
@@ -687,7 +766,7 @@ class IndexList extends PureComponent {
             const oneDayRecord = recentNetValue[index < recentNetValue.length - 1 ? index + 1 : index];
             const twoDayRecord = recentNetValue[index < recentNetValue.length - 2 ? index + 2 : index + 1];
             let active = false;
-            if (this.ifSellYiyao(record, oneDayRecord, twoDayRecord)) {
+            if (this.ifSellMeitan(record, oneDayRecord, twoDayRecord)) {
               active = true;
             }
             return active ? 'active' : 'false'
