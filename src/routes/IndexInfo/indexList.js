@@ -158,11 +158,11 @@ class IndexList extends PureComponent {
     if (ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose && !ifSessionDownCloseOne) {
       return true;
     }
-    if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (record.netChangeRatio > 0 && oneDayRecord.netChangeRatio > 0 && twoDayRecord.netChangeRatio > 0) {
-        return true;
-      }
-    }
+    // if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+    //   if (record.netChangeRatio > 0 && oneDayRecord.netChangeRatio > 0 && twoDayRecord.netChangeRatio > 0) {
+    //     return true;
+    //   }
+    // }
     if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
       return true;
     }
@@ -263,11 +263,11 @@ class IndexList extends PureComponent {
     if (record.date === '20170828') {
       console.log('in')
     }
-    if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (record.netChangeRatio > 0 && oneDayRecord.netChangeRatio > 0 && twoDayRecord.netChangeRatio > 0) {
-        return true;
-      }
-    }
+    // if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+    //   if (record.netChangeRatio > 0 && oneDayRecord.netChangeRatio > 0 && twoDayRecord.netChangeRatio > 0) {
+    //     return true;
+    //   }
+    // }
     if (ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
       return true;
     }
@@ -982,6 +982,98 @@ class IndexList extends PureComponent {
     return false
   };
 
+  ifSellHuanbao = (record, oneDayRecord, twoDayRecord) => {
+    const ifUpOpen = this.ifUpOpen(record);
+    const ifUpClose = this.ifUpClose(record);
+    const ifSessionDown = this.ifSessionDown(record);
+    const ifSessionUpClose = this.ifSessionUpClose(record);
+    const ifSessionUp = this.ifSessionUp(record);
+    const ifSessionDownClose = this.ifSessionDownClose(record);
+    const ifUpOpenOne = this.ifUpOpen(oneDayRecord);
+    const ifUpCloseOne = this.ifUpClose(oneDayRecord);
+    const ifSessionDownOne = this.ifSessionDown(oneDayRecord);
+    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord);
+    const ifSessionUpOne = this.ifSessionUp(oneDayRecord);
+    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord);
+    if (ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+      return true;
+    }
+    if (!ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+    }
+    if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+    }
+    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      if (!ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+    }
+    if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
+        return true
+      }
+    }
+    if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+      if (ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+      if (!ifUpOpenOne && !ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+    }
+    return false
+  };
+
+  ifBuyHuanbao = (record, oneDayRecord) => {
+    const ifUpOpen = this.ifUpOpen(record);
+    const ifUpClose = this.ifUpClose(record);
+    const ifSessionDown = this.ifSessionDown(record);
+    const ifSessionUpClose = this.ifSessionUpClose(record);
+    const ifSessionUp = this.ifSessionUp(record);
+    const ifSessionDownClose = this.ifSessionDownClose(record);
+    const ifUpOpenOne = this.ifUpOpen(oneDayRecord);
+    const ifUpCloseOne = this.ifUpClose(oneDayRecord);
+    const ifSessionDownOne = this.ifSessionDown(oneDayRecord);
+    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord);
+    const ifSessionUpOne = this.ifSessionUp(oneDayRecord);
+    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord);
+    if (this.ifHighPreCloseDown(record)) {
+      if (!ifSessionDownCloseOne) {
+        return true
+      }
+    }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+    }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+    }
+    if (!ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      if (ifUpOpenOne && !ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+    }
+    return false
+  };
+
   getChartOption = () => {
     const recentNetValue = this.props.dataSource;
     let xData = [];
@@ -1007,7 +1099,9 @@ class IndexList extends PureComponent {
       jisuanjiBuy: 'ifBuyJisuanji',
       jisuanjiSell: 'ifSellJisuanji',
       baijiuBuy: 'ifBuyBaijiu',
-      baijiuSell: 'ifSellBaijiu'
+      baijiuSell: 'ifSellBaijiu',
+      huanbaoBuy: 'ifBuyHuanbao',
+      huanbaoSell: 'ifSellHuanbao'
     };
     recentNetValue.forEach((item, index) => {
       xData.unshift(item['date']);
@@ -1185,7 +1279,7 @@ class IndexList extends PureComponent {
             const oneDayRecord = recentNetValue[index < recentNetValue.length - 1 ? index + 1 : index];
             const twoDayRecord = recentNetValue[index < recentNetValue.length - 2 ? index + 2 : index + 1];
             let active = false;
-            if (this.ifBuyBaijiu(record, oneDayRecord, twoDayRecord)) {
+            if (this.ifSellHuanbao(record, oneDayRecord, twoDayRecord)) {
               active = true;
             }
             return active ? 'active' : 'false'
