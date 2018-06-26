@@ -311,53 +311,53 @@ class IndexList extends PureComponent {
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord);
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord);
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord);
-    if (record.date === '20170828') {
-      console.log('in')
-    }
-    // if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-    //   if (record.netChangeRatio > 0 && oneDayRecord.netChangeRatio > 0 && twoDayRecord.netChangeRatio > 0) {
+    // if (record.date === '20170828') {
+    //   console.log('in')
+    // }
+    // // if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+    // //   if (record.netChangeRatio > 0 && oneDayRecord.netChangeRatio > 0 && twoDayRecord.netChangeRatio > 0) {
+    // //     return true;
+    // //   }
+    // // }
+    // if (ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+    //   return true;
+    // }
+    // if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+    //   if (!ifUpOpenOne && ifSessionUpCloseOne) {
     //     return true;
     //   }
     // }
-    if (ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
-      return true;
-    }
-    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (!ifUpOpenOne && ifSessionUpCloseOne) {
-        return true;
-      }
-    }
-    if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
-      return true;
-    }
-    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      return true;
-    }
-    if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (!ifSessionDownOne && !ifSessionUpCloseOne) {
-        if (!(!ifUpOpenOne && ifUpCloseOne)) {
-          return true;
-        }
-      }
-    }
-    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
-      if (!ifSessionDownOne) {
-        return true;
-      }
-    }
-    if (ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
-      return true;
-    }
-    if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
-      if (!ifUpOpenOne) {
-        return true;
-      }
-    }
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne) {
-        return true;
-      }
-    }
+    // if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+    //   return true;
+    // }
+    // if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+    //   return true;
+    // }
+    // if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+    //   if (!ifSessionDownOne && !ifSessionUpCloseOne) {
+    //     if (!(!ifUpOpenOne && ifUpCloseOne)) {
+    //       return true;
+    //     }
+    //   }
+    // }
+    // if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+    //   if (!ifSessionDownOne) {
+    //     return true;
+    //   }
+    // }
+    // if (ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+    //   return true;
+    // }
+    // if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+    //   if (!ifUpOpenOne) {
+    //     return true;
+    //   }
+    // }
+    // if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+    //   if (ifSessionDownOne) {
+    //     return true;
+    //   }
+    // }
     return false
   };
 
@@ -377,17 +377,9 @@ class IndexList extends PureComponent {
     if (this.ifHighPreCloseDown(record) && ifSessionUpCloseOne) {
       return true;
     }
-    // 新
     if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
       if (ifSessionDownCloseOne && !ifSessionUpOne) {
         return true;
-      }
-    }
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-      if (!ifSessionDownCloseOne) {
-        if (!(ifUpCloseOne && !ifSessionDownOne && !ifSessionDownCloseOne)) {
-          return true;
-        }
       }
     }
     if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
@@ -395,10 +387,10 @@ class IndexList extends PureComponent {
         return true
       }
     }
-    if (ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
       return true
     }
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+    if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
       return true
     }
     return false
@@ -1330,7 +1322,7 @@ class IndexList extends PureComponent {
             const oneDayRecord = recentNetValue[index < recentNetValue.length - 1 ? index + 1 : index];
             const twoDayRecord = recentNetValue[index < recentNetValue.length - 2 ? index + 2 : index + 1];
             let active = false;
-            if (this.ifSellChuangye(record, oneDayRecord, twoDayRecord)) {
+            if (this.ifBuyGangtie(record, oneDayRecord, twoDayRecord)) {
               active = true;
             }
             return active ? 'active' : 'false'
