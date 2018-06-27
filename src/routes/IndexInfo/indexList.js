@@ -110,47 +110,47 @@ class IndexList extends PureComponent {
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord);
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord);
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord);
-    // if (this.ifHighPreCloseDown(record) && ifSessionDownCloseOne) {
-    //   return true;
-    // }
-    // if (!ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-    //   if (!ifUpOpenOne && !ifSessionUpOne && !ifSessionUpCloseOne && !ifSessionDownCloseOne) {
-    //     return true;
-    //   }
-    // }
-    // if (!ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-    //   if (!(ifUpOpenOne && !ifUpCloseOne)) {
-    //     return true;
-    //   }
-    // }
-    // if (ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-    //   if (!(ifUpOpenOne && !ifUpCloseOne)) {
-    //     return true;
-    //   }
-    // }
-    // if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-    //   if (ifSessionDownCloseOne && !ifSessionUpOne) {
-    //     return true;
-    //   }
-    // }
-    // if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-    //   if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
-    //     return true
-    //   }
-    // }
-    // if (!ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-    //   if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-    //     return true
-    //   }
-    //   if (ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-    //     return true
-    //   }
-    // }
-    // if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-    //   if (!ifUpOpenOne && !ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-    //     return true
-    //   }
-    // }
+    if (this.ifHighPreCloseDown(record) && ifSessionDownCloseOne) {
+      return true;
+    }
+    if (!ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (!ifUpOpenOne && !ifSessionUpOne && !ifSessionUpCloseOne && !ifSessionDownCloseOne) {
+        return true;
+      }
+    }
+    if (!ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (!(ifUpOpenOne && !ifUpCloseOne)) {
+        return true;
+      }
+    }
+    if (ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (!(ifUpOpenOne && !ifUpCloseOne)) {
+        return true;
+      }
+    }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (ifSessionDownCloseOne && !ifSessionUpOne) {
+        return true;
+      }
+    }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
+        return true
+      }
+    }
+    if (!ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
+        return true
+      }
+      if (ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+    }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (!ifUpOpenOne && !ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+    }
     return false
   };
 
@@ -311,53 +311,53 @@ class IndexList extends PureComponent {
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord);
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord);
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord);
-    // if (record.date === '20170828') {
-    //   console.log('in')
-    // }
-    // // if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-    // //   if (record.netChangeRatio > 0 && oneDayRecord.netChangeRatio > 0 && twoDayRecord.netChangeRatio > 0) {
-    // //     return true;
-    // //   }
-    // // }
-    // if (ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
-    //   return true;
-    // }
-    // if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-    //   if (!ifUpOpenOne && ifSessionUpCloseOne) {
+    if (record.date === '20170828') {
+      console.log('in')
+    }
+    // if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+    //   if (record.netChangeRatio > 0 && oneDayRecord.netChangeRatio > 0 && twoDayRecord.netChangeRatio > 0) {
     //     return true;
     //   }
     // }
-    // if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
-    //   return true;
-    // }
-    // if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-    //   return true;
-    // }
-    // if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-    //   if (!ifSessionDownOne && !ifSessionUpCloseOne) {
-    //     if (!(!ifUpOpenOne && ifUpCloseOne)) {
-    //       return true;
-    //     }
-    //   }
-    // }
-    // if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
-    //   if (!ifSessionDownOne) {
-    //     return true;
-    //   }
-    // }
-    // if (ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
-    //   return true;
-    // }
-    // if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
-    //   if (!ifUpOpenOne) {
-    //     return true;
-    //   }
-    // }
-    // if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-    //   if (ifSessionDownOne) {
-    //     return true;
-    //   }
-    // }
+    if (ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+      return true;
+    }
+    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      if (!ifUpOpenOne && ifSessionUpCloseOne) {
+        return true;
+      }
+    }
+    if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+      return true;
+    }
+    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      return true;
+    }
+    if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      if (!ifSessionDownOne && !ifSessionUpCloseOne) {
+        if (!(!ifUpOpenOne && ifUpCloseOne)) {
+          return true;
+        }
+      }
+    }
+    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+      if (!ifSessionDownOne) {
+        return true;
+      }
+    }
+    if (ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+      return true;
+    }
+    if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+      if (!ifUpOpenOne) {
+        return true;
+      }
+    }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      if (ifSessionDownOne) {
+        return true;
+      }
+    }
     return false
   };
 
@@ -374,36 +374,34 @@ class IndexList extends PureComponent {
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord);
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord);
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord);
-    // if (this.ifHighPreCloseDown(record) && ifSessionUpCloseOne) {
-    //   return true;
-    // }
-    // if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-    //   if (ifSessionDownCloseOne && !ifSessionUpOne) {
-    //     return true;
-    //   }
-    // }
-    // if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-    //   if (!ifSessionUpOne) {
-    //     return true
-    //   }
-    // }
-    // if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
-    //   return true
-    // }
-    // if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-    //   return true
-    // }
+    if (this.ifHighPreCloseDown(record) && ifSessionUpCloseOne) {
+      return true;
+    }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (ifSessionDownCloseOne && !ifSessionUpOne) {
+        return true;
+      }
+    }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (!ifSessionUpOne) {
+        return true
+      }
+    }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+      return true
+    }
+    if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      return true
+    }
     if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
       if (ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return false
+        return true
       }
       if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
         if (ifUpOpenOne && !ifUpCloseOne) {
-          return false
+          return true
         }
-        return false
       }
-      return true
     }
     return false
   };
