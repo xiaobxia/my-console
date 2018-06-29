@@ -99,6 +99,7 @@ class IndexInfo extends PureComponent {
       <DocumentTitle title={title}>
         <div className="module-my-fund route-modules">
           <PageHeader routeTitle={title}>
+            <Row className="page-header-content">
             <RadioGroup onChange={this.onChange} defaultValue="xiaofei">
               <RadioButton value="shangzheng">上证</RadioButton>
               <RadioButton value="chuangye">创业</RadioButton>
@@ -116,6 +117,7 @@ class IndexInfo extends PureComponent {
               <RadioButton value="zhengquan">证券</RadioButton>
               <RadioButton value="xiaofei">消费</RadioButton>
             </RadioGroup>
+            </Row>
           </PageHeader>
           <div className="content-card-wrap">
             <h3 className="blue-text">
