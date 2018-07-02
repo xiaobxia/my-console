@@ -3,7 +3,7 @@
  */
 import numberUtil from './numberUtil'
 
-function Util (threshold) {
+function Util(threshold) {
   this.threshold = threshold
 }
 
@@ -1554,24 +1554,17 @@ Util.prototype = {
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
-    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
     if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
       }
-      if (ifUpOpenOne && !ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
+      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
       }
-      if (!ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
       }
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
+      return true
     }
     if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
       return true
@@ -1583,18 +1576,22 @@ Util.prototype = {
       return true
     }
     if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
+      if (!ifUpOpenOne && !ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
       }
-      if (ifUpOpenOne && ifUpCloseOne && !ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
+      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
       }
-      if (!ifUpOpenOne && ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
       }
-      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
       }
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      return true
     }
     return false
   },
@@ -1613,42 +1610,188 @@ Util.prototype = {
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
     if (this.ifHighPreCloseDown(record)) {
+      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
+      }
       return true
     }
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-    }
     if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
       }
-      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
+      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
       }
-      if (ifUpCloseOne && ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
+      if (ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
       }
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
+      if (ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
       }
       if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
+        return false
       }
+      return true
+    }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
+      }
+      return true
+    }
+    return false
+  },
+  ifSellWulin: function (record, oneDayRecord) {
+    const ifUpOpen = this.ifUpOpen(record)
+    const ifUpClose = this.ifUpClose(record)
+    const ifSessionDown = this.ifSessionDown(record)
+    const ifSessionUpClose = this.ifSessionUpClose(record)
+    const ifSessionUp = this.ifSessionUp(record)
+    const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
+    const ifUpCloseOne = this.ifUpClose(oneDayRecord)
+    const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
+    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
+    const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
+    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionUpOne && !ifSessionDownClose) {
+      if (!ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
+      }
+      return true
+    }
+    if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
+      }
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
+      }
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      return true
+    }
+    if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      return true
+    }
+    if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      if (!ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      return true
+    }
+    if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      return true
+    }
+    if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
+      }
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
+      }
+      return true
+    }
+    return false
+  },
+
+  ifBuyWulin: function (record, oneDayRecord) {
+    const ifUpOpen = this.ifUpOpen(record)
+    const ifUpClose = this.ifUpClose(record)
+    const ifSessionDown = this.ifSessionDown(record)
+    const ifSessionUpClose = this.ifSessionUpClose(record)
+    const ifSessionUp = this.ifSessionUp(record)
+    const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
+    const ifUpCloseOne = this.ifUpClose(oneDayRecord)
+    const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
+    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
+    const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
+    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    if (this.ifHighPreCloseDown(record)) {
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      if (ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
+      }
+      return true
+    }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
+      }
+      if (ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      return true
+    }
+    if (!ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
+      }
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
+      }
+      if (!ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      return true
+    }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
+      }
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
+      }
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      return true
     }
     return false
   }
@@ -1718,6 +1861,10 @@ const codeMap = {
   'baoxian': {
     code: 'sz399809',
     name: '保险'
+  },
+  'wulin': {
+    code: 'sh000016',
+    name: '50'
   }
 }
 const fnMap = {
@@ -1752,7 +1899,9 @@ const fnMap = {
   xiaofeiBuy: 'ifBuyXiaofei',
   xiaofeiSell: 'ifSellXiaofei',
   baoxianBuy: 'ifBuyBaoxian',
-  baoxianSell: 'ifSellBaoxian'
+  baoxianSell: 'ifSellBaoxian',
+  wulinBuy: 'ifBuyWulin',
+  wulinSell: 'ifSellWulin'
 }
 
 const IndexInfoUtil = {

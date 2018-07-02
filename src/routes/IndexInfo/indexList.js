@@ -207,20 +207,33 @@ class IndexList extends PureComponent {
           pagination={false}
           size="small"
           rowKey={record => record.date}
+          rowClassName={(record, index) => {
+            const threshold = this.props.threshold;
+            const infoUtil = new InfoUtil(threshold)
+            const recentNetValue = dataSource;
+            const oneDayRecord = recentNetValue[index < recentNetValue.length - 1 ? index + 1 : index];
+            const twoDayRecord = recentNetValue[index < recentNetValue.length - 2 ? index + 2 : index + 1];
+            let active = false;
+            if (infoUtil.ifSellBaoxian(record, oneDayRecord, twoDayRecord)) {
+              active = true;
+            }
+            return active ? 'active' : 'false'
+          }}
         />
       </div>
     );
   }
 }
 // rowClassName={(record, index) => {
+//   const threshold = this.props.threshold;
+//   const infoUtil = new InfoUtil(threshold)
 //   const recentNetValue = dataSource;
 //   const oneDayRecord = recentNetValue[index < recentNetValue.length - 1 ? index + 1 : index];
 //   const twoDayRecord = recentNetValue[index < recentNetValue.length - 2 ? index + 2 : index + 1];
 //   let active = false;
-//   if (this.ifSellBaoxian(record, oneDayRecord, twoDayRecord)) {
+//   if (infoUtil.ifBuyWulin(record, oneDayRecord, twoDayRecord)) {
 //     active = true;
 //   }
 //   return active ? 'active' : 'false'
 // }}
-
 export default IndexList;
