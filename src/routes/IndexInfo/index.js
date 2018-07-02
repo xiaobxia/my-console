@@ -9,12 +9,25 @@ import DocumentTitle from 'react-document-title';
 import {Input, Upload, message, Button, Icon, Row, Col, Radio} from 'antd';
 import http from 'localUtil/httpUtil';
 import numberUtil from 'localUtil/numberUtil';
+import indexInfoUtil from 'localUtil/indexInfoUtil';
 import {consoleRender} from 'localUtil/consoleLog'
 import PageHeader from 'localComponent/PageHeader'
 import {getOpenKeyAndMainPath} from '../../router'
 import IndexList from './indexList'
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
+
+const codeMap = indexInfoUtil.codeMap;
+const formatData = indexInfoUtil.formatData;
+let codeList = [];
+for (let key in codeMap) {
+  codeList.push({
+    code: codeMap[key].code,
+    key: key,
+    name: codeMap[key].name
+  })
+}
+
 
 class IndexInfo extends PureComponent {
   constructor(props) {
@@ -45,22 +58,7 @@ class IndexInfo extends PureComponent {
     }).then((data) => {
       if (data.success) {
         const list = data.data.list;
-        let listTemp = [];
-        let allRate = 0;
-        let allRate3 = 0;
-        for (let i = 0; i < list.length; i++) {
-          allRate += numberUtil.countDifferenceRate(list[i].kline.high, list[i].kline.low);
-          allRate3 += Math.abs(numberUtil.countDifferenceRate(list[i].kline.close, list[i].kline.open));
-          listTemp.push({
-            date: '' + list[i].date,
-            ...list[i].kline
-          })
-        }
-        let a = (allRate / 2) / list.length;
-        let c = (allRate3) / list.length;
-        let threshold = numberUtil.keepTwoDecimals((a + c) / 2);
-        console.log(threshold);
-        this.setState({list: listTemp, threshold: threshold});
+        this.setState(formatData(list));
       }
     })
   };
@@ -70,26 +68,12 @@ class IndexInfo extends PureComponent {
   }
 
   onChange=(e) => {
-    const codeMap = {
-      'shangzheng': 'sh000001',
-      'chuangye': 'sz399006',
-      'gangtie': 'sz399440',
-      'jungong': 'sz399959',
-      'yiyao': 'sh000037',
-      'meitan': 'sz399998',
-      'youse': 'sh000823',
-      'dichan': 'sz399393',
-      'jisuanji': 'sz399363',
-      'baijiu': 'sz399997',
-      'huanbao': 'sh000827',
-      'nengyuan': 'sh000986',
-      'xinxi': 'sh000993',
-      'zhengquan': 'sz399975',
-      'xiaofei': 'sh000990',
-      'baoxian': 'sz399809'
-    };
+    let code = {};
+    for (let key in codeMap) {
+      code[key] = codeMap[key].code
+    }
     this.setState({nowType: e.target.value});
-    this.initPage(codeMap[e.target.value]);
+    this.initPage(code[e.target.value]);
     console.log(e.target.value)
   };
 
@@ -102,22 +86,9 @@ class IndexInfo extends PureComponent {
           <PageHeader routeTitle={title}>
             <Row className="page-header-content">
             <RadioGroup onChange={this.onChange} defaultValue="baoxian">
-              <RadioButton value="shangzheng">上证</RadioButton>
-              <RadioButton value="chuangye">创业</RadioButton>
-              <RadioButton value="gangtie">钢铁</RadioButton>
-              <RadioButton value="jungong">军工</RadioButton>
-              <RadioButton value="yiyao">医药</RadioButton>
-              <RadioButton value="meitan">煤炭</RadioButton>
-              <RadioButton value="youse">有色</RadioButton>
-              <RadioButton value="dichan">地产</RadioButton>
-              <RadioButton value="jisuanji">计算机</RadioButton>
-              <RadioButton value="baijiu">白酒</RadioButton>
-              <RadioButton value="huanbao">环保</RadioButton>
-              <RadioButton value="nengyuan">能源</RadioButton>
-              <RadioButton value="xinxi">信息</RadioButton>
-              <RadioButton value="zhengquan">证券</RadioButton>
-              <RadioButton value="xiaofei">消费</RadioButton>
-              <RadioButton value="baoxian">保险</RadioButton>
+              {codeList.map((item) => {
+                return <RadioButton key={item.key} value={item.key}>{item.name}</RadioButton>
+              })}
             </RadioGroup>
             </Row>
           </PageHeader>
