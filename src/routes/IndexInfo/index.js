@@ -28,7 +28,7 @@ for (let key in codeMap) {
   })
 }
 
-const defaultIndex = 'gangtie'
+const defaultIndex = 'youse'
 
 
 class IndexInfo extends PureComponent {
