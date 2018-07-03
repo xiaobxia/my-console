@@ -28,6 +28,8 @@ for (let key in codeMap) {
   })
 }
 
+const defaultIndex = 'gangtie'
+
 
 class IndexInfo extends PureComponent {
   constructor(props) {
@@ -37,7 +39,7 @@ class IndexInfo extends PureComponent {
   state = {
     list: [],
     threshold: 0.5,
-    nowType: 'zhengquan'
+    nowType: defaultIndex
   };
 
   componentWillMount() {
@@ -52,8 +54,8 @@ class IndexInfo extends PureComponent {
 
   initPage = (code) => {
     //webData/getWebStockdaybarAll
-    code = code || 'sz399975';
-    http.get('webData/getWebStockdaybarAll', {
+    code = code || codeMap[defaultIndex].code;
+    http.get('/mock/getWebStockdaybarAll', {
       code: code
     }).then((data) => {
       if (data.success) {
@@ -85,7 +87,7 @@ class IndexInfo extends PureComponent {
         <div className="module-my-fund route-modules">
           <PageHeader routeTitle={title}>
             <Row className="page-header-content">
-            <RadioGroup onChange={this.onChange} defaultValue="zhengquan">
+            <RadioGroup onChange={this.onChange} defaultValue={defaultIndex}>
               {codeList.map((item) => {
                 return <RadioButton key={item.key} value={item.key}>{item.name}</RadioButton>
               })}
