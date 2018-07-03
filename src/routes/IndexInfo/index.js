@@ -37,7 +37,7 @@ class IndexInfo extends PureComponent {
   state = {
     list: [],
     threshold: 0.5,
-    nowType: 'baoxian'
+    nowType: 'xiaofei'
   };
 
   componentWillMount() {
@@ -52,7 +52,7 @@ class IndexInfo extends PureComponent {
 
   initPage = (code) => {
     //webData/getWebStockdaybarAll
-    code = code || 'sz399809';
+    code = code || 'sh000990';
     http.get('/mock/getWebStockdaybarAll', {
       code: code
     }).then((data) => {
@@ -85,7 +85,7 @@ class IndexInfo extends PureComponent {
         <div className="module-my-fund route-modules">
           <PageHeader routeTitle={title}>
             <Row className="page-header-content">
-            <RadioGroup onChange={this.onChange} defaultValue="baoxian">
+            <RadioGroup onChange={this.onChange} defaultValue="xiaofei">
               {codeList.map((item) => {
                 return <RadioButton key={item.key} value={item.key}>{item.name}</RadioButton>
               })}
