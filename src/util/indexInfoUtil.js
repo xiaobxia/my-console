@@ -47,111 +47,6 @@ Util.prototype = {
     return numberUtil.countDifferenceRate(record.low, record.preClose) > threshold
   },
 
-  ifSellShangzheng: function (record, oneDayRecord) {
-    const ifUpOpen = this.ifUpOpen(record)
-    const ifUpClose = this.ifUpClose(record)
-    const ifSessionDown = this.ifSessionDown(record)
-    const ifSessionUpClose = this.ifSessionUpClose(record)
-    const ifSessionUp = this.ifSessionUp(record)
-    const ifSessionDownClose = this.ifSessionDownClose(record)
-    const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
-    const ifUpCloseOne = this.ifUpClose(oneDayRecord)
-    const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
-    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
-    const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
-    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
-    if (ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose && !ifSessionDownCloseOne) {
-      return true
-    }
-    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionUpOne && !ifSessionDownClose) {
-      return true
-    }
-    if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionUpCloseOne) {
-        return true
-      }
-    }
-    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (!ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    return false
-  },
-
-  ifBuyShangzheng: function (record, oneDayRecord) {
-    const ifUpOpen = this.ifUpOpen(record)
-    const ifUpClose = this.ifUpClose(record)
-    const ifSessionDown = this.ifSessionDown(record)
-    const ifSessionUpClose = this.ifSessionUpClose(record)
-    const ifSessionUp = this.ifSessionUp(record)
-    const ifSessionDownClose = this.ifSessionDownClose(record)
-    const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
-    const ifUpCloseOne = this.ifUpClose(oneDayRecord)
-    const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
-    const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
-    const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
-    const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
-    if (this.ifHighPreCloseDown(record) && ifSessionDownCloseOne) {
-      return true
-    }
-    if (!ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-      if (!ifUpOpenOne && !ifSessionUpOne && !ifSessionUpCloseOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-      if (!(ifUpOpenOne && !ifUpCloseOne)) {
-        return true
-      }
-    }
-    if (ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-      if (!(ifUpOpenOne && !ifUpCloseOne)) {
-        return true
-      }
-    }
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-      if (ifSessionDownCloseOne && !ifSessionUpOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
-      }
-      if (ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-      if (!ifUpOpenOne && !ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
-      }
-    }
-    return false
-  },
-
   ifSellChuangye: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -251,7 +146,13 @@ Util.prototype = {
       }
     }
     if (!ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-      if (!(ifUpOpenOne && !ifUpCloseOne)) {
+      if (!ifUpOpenOne && ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
+        return true
+      }
+      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
         return true
       }
     }
@@ -260,11 +161,6 @@ Util.prototype = {
     }
     if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
       return true
-    }
-    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-      if (ifUpOpenOne && ifUpCloseOne && !ifSessionDownOne && !ifSessionDownCloseOne) {
-        return true
-      }
     }
     if (ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
       if (!ifUpOpenOne && !ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
@@ -1954,10 +1850,6 @@ Util.prototype = {
 }
 
 const codeMap = {
-  'shangzheng': {
-    code: 'sh000001',
-    name: '上证'
-  },
   'chuangye': {
     code: 'sz399006',
     name: '创业'
