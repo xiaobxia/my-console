@@ -523,6 +523,9 @@ Util.prototype = {
         return true
       }
     }
+    if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+      return true
+    }
     return false
   },
 
