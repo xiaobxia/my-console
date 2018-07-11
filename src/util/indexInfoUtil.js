@@ -2121,11 +2121,11 @@ const codeMap = {
     name: '医药',
     threshold: 0.97
   },
-  'meitan': {
-    code: 'sz399998',
-    name: '煤炭',
-    threshold: 1.13
-  },
+  // 'meitan': {
+  //   code: 'sz399998',
+  //   name: '煤炭',
+  //   threshold: 1.13
+  // },
   'youse': {
     code: 'sh000823',
     name: '有色',
