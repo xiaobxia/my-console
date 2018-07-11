@@ -28,7 +28,7 @@ for (let key in codeMap) {
   })
 }
 
-const defaultIndex = 'chuanmei'
+const defaultIndex = 'huanjing'
 const ifMock = false
 
 
