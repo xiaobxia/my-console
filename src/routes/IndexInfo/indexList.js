@@ -37,8 +37,7 @@ class IndexList extends PureComponent {
             show: false
           }
         })
-      }
-      if (infoUtil[fnMap[this.props.nowType + 'Sell']](item, oneDayRecord, twoDayRecord)) {
+      } else if (infoUtil[fnMap[this.props.nowType + 'Sell']](item, oneDayRecord, twoDayRecord)) {
         points.push({
           coord: [item['date'], item['close']],
           itemStyle: {
