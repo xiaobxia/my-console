@@ -1941,6 +1941,8 @@ Util.prototype = {
     }
     return false
   },
+
+  //2018-07-20
   ifSellYinhang: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -1978,6 +1980,9 @@ Util.prototype = {
       if (ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
         return true
       }
+      if (!ifUpOpenOne && ifUpCloseOne && !ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return true
+      }
     }
     if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
       if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
@@ -2006,7 +2011,7 @@ Util.prototype = {
     }
     return false
   },
-
+  //2018-07-20
   ifBuyYinhang: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -2052,9 +2057,19 @@ Util.prototype = {
     }
     if (!ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
       if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return true
+        if (ifUpOpenOne && ifUpCloseOne) {
+          return true
+        }
+        if (!ifUpOpenOne && !ifUpCloseOne) {
+          return true
+        }
       }
       if (!ifUpOpenOne && !ifUpCloseOne && ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
+        return true
+      }
+    }
+    if (ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
         return true
       }
     }
@@ -2781,7 +2796,7 @@ const codeMap = {
   'yinhang': {
     code: 'sz399431',
     name: '银行',
-    threshold: 0.72
+    threshold: 0.76
   },
   'xinnengyuan': {
     code: 'sz399412',
