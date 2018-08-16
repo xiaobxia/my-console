@@ -28,8 +28,8 @@ for (let key in codeMap) {
   })
 }
 
-const defaultIndex = 'chuangye'
-const ifMock = true
+const defaultIndex = 'shengwu'
+const ifMock = false
 
 
 class IndexInfo extends PureComponent {
