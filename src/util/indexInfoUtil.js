@@ -3,7 +3,7 @@
  */
 import numberUtil from './numberUtil'
 
-function Util (threshold) {
+function Util(threshold) {
   this.threshold = threshold
 }
 
@@ -3640,18 +3640,56 @@ const IndexInfoUtil = {
   fnMap,
   formatData: function (list) {
     let listTemp = []
-    let allRate = 0
-    let allRate3 = 0
     for (let i = 0; i < list.length; i++) {
-      allRate += numberUtil.countDifferenceRate(list[i].kline.high, list[i].kline.low)
-      allRate3 += Math.abs(numberUtil.countDifferenceRate(list[i].kline.close, list[i].kline.open))
       listTemp.push({
         date: '' + list[i].date,
         ...list[i].kline
       })
     }
-    let a = (allRate / 2) / list.length
-    let c = (allRate3) / list.length
+    let xData = []
+    for (let j = 0; j < 7; j = j + 0.1) {
+      xData.push({
+        number: j.toFixed(1),
+        count: 0,
+        count2: 0
+      });
+    }
+    list.forEach((item, index) => {
+      let value = Math.abs(numberUtil.countDifferenceRate(item.kline.close, item.kline.preClose));
+      let value2 = Math.abs(numberUtil.countDifferenceRate(item.kline.high, item.kline.low));
+      for (let i = 0; i < xData.length; i++) {
+        if (value >= xData[i].number && value < xData[i + 1].number) {
+          xData[i].count++
+          break
+        }
+      }
+      for (let j = 0; j < xData.length; j++) {
+        if (value2 >= xData[j].number && value2 < xData[j + 1].number) {
+          xData[j].count2++
+          break
+        }
+      }
+    });
+    let all = 0
+    let count = 0
+    let all2 = 0
+    let count2 = 0
+    for (let k = 0; k < xData.length; k++) {
+      if (xData[k].count >= 3) {
+        count = count + xData[k].count;
+        all = all + (parseFloat(xData[k].number) * xData[k].count);
+      }
+      if (xData[k].count2 >= 3) {
+        count2 = count2 + xData[k].count2;
+        all2 = all2 + (parseFloat(xData[k].number) * xData[k].count2);
+      }
+    }
+    // xData.sort((a, b) => {
+    //   return b.count2 - a.count2
+    // })
+    // console.log(xData)
+    let a = (all2 / count2) / 2
+    let c = all / count
     let threshold = numberUtil.keepTwoDecimals((a + c) / 2)
     console.log(a)
     console.log(c)
