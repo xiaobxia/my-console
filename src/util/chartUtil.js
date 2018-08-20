@@ -30,7 +30,11 @@ const chartUtil = {
     start = start < 0 ? 0 : start
     let count = 0
     for (let i = index; i >= start; i--) {
-      count += lineList[i][key]
+      if (key) {
+        count += lineList[i][key]
+      } else {
+        count += lineList[i]
+      }
     }
     return count / (index + 1 - start)
   }

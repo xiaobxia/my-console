@@ -3852,7 +3852,9 @@ const IndexInfoUtil = {
       xData.push({
         number: j.toFixed(1),
         count: 0,
-        count2: 0
+        countList: [],
+        count2: 0,
+        countList2: []
       });
     }
     list.forEach((item, index) => {
@@ -3861,12 +3863,14 @@ const IndexInfoUtil = {
       for (let i = 0; i < xData.length; i++) {
         if (value >= xData[i].number && value < xData[i + 1].number) {
           xData[i].count++
+          xData[i].countList.push(value)
           break
         }
       }
       for (let j = 0; j < xData.length; j++) {
         if (value2 >= xData[j].number && value2 < xData[j + 1].number) {
           xData[j].count2++
+          xData[j].countList2.push(value2)
           break
         }
       }
@@ -3878,11 +3882,15 @@ const IndexInfoUtil = {
     for (let k = 0; k < xData.length; k++) {
       if (xData[k].count >= 3) {
         count = count + xData[k].count;
-        all = all + (parseFloat(xData[k].number) * xData[k].count);
+        for (let c = 0; c < xData[k].countList.length; c++) {
+          all = all + xData[k].countList[c]
+        }
       }
       if (xData[k].count2 >= 3) {
         count2 = count2 + xData[k].count2;
-        all2 = all2 + (parseFloat(xData[k].number) * xData[k].count2);
+        for (let b = 0; b < xData[k].countList2.length; b++) {
+          all2 = all2 + xData[k].countList2[b]
+        }
       }
     }
     // xData.sort((a, b) => {
