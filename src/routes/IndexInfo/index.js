@@ -28,8 +28,8 @@ for (let key in codeMap) {
   })
 }
 
-const defaultIndex = 'xinxi'
-const ifMock = false
+const defaultIndex = 'sanbai'
+const ifMock = true
 
 
 class IndexInfo extends PureComponent {
@@ -57,7 +57,8 @@ class IndexInfo extends PureComponent {
     //webData/getWebStockdaybarAll
     code = code || codeMap[defaultIndex].code;
     http.get(`${ifMock ? '/mock' : 'webData'}/getWebStockdaybarAll`, {
-      code: code
+      code: code,
+      days: 400
     }).then((data) => {
       if (data.success) {
         const list = data.data.list;
