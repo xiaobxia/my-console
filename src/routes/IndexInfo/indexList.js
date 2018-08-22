@@ -25,7 +25,9 @@ class IndexList extends PureComponent {
       yData.unshift(item['close']);
       const oneDayRecord = recentNetValue[index < recentNetValue.length - 1 ? index + 1 : index];
       const twoDayRecord = recentNetValue[index < recentNetValue.length - 2 ? index + 2 : index + 1];
-      if (infoUtil[fnMap[this.props.nowType + 'Buy']](item, oneDayRecord, twoDayRecord)) {
+      let bugFlag = infoUtil[fnMap[this.props.nowType + 'Buy']](item, oneDayRecord, twoDayRecord);
+      let sellFlag = infoUtil[fnMap[this.props.nowType + 'Sell']](item, oneDayRecord, twoDayRecord);
+      if ((bugFlag === true) || (bugFlag !== false && bugFlag.flag === true)) {
         points.push({
           coord: [item['date'], item['close']],
           itemStyle: {
@@ -37,7 +39,7 @@ class IndexList extends PureComponent {
             show: false
           }
         })
-      } else if (infoUtil[fnMap[this.props.nowType + 'Sell']](item, oneDayRecord, twoDayRecord)) {
+      } else if ((sellFlag === true) || (sellFlag !== false && sellFlag.flag === true)) {
         points.push({
           coord: [item['date'], item['close']],
           itemStyle: {
@@ -213,7 +215,8 @@ class IndexList extends PureComponent {
             const oneDayRecord = recentNetValue[index < recentNetValue.length - 1 ? index + 1 : index];
             const twoDayRecord = recentNetValue[index < recentNetValue.length - 2 ? index + 2 : index + 1];
             let active = false;
-            if (infoUtil.ifBuyDianzi(record, oneDayRecord, twoDayRecord)) {
+            let flag = infoUtil.ifSellDianzi(record, oneDayRecord, twoDayRecord);
+            if ((flag === true) || (flag !== false && flag.flag === true)) {
               active = true;
             }
             return active ? 'active' : 'false'

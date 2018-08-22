@@ -2632,7 +2632,7 @@ Util.prototype = {
     }
     return false
   },
-  //2018-07-29
+  //2018-08-22
   ifSellDianzi: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -2646,63 +2646,72 @@ Util.prototype = {
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
-    // if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-    //   if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-    //     return false
-    //   }
-    //   return true
-    // }
-    // if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-    //   if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-    //     return false
-    //   }
-    //   if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-    //     return false
-    //   }
-    //   if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-    //     return false
-    //   }
-    //   return true
-    // }
-    // if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-    //   if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-    //     return false
-    //   }
-    //   return true
-    // }
-    // if (!ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-    //   if (ifUpOpenOne && ifUpCloseOne && !ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-    //     return true
-    //   }
-    // }
-    // if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-    //   if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-    //     return true
-    //   }
-    //   if (!ifUpOpenOne && ifUpCloseOne && !ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-    //     return true
-    //   }
-    //   if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-    //     return true
-    //   }
-    // }
-    // if (ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-    //   if (!ifUpOpenOne && !ifUpCloseOne && ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-    //     return true
-    //   }
-    // }
-    // if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-    //   return true
-    // }
-    // if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
-    //   return true
-    // }
-    // if (ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-    //   return true
-    // }
+    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      return {
+        flag: true,
+        text: 'sell-0-0'
+      }
+    }
+    if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      if (ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
+      }
+      if (!ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      return {
+        flag: true,
+        text: 'sell-1-0'
+      }
+    }
+    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      return {
+        flag: true,
+        text: 'sell-2-0'
+      }
+    }
+    if (!ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      return {
+        flag: true,
+        text: 'sell-3-0'
+      }
+    }
+    if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return false
+      }
+      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
+      }
+      return {
+        flag: true,
+        text: 'sell-4-0'
+      }
+    }
+    if (ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      if (ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
+        return false
+      }
+      return {
+        flag: true,
+        text: 'sell-5-0'
+      }
+    }
+    if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      return {
+        flag: true,
+        text: 'sell-6-0'
+      }
+    }
+    if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
+      return {
+        flag: true,
+        text: 'sell-7-0'
+      }
+    }
     return false
   },
-  //2018-07-29
+  //2018-08-22
   ifBuyDianzi: function (record, oneDayRecord) {
     const ifUpOpen = this.ifUpOpen(record)
     const ifUpClose = this.ifUpClose(record)
@@ -2716,52 +2725,64 @@ Util.prototype = {
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
-    // if (this.ifHighPreCloseDown(record)) {
-    //   return true
-    // }
+    if (this.ifHighPreCloseDown(record)) {
+      return {
+        flag: true,
+        text: 'buy-0-0'
+      }
+    }
     if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-      if (ifUpOpenOne && ifUpCloseOne && ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-        return false
+      if (ifUpOpenOne && !ifUpCloseOne && !ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
+        return {
+          flag: true,
+          text: 'buy-1-0'
+        }
+      }
+      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return {
+          flag: true,
+          text: 'buy-1-1'
+        }
       }
       if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-        return false
+        return {
+          flag: true,
+          text: 'buy-1-2'
+        }
       }
-      if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return true
+      if (ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return {
+          flag: true,
+          text: 'buy-1-3'
+        }
       }
-      //不要
-      if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-        return false
+      if (!ifUpOpenOne && ifUpCloseOne && ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
+        return {
+          flag: true,
+          text: 'buy-1-4'
+        }
       }
-      //return true
     }
-    // if (!ifUpOpen &&true !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-    //   if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
-    //     return true
-    //   }
-    //   if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-    //     return true
-    //   }
-    // }
-    // if (ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
-    //   if (ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-    //     return true
-    //   }
-    //   if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
-    //     return true
-    //   }
-    // }
-    // if (ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
-    //   return true
-    // }
-    // if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-    //   return true
-    // }
-    // if (!ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
-    //   if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
-    //     return true
-    //   }
-    // }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return {
+          flag: true,
+          text: 'buy-2-0'
+        }
+      }
+    }
+    if (ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
+      return {
+        flag: true,
+        text: 'buy-3-0'
+      }
+    }
+    if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      return {
+        flag: true,
+        text: 'buy-4-0'
+      }
+    }
     return false
   },
   //2018-08-07
@@ -3227,7 +3248,7 @@ const codeMap = {
   'dianzi': {
     code: 'sz399811',
     name: '电子',
-    threshold: 0.81
+    threshold: 0.98
   },
   'yiliao': {
     code: 'sz399989',
@@ -3335,13 +3356,13 @@ const IndexInfoUtil = {
     let all2 = 0
     let count2 = 0
     for (let k = 0; k < xData.length; k++) {
-      if (xData[k].count >= 4) {
+      if (xData[k].count >= 5) {
         count = count + xData[k].count;
         for (let c = 0; c < xData[k].countList.length; c++) {
           all = all + xData[k].countList[c]
         }
       }
-      if (xData[k].count2 >= 4) {
+      if (xData[k].count2 >= 5) {
         count2 = count2 + xData[k].count2;
         for (let b = 0; b < xData[k].countList2.length; b++) {
           all2 = all2 + xData[k].countList2[b]
