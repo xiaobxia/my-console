@@ -3312,8 +3312,7 @@ const IndexInfoUtil = {
         countList2: []
       });
     }
-    let listTemp2 = list.slice(0, 200);
-    listTemp2.forEach((item, index) => {
+    list.forEach((item, index) => {
       let value = Math.abs(numberUtil.countDifferenceRate(item.kline.close, item.kline.preClose));
       let value2 = Math.abs(numberUtil.countDifferenceRate(item.kline.high, item.kline.low));
       for (let i = 0; i < xData.length; i++) {
@@ -3336,13 +3335,13 @@ const IndexInfoUtil = {
     let all2 = 0
     let count2 = 0
     for (let k = 0; k < xData.length; k++) {
-      if (xData[k].count >= 8) {
+      if (xData[k].count >= 4) {
         count = count + xData[k].count;
         for (let c = 0; c < xData[k].countList.length; c++) {
           all = all + xData[k].countList[c]
         }
       }
-      if (xData[k].count2 >= 8) {
+      if (xData[k].count2 >= 4) {
         count2 = count2 + xData[k].count2;
         for (let b = 0; b < xData[k].countList2.length; b++) {
           all2 = all2 + xData[k].countList2[b]
