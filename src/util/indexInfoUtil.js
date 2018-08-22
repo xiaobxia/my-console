@@ -3706,11 +3706,11 @@ const codeMap = {
     name: '白酒',
     threshold: 1.45
   },
-  'huanbao': {
-    code: 'sh000827',
-    name: '环保',
-    threshold: 0.76
-  },
+  // 'huanbao': {
+  //   code: 'sh000827',
+  //   name: '环保',
+  //   threshold: 0.76
+  // },
   // 'nengyuan': {
   //   code: 'sh000986',
   //   name: '能源',
@@ -3746,21 +3746,21 @@ const codeMap = {
     name: '银行',
     threshold: 0.76
   },
-  'xinnengyuan': {
-    code: 'sz399412',
-    name: '新能源',
-    threshold: 0.91
-  },
+  // 'xinnengyuan': {
+  //   code: 'sz399412',
+  //   name: '新能源',
+  //   threshold: 0.91
+  // },
   'chuanmei': {
     code: 'sz399971',
     name: '传媒',
     threshold: 0.86
   },
-  'huanjing': {
-    code: 'sz399806',
-    name: '环境',
-    threshold: 0.87
-  },
+  // 'huanjing': {
+  //   code: 'sz399806',
+  //   name: '环境',
+  //   threshold: 0.87
+  // },
   'dianzi': {
     code: 'sz399811',
     name: '电子',
