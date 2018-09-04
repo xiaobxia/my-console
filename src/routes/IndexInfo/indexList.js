@@ -215,7 +215,7 @@ class IndexList extends PureComponent {
             const oneDayRecord = recentNetValue[index < recentNetValue.length - 1 ? index + 1 : index];
             const twoDayRecord = recentNetValue[index < recentNetValue.length - 2 ? index + 2 : index + 1];
             let active = false;
-            let flag = infoUtil.ifSellYiyao(record, oneDayRecord, twoDayRecord);
+            let flag = infoUtil.ifBuyYiliao(record, oneDayRecord, twoDayRecord);
             if ((flag === true) || (flag !== false && flag.flag === true)) {
               active = true;
             }
