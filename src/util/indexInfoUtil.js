@@ -3388,7 +3388,7 @@ Util.prototype = {
       }
       return {
         flag: true,
-        text: 'sell-6-0'
+        text: 'sell-7-0'
       }
     }
     return false
