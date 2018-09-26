@@ -1498,6 +1498,26 @@ Util.prototype = {
         text: 'buy-8-0'
       }
     }
+    if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
+      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return {
+          flag: true,
+          text: 'buy-9-0'
+        }
+      }
+      if (ifUpOpenOne && !ifUpCloseOne && ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
+        return {
+          flag: true,
+          text: 'buy-9-1'
+        }
+      }
+      if (ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return {
+          flag: true,
+          text: 'buy-9-2'
+        }
+      }
+    }
     return false
   },
   //2018-08-24
@@ -2097,6 +2117,12 @@ Util.prototype = {
           text: 'buy-4-0'
         }
       }
+      if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
+        return {
+          flag: true,
+          text: 'buy-4-1'
+        }
+      }
     }
     if (ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
       if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
@@ -2124,6 +2150,12 @@ Util.prototype = {
           flag: true,
           text: 'buy-6-2'
         }
+      }
+    }
+    if (!ifUpOpen && !ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
+      return {
+        flag: true,
+        text: 'buy-7-0'
       }
     }
     return false
