@@ -41,10 +41,9 @@ Util.prototype = {
     const threshold = this.threshold
     return numberUtil.countDifferenceRate(record.high, record.preClose) < -threshold
   },
-
-  ifLowPreCloseHigh: function (record) {
+  ifLowWave: function (record) {
     const threshold = this.threshold
-    return numberUtil.countDifferenceRate(record.low, record.preClose) > threshold
+    return Math.abs(record.netChangeRatio) <= threshold
   },
   //2018-08-23
   ifSellChuangye: function (record, oneDayRecord) {
@@ -54,12 +53,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
       return {
         flag: true,
@@ -134,12 +135,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (this.ifHighPreCloseDown(record)) {
       return {
         flag: true,
@@ -232,12 +235,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
       if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
         return false
@@ -349,12 +354,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (this.ifHighPreCloseDown(record) && ifSessionUpCloseOne) {
       if (ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
         return false
@@ -460,12 +467,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
       if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
         return false
@@ -562,12 +571,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (this.ifHighPreCloseDown(record)) {
       return {
         flag: true,
@@ -663,12 +674,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
       if (!ifUpOpenOne && ifUpCloseOne && ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
         return false
@@ -749,12 +762,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (this.ifHighPreCloseDown(record)) {
       return {
         flag: true,
@@ -868,12 +883,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (!ifUpOpen && ifUpClose && ifSessionDown && ifSessionUpClose && ifSessionUp && ifSessionDownClose) {
       return {
         flag: true,
@@ -989,12 +1006,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (this.ifHighPreCloseDown(record)) {
       if (ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
         return false
@@ -1096,12 +1115,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && !ifSessionUp && !ifSessionDownClose) {
       if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
         return {
@@ -1198,12 +1219,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (this.ifHighPreCloseDown(record)) {
       if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
         return {
@@ -1314,12 +1337,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
       if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
         return false
@@ -1395,12 +1420,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (this.ifHighPreCloseDown(record)) {
       if (ifUpOpenOne && ifUpCloseOne && !ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
         return false
@@ -1528,12 +1555,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
       if (!ifUpOpenOne && !ifUpCloseOne && ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
         return false
@@ -1631,12 +1660,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (!ifUpOpen && !ifUpClose && ifSessionDown && !ifSessionUpClose && !ifSessionUp && ifSessionDownClose) {
       if (ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
         return {
@@ -1768,12 +1799,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
       if (!ifSessionDownOne && !ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
         return false
@@ -1850,12 +1883,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (this.ifHighPreCloseDown(record)) {
       if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
         return false
@@ -1913,12 +1948,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
       if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
         return {
@@ -2026,12 +2063,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (this.ifHighPreCloseDown(record)) {
       if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
         return false
@@ -2168,12 +2207,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
       if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
         return false
@@ -2285,12 +2326,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (this.ifHighPreCloseDown(record)) {
       return {
         flag: true,
@@ -2356,12 +2399,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && ifSessionUpOne && !ifSessionDownClose) {
       if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
         return {
@@ -2466,12 +2511,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (this.ifHighPreCloseDown(record)) {
       if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && ifSessionDownCloseOne) {
         return {
@@ -2579,12 +2626,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
       return {
         flag: true,
@@ -2640,12 +2689,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (this.ifHighPreCloseDown(record)) {
       return {
         flag: true,
@@ -2733,12 +2784,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
       return {
         flag: true,
@@ -2812,12 +2865,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (this.ifHighPreCloseDown(record)) {
       return {
         flag: true,
@@ -2894,12 +2949,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (ifUpOpen && ifUpClose && !ifSessionDown && !ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
       if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
         return {
@@ -3020,12 +3077,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (this.ifHighPreCloseDown(record)) {
       return {
         flag: true,
@@ -3090,12 +3149,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
       if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
         return false
@@ -3163,12 +3224,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (this.ifHighPreCloseDown(record)) {
       return {
         flag: true,
@@ -3216,12 +3279,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
       if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
         return false
@@ -3274,12 +3339,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (this.ifHighPreCloseDown(record)) {
       if (ifSessionDownOne && ifSessionUpCloseOne && !ifSessionUpOne && !ifSessionDownCloseOne) {
         return false
@@ -3349,12 +3416,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (!ifUpOpen && ifUpClose && !ifSessionDown && ifSessionUpClose && ifSessionUp && !ifSessionDownClose) {
       if (!ifSessionDownOne && ifSessionUpCloseOne && ifSessionUpOne && !ifSessionDownCloseOne) {
         return false
@@ -3433,12 +3502,14 @@ Util.prototype = {
     const ifSessionUpClose = this.ifSessionUpClose(record)
     const ifSessionUp = this.ifSessionUp(record)
     const ifSessionDownClose = this.ifSessionDownClose(record)
+    const ifLowWave = this.ifLowWave(record)
     const ifUpOpenOne = this.ifUpOpen(oneDayRecord)
     const ifUpCloseOne = this.ifUpClose(oneDayRecord)
     const ifSessionDownOne = this.ifSessionDown(oneDayRecord)
     const ifSessionUpCloseOne = this.ifSessionUpClose(oneDayRecord)
     const ifSessionUpOne = this.ifSessionUp(oneDayRecord)
     const ifSessionDownCloseOne = this.ifSessionDownClose(oneDayRecord)
+    const ifLowWaveOne = this.ifLowWave(oneDayRecord)
     if (this.ifHighPreCloseDown(record)) {
       if (!ifSessionDownOne && !ifSessionUpCloseOne && ifSessionUpOne && ifSessionDownCloseOne) {
         return false

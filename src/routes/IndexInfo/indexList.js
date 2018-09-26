@@ -171,22 +171,22 @@ class IndexList extends PureComponent {
         }
       },
       {
+        title: '低波',
+        width: 80,
+        render: (record) => {
+          const threshold = this.props.threshold;
+          const infoUtil = new InfoUtil(threshold)
+          const flag = infoUtil.ifLowWave(record);
+          return <span className={!flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
+        }
+      },
+      {
         title: '最高对昨日收盘大跌',
         width: 80,
         render: (record) => {
           const threshold = this.props.threshold;
           const infoUtil = new InfoUtil(threshold)
           const flag = infoUtil.ifHighPreCloseDown(record);
-          return <span className={flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
-        }
-      },
-      {
-        title: '最低对昨日收盘大涨',
-        width: 80,
-        render: (record) => {
-          const threshold = this.props.threshold;
-          const infoUtil = new InfoUtil(threshold)
-          const flag = infoUtil.ifLowPreCloseHigh(record);
           return <span className={flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
         }
       }
