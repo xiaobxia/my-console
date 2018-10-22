@@ -105,14 +105,14 @@ class IndexList extends PureComponent {
         width: 80,
         dataIndex: 'date'
       },
-      // {
-      //   title: '幅度',
-      //   width: 80,
-      //   render: (record) => {
-      //     const rate = numberUtil.keepTwoDecimals(record.netChangeRatio);
-      //     return <span className={rate > 0 ? 'red-text' : 'green-text'}>{rate}</span>
-      //   }
-      // },
+      {
+        title: '幅度',
+        width: 50,
+        render: (record) => {
+          const rate = numberUtil.keepTwoDecimals(record.netChangeRatio);
+          return <span className={rate > 0 ? 'red-text' : 'green-text'}>{rate}</span>
+        }
+      },
       {
         title: '高开',
         width: 80,
@@ -167,7 +167,7 @@ class IndexList extends PureComponent {
       },
       {
         title: '盘中下跌',
-        width: 80,
+        width: 50,
         render: (record) => {
           const threshold = this.props.threshold;
           const rate = this.props.rate;
@@ -180,7 +180,7 @@ class IndexList extends PureComponent {
       },
       {
         title: '盘中大幅下跌',
-        width: 80,
+        width: 50,
         render: (record) => {
           const threshold = this.props.threshold;
           const rate = this.props.rate;
@@ -193,7 +193,7 @@ class IndexList extends PureComponent {
       },
       {
         title: '收盘拉起',
-        width: 80,
+        width: 50,
         render: (record) => {
           const threshold = this.props.threshold;
           const rate = this.props.rate;
@@ -206,7 +206,7 @@ class IndexList extends PureComponent {
       },
       {
         title: '收盘大幅拉起',
-        width: 80,
+        width: 50,
         render: (record) => {
           const threshold = this.props.threshold;
           const rate = this.props.rate;
@@ -219,7 +219,7 @@ class IndexList extends PureComponent {
       },
       {
         title: '盘中上升',
-        width: 80,
+        width: 50,
         render: (record) => {
           const threshold = this.props.threshold;
           const rate = this.props.rate;
@@ -232,7 +232,7 @@ class IndexList extends PureComponent {
       },
       {
         title: '盘中大幅上升',
-        width: 80,
+        width: 50,
         render: (record) => {
           const threshold = this.props.threshold;
           const rate = this.props.rate;
@@ -245,7 +245,7 @@ class IndexList extends PureComponent {
       },
       {
         title: '收盘回落',
-        width: 80,
+        width: 50,
         render: (record) => {
           const threshold = this.props.threshold;
           const rate = this.props.rate;
@@ -258,7 +258,7 @@ class IndexList extends PureComponent {
       },
       {
         title: '收盘大幅回落',
-        width: 80,
+        width: 50,
         render: (record) => {
           const threshold = this.props.threshold;
           const rate = this.props.rate;
@@ -271,7 +271,7 @@ class IndexList extends PureComponent {
       },
       {
         title: '无抵抗',
-        width: 80,
+        width: 50,
         render: (record) => {
           const threshold = this.props.threshold;
           const rate = this.props.rate;
@@ -284,7 +284,7 @@ class IndexList extends PureComponent {
       },
       {
         title: '大幅无抵抗',
-        width: 80,
+        width: 50,
         render: (record) => {
           const threshold = this.props.threshold;
           const rate = this.props.rate;
@@ -323,7 +323,7 @@ class IndexList extends PureComponent {
             const oneDayRecord = recentNetValue[index < recentNetValue.length - 1 ? index + 1 : index];
             const twoDayRecord = recentNetValue[index < recentNetValue.length - 2 ? index + 2 : index + 1];
             let active = false;
-            let flag = infoUtil.ifBuyXiaofei(record, oneDayRecord, twoDayRecord);
+            let flag = infoUtil.ifBuyChuangye(record, oneDayRecord, twoDayRecord);
             if ((flag === true) || (flag !== false && flag.flag === true)) {
               active = true;
             }

@@ -3,11 +3,6 @@
  */
 import numberUtil from './numberUtil'
 
-function Util(config) {
-  this.threshold = config.threshold
-  this.rate = config.rate
-  this.wave = config.wave
-}
 function ifMatch(raw, target) {
   let match = true
   for (let key in target) {
@@ -16,7 +11,24 @@ function ifMatch(raw, target) {
       break
     }
   }
-  return true
+  return match
+}
+
+function extend(raw, target) {
+  let obj = {}
+  for (let key in raw) {
+    obj[key] = raw[key]
+  }
+  for (let key in target) {
+    obj[key] = target[key]
+  }
+  return obj
+}
+
+function Util(config) {
+  this.threshold = config.threshold
+  this.rate = config.rate
+  this.wave = config.wave
 }
 
 Util.prototype = {
@@ -122,6 +134,23 @@ Util.prototype = {
   },
   //2018-08-23
   ifBuyChuangye: function (record, oneDayRecord) {
+    const today = this.getFlag(record)
+    const lastDay = this.getFlag(oneDayRecord)
+    if (ifMatch(today, {
+      ifSessionDown: true,
+      ifSessionDownHigh: true,
+      ifSessionUpClose: false,
+      ifSessionUpCloseHigh: false,
+      ifSessionUp: false,
+      ifSessionUpHigh: false,
+      ifSessionDownClose: true,
+      ifSessionDownCloseHigh: true
+    })) {
+      return {
+        flag: true,
+        text: 'buy-0-0'
+      }
+    }
     return false
   }
 }
