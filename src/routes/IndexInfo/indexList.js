@@ -7,9 +7,13 @@ import {Link} from 'react-router-dom'
 import numberUtil from 'localUtil/numberUtil';
 import indexInfoUtil from 'localUtil/indexInfoUtil';
 import ReactEcharts from 'echarts-for-react';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 const fnMap = indexInfoUtil.fnMap;
 const InfoUtil = indexInfoUtil.Util;
+
+const functionName = 'ifSellGangtie'
+const hide = false
 
 class IndexList extends PureComponent {
 
@@ -30,24 +34,24 @@ class IndexList extends PureComponent {
       const twoDayRecord = recentNetValue[index < recentNetValue.length - 2 ? index + 2 : index + 1];
       let bugFlag = infoUtil[fnMap[this.props.nowType + 'Buy']](item, oneDayRecord, twoDayRecord);
       let sellFlag = infoUtil[fnMap[this.props.nowType + 'Sell']](item, oneDayRecord, twoDayRecord);
-      if ((bugFlag === true) || (bugFlag !== false && bugFlag.flag === true)) {
+      if (hide !== 'buy' && ((bugFlag === true) || (bugFlag !== false && bugFlag.flag === true))) {
         points.push({
           coord: [item['date'], item['close']],
           itemStyle: {
             normal: {
-              color: 'red'
+              color: (bugFlag !== false && bugFlag.new === true) ? 'black' : 'red'
             }
           },
           label: {
             show: false
           }
         })
-      } else if ((sellFlag === true) || (sellFlag !== false && sellFlag.flag === true)) {
+      } else if (hide !== 'sell' && ((sellFlag === true) || (sellFlag !== false && sellFlag.flag === true))) {
         points.push({
           coord: [item['date'], item['close']],
           itemStyle: {
             normal: {
-              color: 'green'
+              color: (sellFlag !== false && sellFlag.new === true) ? 'black' : 'green'
             }
           },
           label: {
@@ -294,6 +298,37 @@ class IndexList extends PureComponent {
           const flag = infoUtil.ifHighPreCloseDownHigh(record);
           return <span className={flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
         }
+      },
+      {
+        title: '复制',
+        width: 50,
+        render: (record) => {
+          const threshold = this.props.threshold;
+          const rate = this.props.rate;
+          const wave = this.props.wave;
+          const infoConfig = {threshold, rate, wave};
+          const infoUtil = new InfoUtil(infoConfig)
+          let flag = {}
+          flag.ifUpOpen = infoUtil.ifUpOpen(record)
+          flag.ifOpenHigh = infoUtil.ifOpenHigh(record)
+          flag.ifUpClose = infoUtil.ifUpClose(record)
+          flag.ifCloseHigh = infoUtil.ifCloseHigh(record)
+          flag.ifSessionDown = infoUtil.ifSessionDown(record)
+          flag.ifSessionDownHigh = infoUtil.ifSessionDownHigh(record)
+          flag.ifSessionUpClose = infoUtil.ifSessionUpClose(record)
+          flag.ifSessionUpCloseHigh = infoUtil.ifSessionUpCloseHigh(record)
+          flag.ifSessionUp = infoUtil.ifSessionUp(record)
+          flag.ifSessionUpHigh = infoUtil.ifSessionUpHigh(record)
+          flag.ifSessionDownClose = infoUtil.ifSessionDownClose(record)
+          flag.ifSessionDownCloseHigh = infoUtil.ifSessionDownCloseHigh(record)
+          flag.ifHighPreCloseDown = infoUtil.ifHighPreCloseDown(record)
+          flag.ifHighPreCloseDownHigh = infoUtil.ifHighPreCloseDownHigh(record)
+          return <CopyToClipboard
+            text={JSON.stringify(flag)}
+            onCopy={() => {}}>
+            <span>复制</span>
+          </CopyToClipboard>
+        }
       }
     ];
     const {dataSource} = this.props;
@@ -313,6 +348,7 @@ class IndexList extends PureComponent {
           pagination={false}
           size="small"
           rowKey={record => record.date}
+          onSelect={this.onSelectRow}
           rowClassName={(record, index) => {
             const threshold = this.props.threshold;
             const rate = this.props.rate;
@@ -323,7 +359,7 @@ class IndexList extends PureComponent {
             const oneDayRecord = recentNetValue[index < recentNetValue.length - 1 ? index + 1 : index];
             const twoDayRecord = recentNetValue[index < recentNetValue.length - 2 ? index + 2 : index + 1];
             let active = false;
-            let flag = infoUtil.ifBuyChuangye(record, oneDayRecord, twoDayRecord);
+            let flag = infoUtil[functionName](record, oneDayRecord, twoDayRecord);
             if ((flag === true) || (flag !== false && flag.flag === true)) {
               active = true;
             }
