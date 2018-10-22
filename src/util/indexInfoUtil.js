@@ -27,13 +27,13 @@ Util.prototype = {
     flag.ifUpClose = this.ifUpClose(record)
     flag.ifCloseHigh = this.ifCloseHigh(record)
     flag.ifSessionDown = this.ifSessionDown(record)
-    flag.ifSessionDownHigh = this.ifSessionDown(record)
+    flag.ifSessionDownHigh = this.ifSessionDownHigh(record)
     flag.ifSessionUpClose = this.ifSessionUpClose(record)
-    flag.ifSessionUpCloseHigh = this.ifSessionUpClose(record)
+    flag.ifSessionUpCloseHigh = this.ifSessionUpCloseHigh(record)
     flag.ifSessionUp = this.ifSessionUp(record)
-    flag.ifSessionUpHigh = this.ifSessionUp(record)
+    flag.ifSessionUpHigh = this.ifSessionUpHigh(record)
     flag.ifSessionDownClose = this.ifSessionDownClose(record)
-    flag.ifSessionDownCloseHigh = this.ifSessionDownClose(record)
+    flag.ifSessionDownCloseHigh = this.ifSessionDownCloseHigh(record)
     flag.ifHighPreCloseDown = this.ifHighPreCloseDown(record)
     flag.ifHighPreCloseDownHigh = this.ifHighPreCloseDownHigh(record)
     return flag
@@ -110,7 +110,6 @@ Util.prototype = {
     const rate = this.rate
     return numberUtil.countDifferenceRate(record.high, record.preClose) < -(2 * rate)
   },
-  //2018-08-23
   ifSellChuangye: function (record, oneDayRecord) {
     const today = this.getFlag(record)
     const lastDay = this.getFlag(oneDayRecord)

@@ -40,7 +40,9 @@ class IndexInfo extends PureComponent {
 
   state = {
     list: [],
-    threshold: 0.5,
+    threshold: 0,
+    rate: 0,
+    wave: 0,
     nowType: defaultIndex
   };
 
@@ -104,6 +106,8 @@ class IndexInfo extends PureComponent {
               dataSource={this.state.list}
               nowType={this.state.nowType}
               threshold={this.state.threshold}
+              rate={this.state.rate}
+              wave={this.state.wave}
             />
           </div>
         </div>

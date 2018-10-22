@@ -15,8 +15,11 @@ class IndexList extends PureComponent {
 
   getChartOption = () => {
     const threshold = this.props.threshold;
+    const rate = this.props.rate;
+    const wave = this.props.wave;
+    const infoConfig = {threshold, rate, wave};
     const recentNetValue = this.props.dataSource;
-    const infoUtil = new InfoUtil(threshold)
+    const infoUtil = new InfoUtil(infoConfig)
     let xData = [];
     let yData = [];
     let points = [];
@@ -102,32 +105,64 @@ class IndexList extends PureComponent {
         width: 80,
         dataIndex: 'date'
       },
+      // {
+      //   title: '幅度',
+      //   width: 80,
+      //   render: (record) => {
+      //     const rate = numberUtil.keepTwoDecimals(record.netChangeRatio);
+      //     return <span className={rate > 0 ? 'red-text' : 'green-text'}>{rate}</span>
+      //   }
+      // },
       {
-        title: '幅度',
-        width: 80,
-        render: (record) => {
-          const rate = numberUtil.keepTwoDecimals(record.netChangeRatio);
-          return <span className={rate > 0 ? 'red-text' : 'green-text'}>{rate}</span>
-        }
-      },
-      {
-        title: '低开',
+        title: '高开',
         width: 80,
         render: (record) => {
           const threshold = this.props.threshold;
-          const infoUtil = new InfoUtil(threshold)
+          const rate = this.props.rate;
+          const wave = this.props.wave;
+          const infoConfig = {threshold, rate, wave};
+          const infoUtil = new InfoUtil(infoConfig)
           const up = infoUtil.ifUpOpen(record);
           return <span className={up > 0 ? 'red-text' : 'green-text'}>{up ? '高开' : '低开'}</span>
         }
       },
       {
-        title: '收跌',
+        title: '开盘大幅',
         width: 80,
         render: (record) => {
           const threshold = this.props.threshold;
-          const infoUtil = new InfoUtil(threshold)
+          const rate = this.props.rate;
+          const wave = this.props.wave;
+          const infoConfig = {threshold, rate, wave};
+          const infoUtil = new InfoUtil(infoConfig)
+          const up = infoUtil.ifOpenHigh(record);
+          return <span className={up > 0 ? 'red-text' : 'green-text'}>{up ? '大幅' : '低幅'}</span>
+        }
+      },
+      {
+        title: '收涨',
+        width: 80,
+        render: (record) => {
+          const threshold = this.props.threshold;
+          const rate = this.props.rate;
+          const wave = this.props.wave;
+          const infoConfig = {threshold, rate, wave};
+          const infoUtil = new InfoUtil(infoConfig)
           const up = infoUtil.ifUpClose(record);
           return <span className={up ? 'red-text' : 'green-text'}>{up ? '收高' : '收跌'}</span>
+        }
+      },
+      {
+        title: '收盘大幅',
+        width: 80,
+        render: (record) => {
+          const threshold = this.props.threshold;
+          const rate = this.props.rate;
+          const wave = this.props.wave;
+          const infoConfig = {threshold, rate, wave};
+          const infoUtil = new InfoUtil(infoConfig)
+          const up = infoUtil.ifCloseHigh(record);
+          return <span className={up ? 'red-text' : 'green-text'}>{up ? '大幅' : '低幅'}</span>
         }
       },
       {
@@ -135,8 +170,24 @@ class IndexList extends PureComponent {
         width: 80,
         render: (record) => {
           const threshold = this.props.threshold;
-          const infoUtil = new InfoUtil(threshold)
+          const rate = this.props.rate;
+          const wave = this.props.wave;
+          const infoConfig = {threshold, rate, wave};
+          const infoUtil = new InfoUtil(infoConfig)
           const flag = infoUtil.ifSessionDown(record);
+          return <span className={!flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
+        }
+      },
+      {
+        title: '盘中大幅下跌',
+        width: 80,
+        render: (record) => {
+          const threshold = this.props.threshold;
+          const rate = this.props.rate;
+          const wave = this.props.wave;
+          const infoConfig = {threshold, rate, wave};
+          const infoUtil = new InfoUtil(infoConfig)
+          const flag = infoUtil.ifSessionDownHigh(record);
           return <span className={!flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
         }
       },
@@ -145,8 +196,24 @@ class IndexList extends PureComponent {
         width: 80,
         render: (record) => {
           const threshold = this.props.threshold;
-          const infoUtil = new InfoUtil(threshold)
+          const rate = this.props.rate;
+          const wave = this.props.wave;
+          const infoConfig = {threshold, rate, wave};
+          const infoUtil = new InfoUtil(infoConfig)
           const flag = infoUtil.ifSessionUpClose(record);
+          return <span className={flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
+        }
+      },
+      {
+        title: '收盘大幅拉起',
+        width: 80,
+        render: (record) => {
+          const threshold = this.props.threshold;
+          const rate = this.props.rate;
+          const wave = this.props.wave;
+          const infoConfig = {threshold, rate, wave};
+          const infoUtil = new InfoUtil(infoConfig)
+          const flag = infoUtil.ifSessionUpCloseHigh(record);
           return <span className={flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
         }
       },
@@ -155,8 +222,24 @@ class IndexList extends PureComponent {
         width: 80,
         render: (record) => {
           const threshold = this.props.threshold;
-          const infoUtil = new InfoUtil(threshold)
+          const rate = this.props.rate;
+          const wave = this.props.wave;
+          const infoConfig = {threshold, rate, wave};
+          const infoUtil = new InfoUtil(infoConfig)
           const flag = infoUtil.ifSessionUp(record);
+          return <span className={flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
+        }
+      },
+      {
+        title: '盘中大幅上升',
+        width: 80,
+        render: (record) => {
+          const threshold = this.props.threshold;
+          const rate = this.props.rate;
+          const wave = this.props.wave;
+          const infoConfig = {threshold, rate, wave};
+          const infoUtil = new InfoUtil(infoConfig)
+          const flag = infoUtil.ifSessionUpHigh(record);
           return <span className={flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
         }
       },
@@ -165,28 +248,50 @@ class IndexList extends PureComponent {
         width: 80,
         render: (record) => {
           const threshold = this.props.threshold;
-          const infoUtil = new InfoUtil(threshold)
+          const rate = this.props.rate;
+          const wave = this.props.wave;
+          const infoConfig = {threshold, rate, wave};
+          const infoUtil = new InfoUtil(infoConfig)
           const flag = infoUtil.ifSessionDownClose(record);
           return <span className={!flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
         }
       },
       {
-        title: '低波',
+        title: '收盘大幅回落',
         width: 80,
         render: (record) => {
           const threshold = this.props.threshold;
-          const infoUtil = new InfoUtil(threshold)
-          const flag = infoUtil.ifLowWave(record);
+          const rate = this.props.rate;
+          const wave = this.props.wave;
+          const infoConfig = {threshold, rate, wave};
+          const infoUtil = new InfoUtil(infoConfig)
+          const flag = infoUtil.ifSessionDownCloseHigh(record);
           return <span className={!flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
         }
       },
       {
-        title: '最高对昨日收盘大跌',
+        title: '无抵抗',
         width: 80,
         render: (record) => {
           const threshold = this.props.threshold;
-          const infoUtil = new InfoUtil(threshold)
+          const rate = this.props.rate;
+          const wave = this.props.wave;
+          const infoConfig = {threshold, rate, wave};
+          const infoUtil = new InfoUtil(infoConfig)
           const flag = infoUtil.ifHighPreCloseDown(record);
+          return <span className={flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
+        }
+      },
+      {
+        title: '大幅无抵抗',
+        width: 80,
+        render: (record) => {
+          const threshold = this.props.threshold;
+          const rate = this.props.rate;
+          const wave = this.props.wave;
+          const infoConfig = {threshold, rate, wave};
+          const infoUtil = new InfoUtil(infoConfig)
+          const flag = infoUtil.ifHighPreCloseDownHigh(record);
           return <span className={flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
         }
       }
@@ -210,7 +315,10 @@ class IndexList extends PureComponent {
           rowKey={record => record.date}
           rowClassName={(record, index) => {
             const threshold = this.props.threshold;
-            const infoUtil = new InfoUtil(threshold)
+            const rate = this.props.rate;
+            const wave = this.props.wave;
+            const infoConfig = {threshold, rate, wave};
+            const infoUtil = new InfoUtil(infoConfig)
             const recentNetValue = dataSource;
             const oneDayRecord = recentNetValue[index < recentNetValue.length - 1 ? index + 1 : index];
             const twoDayRecord = recentNetValue[index < recentNetValue.length - 2 ? index + 2 : index + 1];
@@ -226,16 +334,4 @@ class IndexList extends PureComponent {
     );
   }
 }
-// rowClassName={(record, index) => {
-//   const threshold = this.props.threshold;
-//   const infoUtil = new InfoUtil(threshold)
-//   const recentNetValue = dataSource;
-//   const oneDayRecord = recentNetValue[index < recentNetValue.length - 1 ? index + 1 : index];
-//   const twoDayRecord = recentNetValue[index < recentNetValue.length - 2 ? index + 2 : index + 1];
-//   let active = false;
-//   if (infoUtil.ifBuyWulin(record, oneDayRecord, twoDayRecord)) {
-//     active = true;
-//   }
-//   return active ? 'active' : 'false'
-// }}
 export default IndexList;
