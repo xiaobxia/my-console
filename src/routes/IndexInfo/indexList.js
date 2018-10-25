@@ -12,8 +12,8 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 const fnMap = indexInfoUtil.fnMap;
 const InfoUtil = indexInfoUtil.Util;
 
-const functionName = 'ifSellGangtie'
-const hide = false
+const functionName = 'ifBuyYouse'
+const hide = 'sell'
 
 class IndexList extends PureComponent {
 
@@ -321,8 +321,8 @@ class IndexList extends PureComponent {
           flag.ifSessionUpHigh = infoUtil.ifSessionUpHigh(record)
           flag.ifSessionDownClose = infoUtil.ifSessionDownClose(record)
           flag.ifSessionDownCloseHigh = infoUtil.ifSessionDownCloseHigh(record)
-          flag.ifHighPreCloseDown = infoUtil.ifHighPreCloseDown(record)
-          flag.ifHighPreCloseDownHigh = infoUtil.ifHighPreCloseDownHigh(record)
+          // flag.ifHighPreCloseDown = infoUtil.ifHighPreCloseDown(record)
+          // flag.ifHighPreCloseDownHigh = infoUtil.ifHighPreCloseDownHigh(record)
           return <CopyToClipboard
             text={JSON.stringify(flag)}
             onCopy={() => {}}>

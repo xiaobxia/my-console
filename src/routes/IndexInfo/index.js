@@ -28,8 +28,8 @@ for (let key in codeMap) {
   })
 }
 
-const defaultIndex = 'gangtie'
-const ifMock = true
+const defaultIndex = 'youse'
+const ifMock = false
 
 
 
