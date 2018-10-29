@@ -12,7 +12,7 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 const fnMap = indexInfoUtil.fnMap;
 const InfoUtil = indexInfoUtil.Util;
 
-const functionName = 'ifBuyBaijiu'
+const functionName = 'ifBuyWulin'
 const hide = 'sell'
 
 class IndexList extends PureComponent {
@@ -323,8 +323,11 @@ class IndexList extends PureComponent {
           flag.ifSessionDownCloseHigh = infoUtil.ifSessionDownCloseHigh(record)
           // flag.ifHighPreCloseDown = infoUtil.ifHighPreCloseDown(record)
           // flag.ifHighPreCloseDownHigh = infoUtil.ifHighPreCloseDownHigh(record)
+          let str = JSON.stringify(flag)
+          str = str.split(':').join(': ')
+          str = str.split(',').join(', ')
           return <CopyToClipboard
-            text={JSON.stringify(flag)}
+            text={str}
             onCopy={() => {}}>
             <span>复制</span>
           </CopyToClipboard>
