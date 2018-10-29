@@ -12,8 +12,8 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 const fnMap = indexInfoUtil.fnMap;
 const InfoUtil = indexInfoUtil.Util;
 
-const functionName = 'ifSellDianzi'
-const hide = 'buy'
+const functionName = 'ifBuyShengwu'
+const hide = 'sell'
 
 class IndexList extends PureComponent {
 
