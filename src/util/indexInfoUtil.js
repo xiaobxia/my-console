@@ -3402,13 +3402,38 @@ Util.prototype = {
     )) {
       return {
         flag: true,
-        new: true,
         text: 'buy-1-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': true, 'ifSessionDown': true, 'ifSessionDownHigh': true, 'ifSessionUpClose': false, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': true, 'ifSessionDownCloseHigh': true}
+    )) {
+      return {
+        flag: true,
+        text: 'buy-2-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': false, 'ifOpenHigh': true, 'ifUpClose': false, 'ifCloseHigh': true, 'ifSessionDown': true, 'ifSessionDownHigh': true, 'ifSessionUpClose': false, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': true, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'buy-2-0'
       }
     }
     return false
   },
   ifSellDichan: function (record, oneDayRecord) {
+    const today = this.getFlag(record)
+    const lastDay = this.getFlag(oneDayRecord)
+    if (ifMatch(today,
+      {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': true, 'ifSessionDown': true, 'ifSessionDownHigh': true, 'ifSessionUpClose': false, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': true, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'sell-0-0'
+      }
+    }
     return false
   },
   ifBuyZhengquan: function (record, oneDayRecord) {
@@ -3563,11 +3588,29 @@ Util.prototype = {
       }
     }
     return false
+  },
+  ifBuyJijian: function (record, oneDayRecord) {
+    const today = this.getFlag(record)
+    const lastDay = this.getFlag(oneDayRecord)
+    if (ifMatch(today,
+      {ifHighPreCloseDown: true, ifHighPreCloseDownHigh: true}
+    )) {
+      return {
+        flag: true,
+        new: true,
+        text: 'buy-0-0'
+      }
+    }
+    return false
+  },
+  ifSellJijian: function (record, oneDayRecord) {
+    const today = this.getFlag(record)
+    const lastDay = this.getFlag(oneDayRecord)
+    return false
   }
 }
 
 const codeMap = {
-  //2018-10-22
   'chuangye': {
     code: 'sz399006',
     name: '创业',
@@ -3575,7 +3618,6 @@ const codeMap = {
     wave: 0.9277112676056345,
     rate: 0.9621341463414633
   },
-  //2018-08-23
   'gangtie': {
     code: 'sz399440',
     name: '钢铁',
@@ -3583,7 +3625,6 @@ const codeMap = {
     wave: 0.8545666666666663,
     rate: 0.8308843537414968
   },
-  //2018-08-27
   'jungong': {
     code: 'sz399959',
     name: '军工',
@@ -3591,7 +3632,6 @@ const codeMap = {
     wave: 0.9716906474820142,
     rate: 0.8817687074829932
   },
-  //2018-08-24
   'yiyao': {
     code: 'sh000037',
     name: '医药',
@@ -3599,7 +3639,6 @@ const codeMap = {
     rate: 0.9339416058394158,
     wave: 0.9391726618705037
   },
-  //2018-08-23
   'meitan': {
     code: 'sz399998',
     name: '煤炭',
@@ -3607,7 +3646,6 @@ const codeMap = {
     wave: 0.8600671140939595,
     rate: 0.8154166666666665
   },
-  //2018-08-28
   'youse': {
     code: 'sh000823',
     name: '有色',
@@ -3615,7 +3653,6 @@ const codeMap = {
     wave: 0.8558865248226952,
     rate: 0.9762650602409638
   },
-  //2018-08-24
   'jisuanji': {
     code: 'sz399363',
     name: '计算机',
@@ -3623,7 +3660,6 @@ const codeMap = {
     rate: 1.0100719424460431,
     wave: 1.06308
   },
-  //2018-08-24
   'baijiu': {
     code: 'sz399997',
     name: '白酒',
@@ -3631,25 +3667,21 @@ const codeMap = {
     rate: 1.07016,
     wave: 1.3559459459459462
   },
-  //2018-08-27
   'xinxi': {
     code: 'sh000993',
     name: '信息',
     threshold: 0.99
   },
-  //2018-08-24
   'xiaofei': {
     code: 'sh000990',
     name: '消费',
     threshold: 0.95
   },
-  //2018-08-24
   'baoxian': {
     code: 'sz399809',
     name: '保险',
     threshold: 1.03
   },
-  //2018-08-23
   'wulin': {
     code: 'sh000016',
     name: '50',
@@ -3657,13 +3689,11 @@ const codeMap = {
     rate: 0.7160122699386505,
     wave: 0.7482424242424242
   },
-  //2018-08-27
   'chuanmei': {
     code: 'sz399971',
     name: '传媒',
     threshold: 0.77
   },
-  //2018-08-22
   'dianzi': {
     code: 'sz399811',
     name: '电子',
@@ -3671,7 +3701,6 @@ const codeMap = {
     rate: 0.8832450331125826,
     wave: 0.9248263888888891
   },
-  //2018-08-27
   'yiliao': {
     code: 'sz399989',
     name: '医疗',
@@ -3679,7 +3708,6 @@ const codeMap = {
     wave: 1.0519615384615388,
     rate: 0.8889999999999998
   },
-  //2018-08-27
   'shengwu': {
     code: 'sz399441',
     name: '生物',
@@ -3719,6 +3747,11 @@ const codeMap = {
     threshold: 0.94,
     rate: 0.9072847682119207,
     wave: 0.9646258503401361
+  },
+  'jijian': {
+    code: 'sz399995',
+    name: '基建',
+    threshold: 0.66
   }
 }
 const fnMap = {
@@ -3763,7 +3796,9 @@ const fnMap = {
   yinhangBuy: 'ifBuyYinhang',
   yinhangSell: 'ifSellYinhang',
   zhengquanBuy: 'ifBuyZhengquan',
-  zhengquanSell: 'ifSellZhengquan'
+  zhengquanSell: 'ifSellZhengquan',
+  jijianBuy: 'ifBuyJijian',
+  jijianSell: 'ifSellJijian'
 }
 
 const IndexInfoUtil = {
