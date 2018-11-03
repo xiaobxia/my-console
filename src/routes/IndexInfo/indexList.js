@@ -12,7 +12,7 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 const fnMap = indexInfoUtil.fnMap;
 const InfoUtil = indexInfoUtil.Util;
 
-const functionName = 'ifSellDichan'
+const functionName = 'ifSellBaijiu'
 const hide = 'buy'
 
 class IndexList extends PureComponent {
@@ -91,7 +91,8 @@ class IndexList extends PureComponent {
           lineStyle: {
             color: '#1890ff'
           },
-          smooth: true,
+          smooth: false,
+          symbol: 'none',
           markPoint: {
             data: points,
             symbol: 'circle',
