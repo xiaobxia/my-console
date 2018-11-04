@@ -50,6 +50,11 @@ class OptionBlock extends PureComponent {
       message.success('成功');
     })
   };
+  updateRateHandler = () => {
+    http.get('schedule/updateRate').then(() => {
+      message.success('成功');
+    })
+  };
 
   render() {
     const state = this.state;
@@ -57,6 +62,9 @@ class OptionBlock extends PureComponent {
       <Button.Group>
         <Button onClick={this.updateValuationHandler} loading={state.updateValuationLoading}>
           更新基金估值
+        </Button>
+        <Button onClick={this.updateRateHandler}>
+          更新基金rate
         </Button>
         <Button onClick={this.updateBaseInfoHandler} loading={state.updateBaseInfoLoading}>
           更新基金净值
