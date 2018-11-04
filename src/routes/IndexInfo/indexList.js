@@ -13,7 +13,13 @@ const fnMap = indexInfoUtil.fnMap;
 const InfoUtil = indexInfoUtil.Util;
 
 const functionName = 'ifSellBaijiu'
-const hide = 'buy'
+let hide = 'buy'
+
+const isDev = process.env.NODE_ENV !== 'production'
+
+if (!isDev) {
+  hide = false
+}
 
 class IndexList extends PureComponent {
 
@@ -365,7 +371,7 @@ class IndexList extends PureComponent {
             const twoDayRecord = recentNetValue[index < recentNetValue.length - 2 ? index + 2 : index + 1];
             let active = false;
             let flag = infoUtil[functionName](record, oneDayRecord, twoDayRecord);
-            if ((flag === true) || (flag !== false && flag.flag === true)) {
+            if (((flag === true) || (flag !== false && flag.flag === true)) && isDev) {
               active = true;
             }
             return active ? 'active' : 'false'

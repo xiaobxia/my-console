@@ -10,11 +10,13 @@ import {Input, Upload, message, Button, Icon, Row, Col} from 'antd';
 import {myNetValueActions} from 'localStore/actions'
 import qs from 'qs'
 import http from 'localUtil/httpUtil';
+import numberUtil from 'localUtil/numberUtil';
 import {consoleRender} from 'localUtil/consoleLog'
 import PageHeader from 'localComponent/PageHeader'
 import {getOpenKeyAndMainPath} from '../../router'
 import MyNetValueList from './myNetValueList'
 import AddModal from './addModal'
+import ReactEcharts from 'echarts-for-react';
 
 
 class MyNetValue extends PureComponent {
@@ -26,7 +28,8 @@ class MyNetValue extends PureComponent {
     redirectCount: 0,
     addModal: false,
     modalType: 'add',
-    record: {}
+    record: {},
+    netValueAll: []
   };
 
   componentWillMount() {
@@ -44,6 +47,7 @@ class MyNetValue extends PureComponent {
     query.current = query.current || 1;
     query.pageSize = query.pageSize || 10;
     this.queryMyNetValues(query);
+    this.queryMyNetValueAll();
     console.log(query)
   };
 
@@ -58,6 +62,27 @@ class MyNetValue extends PureComponent {
       query = qs.parse(search.slice(1));
     }
     return query;
+  };
+
+  queryMyNetValueAll = () => {
+    return http.get('fund/getUserNetValuesAll').then((data) => {
+      if (data.success) {
+        let list = data.data.list
+        this.setState({
+          netValueAll: list
+        })
+        // this.myIncomeRateInfo = {
+        //   // 当月收益率
+        //   nowMonth: this.countSameRangeRate(list, 'month'),
+        //   nowYear: this.countSameRangeRate(list, 'year'),
+        //   // 总收益率
+        //   all: numberUtil.countDifferenceRate(list[list.length - 1]['net_value'], list[0]['net_value'])
+        // }
+        // this.nowWeekRate.my = this.countSameRangeRate(list, 'week')
+        // this.nowMonthRate.my = this.countSameRangeRate(list, 'month')
+        // this.nowYearRate.my = this.countSameRangeRate(list, 'year')
+      }
+    })
   };
 
   queryMyNetValues = (query) => {
@@ -159,6 +184,57 @@ class MyNetValue extends PureComponent {
     this.queryMyNetValuesWithUpdateQuery(data);
   };
 
+  getNetValueOption = () => {
+    const {netValueAll} = this.state;
+    if (!(netValueAll.length > 1)) {
+      return {};
+    }
+    let xData = [];
+    let yData = [];
+    const baseMy = netValueAll[0]['net_value']
+    netValueAll.forEach(function (item, index) {
+      xData.push(item.net_value_date);
+      yData.push(numberUtil.keepTwoDecimals(((item['net_value'] - baseMy) / baseMy) * 100));
+    });
+    return {
+      title: {
+        text: '我的收益率',
+        left: 'center',
+        textStyle: {
+          color: 'rgba(0, 0, 0, 0.85)',
+          fontWeight: '500'
+        }
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross'
+        }
+      },
+      calculable: true,
+      xAxis: {
+        type: 'category',
+        data: xData
+      },
+      yAxis: {
+        type: 'value',
+        scale: true
+      },
+      series: [
+        {
+          name: '幅度',
+          data: yData,
+          type: 'line',
+          smooth: false,
+          symbol: 'none',
+          lineStyle: {
+            color: '#f50'
+          }
+        }
+      ]
+    };
+  }
+
   render() {
     const {myNetValue} = this.props;
     const {pagination} = myNetValue;
@@ -197,6 +273,15 @@ class MyNetValue extends PureComponent {
               </Col>
             </Row>
           </PageHeader>
+          <div className="content-card-wrap">
+            <ReactEcharts
+              option={this.getNetValueOption()}
+              notMerge={true}
+              style={{height: '400px'}}
+              lazyUpdate={true}
+              theme={'theme_name'}
+            />
+          </div>
           <div className="content-card-wrap">
             <MyNetValueList {...listProps}/>
           </div>

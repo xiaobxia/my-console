@@ -1734,7 +1734,6 @@ Util.prototype = {
       )) {
         return {
           flag: true,
-          new: true,
           text: 'sell-15-0'
         }
       }
@@ -1976,7 +1975,6 @@ Util.prototype = {
     )) {
       return {
         flag: true,
-        new: true,
         text: 'sell-14-0'
       }
     }
@@ -2030,7 +2028,6 @@ Util.prototype = {
     )) {
       return {
         flag: true,
-        new: true,
         text: 'buy-5-0'
       }
     }
@@ -2138,7 +2135,6 @@ Util.prototype = {
     )) {
       return {
         flag: true,
-        new: true,
         text: 'sell-9-0'
       }
     }
@@ -2481,7 +2477,6 @@ Util.prototype = {
       )) {
         return {
           flag: true,
-          new: true,
           text: 'buy-11-0'
         }
       }
@@ -2568,7 +2563,6 @@ Util.prototype = {
     )) {
       return {
         flag: true,
-        new: true,
         text: 'sell-9-0'
       }
     }
@@ -2907,7 +2901,6 @@ Util.prototype = {
       )) {
         return {
           flag: true,
-          new: true,
           text: 'buy-8-1'
         }
       }
@@ -3887,7 +3880,6 @@ Util.prototype = {
     )) {
       return {
         flag: true,
-        new: true,
         text: 'sell-14-0'
       }
     }
@@ -3966,7 +3958,6 @@ Util.prototype = {
       }
       return {
         flag: true,
-        new: true,
         text: 'buy-6-0'
       }
     }
@@ -4070,7 +4061,6 @@ Util.prototype = {
     )) {
       return {
         flag: true,
-        new: true,
         text: 'sell-10-0'
       }
     }
@@ -4245,7 +4235,6 @@ Util.prototype = {
     )) {
       return {
         flag: true,
-        new: true,
         text: 'sell-10-0'
       }
     }
@@ -4436,7 +4425,6 @@ Util.prototype = {
     )) {
       return {
         flag: true,
-        new: true,
         text: 'sell-11-0'
       }
     }

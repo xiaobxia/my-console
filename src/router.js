@@ -134,10 +134,10 @@ export const menusInfos = [
     title: '基金',
     icon: 'pay-circle',
     children: [
-      {
-        pathname: '/myAsset',
-        title: '我的资产'
-      },
+      // {
+      //   pathname: '/myAsset',
+      //   title: '我的资产'
+      // },
       {
         pathname: '/myFund',
         title: '基金持仓'
@@ -146,21 +146,21 @@ export const menusInfos = [
         pathname: '/fund',
         title: '基金库'
       },
-      {
-        title: '策略',
-        pathname: '/strategy'
-      },
-      {
-        title: '低费率基金',
-        pathname: '/lowRateFund'
-      },
-      {
-        title: '我的关注',
-        pathname: '/focusFund'
-      },
+      // {
+      //   title: '策略',
+      //   pathname: '/strategy'
+      // },
+      // {
+      //   title: '低费率基金',
+      //   pathname: '/lowRateFund'
+      // },
+      // {
+      //   title: '我的关注',
+      //   pathname: '/focusFund'
+      // },
       {
         pathname: '/myNetValue',
-        title: '我的净值记录'
+        title: '我的净值'
       }
     ]
   }

@@ -62,7 +62,7 @@ class MyFund extends PureComponent {
           <span style={{marginLeft: '0.5em'}}>预估当日盈亏: <a
             className={valuationTotalSum > totalSum ? 'red-text' : 'green-text'}>{`${numberUtil.keepTwoDecimals(valuationTotalSum - totalSum)}(${numberUtil.countDifferenceRate(valuationTotalSum, totalSum)}%)`}</a></span>
         </p>
-        <p>估算时间：{myFundInfo.valuationDate}</p>
+        <p>估算时间：{myFundInfo.valuationDate || ''}</p>
       </div>
     );
   };
@@ -157,33 +157,8 @@ class MyFund extends PureComponent {
             </Row>
           </PageHeader>
           <div className="content-card-wrap">
-            <h3 className="blue-text">
-              超跌搏反：建议持仓日期7天，当前模块持仓成本{this.countSum(myFund.myFundList1, 'costSum')}元
-            </h3>
             <FundList
-              dataSource={myFund.myFundList1}
-              onDeleteHandler={this.deleteMyFund}
-              tableLoading={myFund.tableLoading}
-              onEditHandler={this.editHandler}
-            />
-          </div>
-          <div className="content-card-wrap">
-            <h3 className="blue-text">
-              高风偏追涨：建议持仓日期7天，当前模块持仓成本{this.countSum(myFund.myFundList2, 'costSum')}元
-            </h3>
-            <FundList
-              dataSource={myFund.myFundList2}
-              onDeleteHandler={this.deleteMyFund}
-              tableLoading={myFund.tableLoading}
-              onEditHandler={this.editHandler}
-            />
-          </div>
-          <div className="content-card-wrap">
-            <h3 className="blue-text">
-              顺应大势：建议持仓日期14天，当前模块持仓成本{this.countSum(myFund.myFundList3, 'costSum')}元
-            </h3>
-            <FundList
-              dataSource={myFund.myFundList3}
+              dataSource={myFund.myFundList}
               onDeleteHandler={this.deleteMyFund}
               tableLoading={myFund.tableLoading}
               onEditHandler={this.editHandler}
