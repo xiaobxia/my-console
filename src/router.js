@@ -14,7 +14,8 @@ import LowRateFund from 'Bundle-loader?lazy!localRoutes/LowRateFund'
 import Schedule from 'Bundle-loader?lazy!localRoutes/Schedule'
 import MyNetValue from 'Bundle-loader?lazy!localRoutes/MyNetValue'
 import MyAsset from 'Bundle-loader?lazy!localRoutes/MyAsset'
-import IndexInfo from 'Bundle-loader?lazy!localRoutes/IndexInfo'
+import IndexInfoXiong from 'Bundle-loader?lazy!localRoutes/IndexInfoXiong'
+import IndexInfoJian from 'Bundle-loader?lazy!localRoutes/IndexInfoJian'
 
 //router4就得以这种方式懒加载
 //其实model不需要按需加载，因为本来就不应该太大，应该由组件自己维护状态
@@ -104,9 +105,14 @@ export const baseRoutes = [
     component: getComponent(MyAsset)
   },
   {
-    name: 'IndexInfo',
-    path: '/indexInfo',
-    component: getComponent(IndexInfo)
+    name: 'IndexInfoXiong',
+    path: '/indexInfoXiong',
+    component: getComponent(IndexInfoXiong)
+  },
+  {
+    name: 'IndexInfoJian',
+    path: '/indexInfoJian',
+    component: getComponent(IndexInfoJian)
   }
 ];
 
@@ -118,9 +124,15 @@ export const menusInfos = [
     icon: 'home'
   },
   {
-    key: 'indexInfo',
-    pathname: '/indexInfo',
-    title: '指数分析',
+    key: 'indexInfoXiong',
+    pathname: '/indexInfoXiong',
+    title: '指数分析-熊',
+    icon: 'schedule'
+  },
+  {
+    key: 'IndexInfoJian',
+    pathname: '/indexInfoJian',
+    title: '指数分析-简',
     icon: 'schedule'
   },
   {

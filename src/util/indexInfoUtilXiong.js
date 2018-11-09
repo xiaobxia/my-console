@@ -5312,7 +5312,7 @@ const fnMap = {
   jijianSell: 'ifSellJijian'
 }
 
-const IndexInfoUtil = {
+const IndexInfoUtilXiong = {
   Util,
   codeMap,
   fnMap,
@@ -5386,4 +5386,4 @@ const IndexInfoUtil = {
   }
 }
 
-export default IndexInfoUtil
+export default IndexInfoUtilXiong

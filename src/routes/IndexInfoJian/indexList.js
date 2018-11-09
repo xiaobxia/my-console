@@ -5,14 +5,14 @@ import React, {PureComponent} from 'react'
 import {Table, Button, Divider, Popconfirm} from 'antd';
 import {Link} from 'react-router-dom'
 import numberUtil from 'localUtil/numberUtil';
-import indexInfoUtil from 'localUtil/indexInfoUtil';
+import indexInfoUtil from 'localUtil/indexInfoUtilJian';
 import ReactEcharts from 'echarts-for-react';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 const fnMap = indexInfoUtil.fnMap;
 const InfoUtil = indexInfoUtil.Util;
 
-const functionName = 'ifSellZhengquan'
+const functionName = 'ifSellGangtie'
 let hide = 'buy'
 
 const isDev = process.env.NODE_ENV !== 'production'
@@ -138,19 +138,6 @@ class IndexList extends PureComponent {
         }
       },
       {
-        title: '开盘大幅',
-        width: 80,
-        render: (record) => {
-          const threshold = this.props.threshold;
-          const rate = this.props.rate;
-          const wave = this.props.wave;
-          const infoConfig = {threshold, rate, wave};
-          const infoUtil = new InfoUtil(infoConfig)
-          const up = infoUtil.ifOpenHigh(record);
-          return <span className={up > 0 ? 'red-text' : 'green-text'}>{up ? '大幅' : '低幅'}</span>
-        }
-      },
-      {
         title: '收涨',
         width: 80,
         render: (record) => {
@@ -164,19 +151,6 @@ class IndexList extends PureComponent {
         }
       },
       {
-        title: '收盘大幅',
-        width: 80,
-        render: (record) => {
-          const threshold = this.props.threshold;
-          const rate = this.props.rate;
-          const wave = this.props.wave;
-          const infoConfig = {threshold, rate, wave};
-          const infoUtil = new InfoUtil(infoConfig)
-          const up = infoUtil.ifCloseHigh(record);
-          return <span className={up ? 'red-text' : 'green-text'}>{up ? '大幅' : '低幅'}</span>
-        }
-      },
-      {
         title: '盘中下跌',
         width: 50,
         render: (record) => {
@@ -186,19 +160,6 @@ class IndexList extends PureComponent {
           const infoConfig = {threshold, rate, wave};
           const infoUtil = new InfoUtil(infoConfig)
           const flag = infoUtil.ifSessionDown(record);
-          return <span className={!flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
-        }
-      },
-      {
-        title: '盘中大幅下跌',
-        width: 50,
-        render: (record) => {
-          const threshold = this.props.threshold;
-          const rate = this.props.rate;
-          const wave = this.props.wave;
-          const infoConfig = {threshold, rate, wave};
-          const infoUtil = new InfoUtil(infoConfig)
-          const flag = infoUtil.ifSessionDownHigh(record);
           return <span className={!flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
         }
       },
@@ -216,19 +177,6 @@ class IndexList extends PureComponent {
         }
       },
       {
-        title: '收盘大幅拉起',
-        width: 50,
-        render: (record) => {
-          const threshold = this.props.threshold;
-          const rate = this.props.rate;
-          const wave = this.props.wave;
-          const infoConfig = {threshold, rate, wave};
-          const infoUtil = new InfoUtil(infoConfig)
-          const flag = infoUtil.ifSessionUpCloseHigh(record);
-          return <span className={flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
-        }
-      },
-      {
         title: '盘中上升',
         width: 50,
         render: (record) => {
@@ -238,19 +186,6 @@ class IndexList extends PureComponent {
           const infoConfig = {threshold, rate, wave};
           const infoUtil = new InfoUtil(infoConfig)
           const flag = infoUtil.ifSessionUp(record);
-          return <span className={flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
-        }
-      },
-      {
-        title: '盘中大幅上升',
-        width: 50,
-        render: (record) => {
-          const threshold = this.props.threshold;
-          const rate = this.props.rate;
-          const wave = this.props.wave;
-          const infoConfig = {threshold, rate, wave};
-          const infoUtil = new InfoUtil(infoConfig)
-          const flag = infoUtil.ifSessionUpHigh(record);
           return <span className={flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
         }
       },
@@ -268,19 +203,6 @@ class IndexList extends PureComponent {
         }
       },
       {
-        title: '收盘大幅回落',
-        width: 50,
-        render: (record) => {
-          const threshold = this.props.threshold;
-          const rate = this.props.rate;
-          const wave = this.props.wave;
-          const infoConfig = {threshold, rate, wave};
-          const infoUtil = new InfoUtil(infoConfig)
-          const flag = infoUtil.ifSessionDownCloseHigh(record);
-          return <span className={!flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
-        }
-      },
-      {
         title: '无抵抗',
         width: 50,
         render: (record) => {
@@ -290,19 +212,6 @@ class IndexList extends PureComponent {
           const infoConfig = {threshold, rate, wave};
           const infoUtil = new InfoUtil(infoConfig)
           const flag = infoUtil.ifHighPreCloseDown(record);
-          return <span className={flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
-        }
-      },
-      {
-        title: '大幅无抵抗',
-        width: 50,
-        render: (record) => {
-          const threshold = this.props.threshold;
-          const rate = this.props.rate;
-          const wave = this.props.wave;
-          const infoConfig = {threshold, rate, wave};
-          const infoUtil = new InfoUtil(infoConfig)
-          const flag = infoUtil.ifHighPreCloseDownHigh(record);
           return <span className={flag ? 'red-text' : 'green-text'}>{flag ? '是' : '否'}</span>
         }
       },
@@ -317,19 +226,11 @@ class IndexList extends PureComponent {
           const infoUtil = new InfoUtil(infoConfig)
           let flag = {}
           flag.ifUpOpen = infoUtil.ifUpOpen(record)
-          flag.ifOpenHigh = infoUtil.ifOpenHigh(record)
           flag.ifUpClose = infoUtil.ifUpClose(record)
-          flag.ifCloseHigh = infoUtil.ifCloseHigh(record)
           flag.ifSessionDown = infoUtil.ifSessionDown(record)
-          flag.ifSessionDownHigh = infoUtil.ifSessionDownHigh(record)
           flag.ifSessionUpClose = infoUtil.ifSessionUpClose(record)
-          flag.ifSessionUpCloseHigh = infoUtil.ifSessionUpCloseHigh(record)
           flag.ifSessionUp = infoUtil.ifSessionUp(record)
-          flag.ifSessionUpHigh = infoUtil.ifSessionUpHigh(record)
           flag.ifSessionDownClose = infoUtil.ifSessionDownClose(record)
-          flag.ifSessionDownCloseHigh = infoUtil.ifSessionDownCloseHigh(record)
-          // flag.ifHighPreCloseDown = infoUtil.ifHighPreCloseDown(record)
-          // flag.ifHighPreCloseDownHigh = infoUtil.ifHighPreCloseDownHigh(record)
           let str = JSON.stringify(flag)
           str = str.split(':').join(': ')
           str = str.split(',').join(', ')
@@ -371,7 +272,7 @@ class IndexList extends PureComponent {
             const twoDayRecord = recentNetValue[index < recentNetValue.length - 2 ? index + 2 : index + 1];
             let active = false;
             let flag = infoUtil[functionName](record, oneDayRecord, twoDayRecord);
-            if (((flag === true) || (flag !== false && flag.flag === true)) && isDev) {
+            if (((flag !== false && flag !== true && flag.new === true)) && isDev) {
               active = true;
             }
             return active ? 'active' : 'false'
