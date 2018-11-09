@@ -99,6 +99,11 @@ Util.prototype = {
     if (ifMatch(today,
       {'ifUpOpen': true, 'ifUpClose': true, 'ifSessionDown': false, 'ifSessionUpClose': true, 'ifSessionUp': true, 'ifSessionDownClose': false}
     )) {
+      if (ifMatch(lastDay,
+        {'ifUpOpen': false, 'ifUpClose': true, 'ifSessionDown': true, 'ifSessionUpClose': true, 'ifSessionUp': true, 'ifSessionDownClose': true}
+      )) {
+        return false
+      }
       return {
         flag: true,
         text: 'sell-0-0'
@@ -596,6 +601,11 @@ Util.prototype = {
     if (ifMatch(today,
       {'ifUpOpen': true, 'ifUpClose': true, 'ifSessionDown': false, 'ifSessionUpClose': true, 'ifSessionUp': true, 'ifSessionDownClose': false}
     )) {
+      if (ifMatch(lastDay,
+        {'ifUpOpen': false, 'ifUpClose': true, 'ifSessionDown': true, 'ifSessionUpClose': true, 'ifSessionUp': true, 'ifSessionDownClose': true}
+      )) {
+        return false
+      }
       return {
         flag: true,
         text: 'sell-0-0'
@@ -604,6 +614,16 @@ Util.prototype = {
     if (ifMatch(today,
       {'ifUpOpen': false, 'ifUpClose': true, 'ifSessionDown': false, 'ifSessionUpClose': true, 'ifSessionUp': true, 'ifSessionDownClose': false}
     )) {
+      if (ifMatch(lastDay,
+        {'ifUpOpen': false, 'ifUpClose': false, 'ifSessionDown': true, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': true}
+      )) {
+        return false
+      }
+      if (ifMatch(lastDay,
+        {'ifUpOpen': true, 'ifUpClose': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': true}
+      )) {
+        return false
+      }
       return {
         flag: true,
         text: 'sell-1-0'

@@ -12,8 +12,8 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 const fnMap = indexInfoUtil.fnMap;
 const InfoUtil = indexInfoUtil.Util;
 
-const functionName = 'ifSellGangtie'
-let hide = 'buy'
+const functionName = 'ifBuyJisuanji'
+let hide = 'sell'
 
 const isDev = process.env.NODE_ENV !== 'production'
 
@@ -237,7 +237,8 @@ class IndexList extends PureComponent {
           str = str.replace(/"/g, '\'')
           return <CopyToClipboard
             text={str}
-            onCopy={() => {}}>
+            onCopy={() => {
+            }}>
             <span>复制</span>
           </CopyToClipboard>
         }
@@ -282,4 +283,5 @@ class IndexList extends PureComponent {
     );
   }
 }
+
 export default IndexList;
