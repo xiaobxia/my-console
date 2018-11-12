@@ -54,6 +54,30 @@ class IndexList extends PureComponent {
             show: false
           }
         })
+      } else if (bigRateHigh2 && wulinRate < 0 && wulinRate < chuangyeRate && wulinRate < -0.73) {
+        points2.push({
+          coord: [item['date'], wulin[index].kline['close']],
+          itemStyle: {
+            normal: {
+              color: 'red'
+            }
+          },
+          label: {
+            show: false
+          }
+        })
+      } else if (bigRateHigh && chuangyeRate < 0 && chuangyeRate < wulinRate && chuangyeRate < -0.94) {
+        points.push({
+          coord: [item['date'], item.kline['close']],
+          itemStyle: {
+            normal: {
+              color: 'red'
+            }
+          },
+          label: {
+            show: false
+          }
+        })
       }
     });
     return {
