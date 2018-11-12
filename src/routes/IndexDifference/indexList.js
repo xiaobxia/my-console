@@ -27,10 +27,11 @@ class IndexList extends PureComponent {
       let wulinRate = wulin[index].kline['netChangeRatio']
       yDataChuangye.unshift(item.kline['close']);
       yDataWulin.unshift(wulin[index].kline['close']);
-      let bigRate = Math.abs(chuangyeRate - wulinRate) > 0.94
-      let bigRateHigh = Math.abs(chuangyeRate - wulinRate) > 1.88
-      let bigRateHigh2 = Math.abs(chuangyeRate - wulinRate) > 1.48
-      if (bigRateHigh && chuangyeRate > 0 && chuangyeRate > wulinRate && chuangyeRate > 0.94) {
+      const rateChuangye = 0.94
+      const rateWulin = 0.73
+      let bigRateChuangye = Math.abs(chuangyeRate - wulinRate) > rateChuangye * 2
+      let bigRateWulin = Math.abs(chuangyeRate - wulinRate) > rateWulin * 2
+      if (bigRateChuangye && chuangyeRate > 0 && chuangyeRate > wulinRate && chuangyeRate > rateChuangye) {
         points.push({
           coord: [item['date'], item.kline['close']],
           itemStyle: {
@@ -42,21 +43,9 @@ class IndexList extends PureComponent {
             show: false
           }
         })
-      } else if (bigRateHigh2 && wulinRate > 0 && wulinRate > chuangyeRate && wulinRate > 0.73) {
-        points2.push({
-          coord: [item['date'], wulin[index].kline['close']],
-          itemStyle: {
-            normal: {
-              color: 'green'
-            }
-          },
-          label: {
-            show: false
-          }
-        })
-      } else if (bigRateHigh2 && wulinRate < 0 && wulinRate < chuangyeRate && wulinRate < -0.73) {
-        points2.push({
-          coord: [item['date'], wulin[index].kline['close']],
+      } else if (bigRateChuangye && chuangyeRate < 0 && chuangyeRate < wulinRate && chuangyeRate < -rateChuangye) {
+        points.push({
+          coord: [item['date'], item.kline['close']],
           itemStyle: {
             normal: {
               color: 'red'
@@ -66,9 +55,21 @@ class IndexList extends PureComponent {
             show: false
           }
         })
-      } else if (bigRateHigh && chuangyeRate < 0 && chuangyeRate < wulinRate && chuangyeRate < -0.94) {
-        points.push({
-          coord: [item['date'], item.kline['close']],
+      } else if (bigRateWulin && wulinRate > 0 && wulinRate > chuangyeRate && wulinRate > rateWulin) {
+        points2.push({
+          coord: [item['date'], wulin[index].kline['close']],
+          itemStyle: {
+            normal: {
+              color: 'green'
+            }
+          },
+          label: {
+            show: false
+          }
+        })
+      } else if (bigRateWulin && wulinRate < 0 && wulinRate < chuangyeRate && wulinRate < -rateWulin) {
+        points2.push({
+          coord: [item['date'], wulin[index].kline['close']],
           itemStyle: {
             normal: {
               color: 'red'
