@@ -31,7 +31,8 @@ class IndexList extends PureComponent {
       const rateWulin = 0.73
       let bigRateChuangye = Math.abs(chuangyeRate - wulinRate) > rateChuangye * 2
       let bigRateWulin = Math.abs(chuangyeRate - wulinRate) > rateWulin * 2
-      if (bigRateChuangye && chuangyeRate > 0 && chuangyeRate > wulinRate && chuangyeRate > rateChuangye) {
+      let tempFlag = Math.abs(chuangyeRate - wulinRate) > rateChuangye
+      if (tempFlag && chuangyeRate > 0 && chuangyeRate > wulinRate && chuangyeRate > rateChuangye) {
         points.push({
           coord: [item['date'], item.kline['close']],
           itemStyle: {
