@@ -138,7 +138,7 @@ export const menusInfos = [
   {
     key: 'index',
     title: '指数',
-    icon: 'chart-line',
+    icon: 'line-chart',
     children: [
       {
         pathname: '/indexInfoXiong',
