@@ -130,28 +130,29 @@ export const menusInfos = [
     icon: 'home'
   },
   {
-    key: 'indexInfoXiong',
-    pathname: '/indexInfoXiong',
-    title: '指数分析-熊',
-    icon: 'schedule'
-  },
-  {
-    key: 'IndexInfoJian',
-    pathname: '/indexInfoJian',
-    title: '指数分析-简',
-    icon: 'schedule'
-  },
-  {
-    key: 'IndexDifference',
-    pathname: '/indexDifference',
-    title: '指数差分析',
-    icon: 'schedule'
-  },
-  {
     key: 'schedule',
     pathname: '/schedule',
     title: '定时任务',
     icon: 'schedule'
+  },
+  {
+    key: 'index',
+    title: '指数',
+    icon: 'chart-line',
+    children: [
+      {
+        pathname: '/indexInfoXiong',
+        title: '指数分析-熊'
+      },
+      {
+        pathname: '/indexInfoJian',
+        title: '指数分析-简'
+      },
+      {
+        pathname: '/indexDifference',
+        title: '指数差分析'
+      }
+    ]
   },
   {
     key: 'fund',
