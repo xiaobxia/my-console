@@ -12,7 +12,7 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 const fnMap = indexInfoUtil.fnMap;
 const InfoUtil = indexInfoUtil.Util;
 
-const functionName = 'ifBuyJisuanji'
+const functionName = 'ifBuyJungong'
 let hide = 'sell'
 
 const isDev = process.env.NODE_ENV !== 'production'
@@ -138,6 +138,19 @@ class IndexList extends PureComponent {
         }
       },
       {
+        title: '开盘大幅',
+        width: 80,
+        render: (record) => {
+          const threshold = this.props.threshold;
+          const rate = this.props.rate;
+          const wave = this.props.wave;
+          const infoConfig = {threshold, rate, wave};
+          const infoUtil = new InfoUtil(infoConfig)
+          const up = infoUtil.ifOpenHigh(record);
+          return <span className={up > 0 ? 'red-text' : 'green-text'}>{up ? '大幅' : '低幅'}</span>
+        }
+      },
+      {
         title: '收涨',
         width: 80,
         render: (record) => {
@@ -148,6 +161,19 @@ class IndexList extends PureComponent {
           const infoUtil = new InfoUtil(infoConfig)
           const up = infoUtil.ifUpClose(record);
           return <span className={up ? 'red-text' : 'green-text'}>{up ? '收高' : '收跌'}</span>
+        }
+      },
+      {
+        title: '收盘大幅',
+        width: 80,
+        render: (record) => {
+          const threshold = this.props.threshold;
+          const rate = this.props.rate;
+          const wave = this.props.wave;
+          const infoConfig = {threshold, rate, wave};
+          const infoUtil = new InfoUtil(infoConfig)
+          const up = infoUtil.ifCloseHigh(record);
+          return <span className={up ? 'red-text' : 'green-text'}>{up ? '大幅' : '低幅'}</span>
         }
       },
       {
@@ -226,7 +252,9 @@ class IndexList extends PureComponent {
           const infoUtil = new InfoUtil(infoConfig)
           let flag = {}
           flag.ifUpOpen = infoUtil.ifUpOpen(record)
+          flag.ifOpenHigh = infoUtil.ifOpenHigh(record)
           flag.ifUpClose = infoUtil.ifUpClose(record)
+          flag.ifCloseHigh = infoUtil.ifCloseHigh(record)
           flag.ifSessionDown = infoUtil.ifSessionDown(record)
           flag.ifSessionUpClose = infoUtil.ifSessionUpClose(record)
           flag.ifSessionUp = infoUtil.ifSessionUp(record)
