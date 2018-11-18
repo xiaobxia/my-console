@@ -264,14 +264,40 @@ Util.prototype = {
       )) {
         return false
       }
+      if (ifMatch(lastDay,
+        {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': true, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
+      )) {
+        return false
+      }
+      if (ifMatch(lastDay,
+        {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': true, 'ifSessionDown': true, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
+      )) {
+        return false
+      }
+      if (ifMatch(lastDay,
+        {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': true, 'ifSessionDownClose': true}
+      )) {
+        return false
+      }
       return {
         flag: true,
+        new: true,
         text: 'buy-0-0'
       }
     }
     if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': true, 'ifUpClose': false, 'ifCloseHigh': true, 'ifSessionDown': true, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': true}
     )) {
+      if (ifMatch(lastDay,
+        {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
+      )) {
+        return false
+      }
+      if (ifMatch(lastDay,
+        {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': true, 'ifSessionUp': false, 'ifSessionDownClose': false}
+      )) {
+        return false
+      }
       return {
         flag: true,
         text: 'buy-1-0'
@@ -280,18 +306,41 @@ Util.prototype = {
     if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': true, 'ifSessionDown': true, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': true}
     )) {
-      return {
-        flag: true,
-        text: 'buy-2-0'
+      if (ifMatch(lastDay,
+        {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': true, 'ifSessionUp': false, 'ifSessionDownClose': false}
+      )) {
+        return {
+          flag: true,
+          text: 'buy-2-0'
+        }
+      }
+      if (ifMatch(lastDay,
+        {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': true}
+      )) {
+        return {
+          flag: true,
+          text: 'buy-2-1'
+        }
       }
     }
     if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': true}
     )) {
-      return {
-        flag: true,
-        new: true,
-        text: 'buy-3-0'
+      if (ifMatch(lastDay,
+        {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': true, 'ifSessionDown': true, 'ifSessionUpClose': true, 'ifSessionUp': true, 'ifSessionDownClose': false}
+      )) {
+        return {
+          flag: true,
+          text: 'buy-3-0'
+        }
+      }
+      if (ifMatch(lastDay,
+        {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': true, 'ifSessionDown': true, 'ifSessionUpClose': false, 'ifSessionUp': true, 'ifSessionDownClose': true}
+      )) {
+        return {
+          flag: true,
+          text: 'buy-3-1'
+        }
       }
     }
     return false
