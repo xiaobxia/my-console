@@ -14,21 +14,6 @@ function ifMatch(raw, target) {
   return match
 }
 
-const baseModel = {
-  ifUpOpen: false,
-  ifOpenHigh: false,
-  ifUpClose: false,
-  ifCloseHigh: true,
-  ifSessionDown: true,
-  ifSessionDownHigh: false,
-  ifSessionUpClose: false,
-  ifSessionUpCloseHigh: false,
-  ifSessionUp: false,
-  ifSessionUpHigh: false,
-  ifSessionDownClose: true,
-  ifSessionDownCloseHigh: false
-}
-
 function extend(raw, target) {
   let obj = {}
   for (let key in raw) {
@@ -3930,55 +3915,32 @@ const codeMap = {
   }
 }
 const fnMap = {
-  chuangyeBuy: 'ifBuyChuangye',
-  chuangyeSell: 'ifSellChuangye',
+  chuangye: 'ifChangeChuangye',
   gangtieBuy: 'ifBuyGangtie',
-  gangtieSell: 'ifSellGangtie',
   jungongBuy: 'ifBuyJungong',
-  jungongSell: 'ifSellJungong',
   yiyaoBuy: 'ifBuyYiyao',
-  yiyaoSell: 'ifSellYiyao',
   meitanBuy: 'ifBuyMeitan',
-  meitanSell: 'ifSellMeitan',
   youseBuy: 'ifBuyYouse',
-  youseSell: 'ifSellYouse',
   jisuanjiBuy: 'ifBuyJisuanji',
-  jisuanjiSell: 'ifSellJisuanji',
   baijiuBuy: 'ifBuyBaijiu',
-  baijiuSell: 'ifSellBaijiu',
   xinxiBuy: 'ifBuyXinxi',
-  xinxiSell: 'ifSellXinxi',
   xiaofeiBuy: 'ifBuyXiaofei',
-  xiaofeiSell: 'ifSellXiaofei',
   baoxianBuy: 'ifBuyBaoxian',
-  baoxianSell: 'ifSellBaoxian',
   wulinBuy: 'ifBuyWulin',
-  wulinSell: 'ifSellWulin',
   chuanmeiBuy: 'ifBuyChuanmei',
-  chuanmeiSell: 'ifSellChuanmei',
   dianziBuy: 'ifBuyDianzi',
-  dianziSell: 'ifSellDianzi',
   yiliaoBuy: 'ifBuyYiliao',
-  yiliaoSell: 'ifSellYiliao',
   shengwuBuy: 'ifBuyShengwu',
-  shengwuSell: 'ifSellShengwu',
   sanbaiBuy: 'ifBuySanbai',
-  sanbaiSell: 'ifSellSanbai',
   wubaiBuy: 'ifBuyWubai',
-  wubaiSell: 'ifSellWubai',
   yinhangBuy: 'ifBuyYinhang',
-  yinhangSell: 'ifSellYinhang',
   dichanBuy: 'ifBuyDichan',
-  dichanSell: 'ifSellDichan',
   zhengquanBuy: 'ifBuyZhengquan',
-  zhengquanSell: 'ifSellZhengquan',
   jijianBuy: 'ifBuyJijian',
-  jijianSell: 'ifSellJijian',
-  qicheBuy: 'ifBuyQiche',
-  qicheSell: 'ifSellQiche'
+  qicheBuy: 'ifBuyQiche'
 }
 
-const indexInfoUtilJian = {
+const IndexInfoUtilXiong = {
   Util,
   codeMap,
   fnMap,
@@ -4052,4 +4014,4 @@ const indexInfoUtilJian = {
   }
 }
 
-export default indexInfoUtilJian
+export default IndexInfoUtilXiong

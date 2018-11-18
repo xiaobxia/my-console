@@ -17,6 +17,7 @@ import MyAsset from 'Bundle-loader?lazy!localRoutes/MyAsset'
 import IndexInfoXiong from 'Bundle-loader?lazy!localRoutes/IndexInfoXiong'
 import IndexInfoJian from 'Bundle-loader?lazy!localRoutes/IndexInfoJian'
 import IndexDifference from 'Bundle-loader?lazy!localRoutes/IndexDifference'
+import ChangeMarket from 'Bundle-loader?lazy!localRoutes/ChangeMarket'
 
 //router4就得以这种方式懒加载
 //其实model不需要按需加载，因为本来就不应该太大，应该由组件自己维护状态
@@ -119,6 +120,11 @@ export const baseRoutes = [
     name: 'IndexInfoJian',
     path: '/indexInfoJian',
     component: getComponent(IndexInfoJian)
+  },
+  {
+    name: 'ChangeMarket',
+    path: '/changeMarket',
+    component: getComponent(ChangeMarket)
   }
 ];
 
@@ -151,6 +157,10 @@ export const menusInfos = [
       {
         pathname: '/indexDifference',
         title: '指数差分析'
+      },
+      {
+        pathname: '/changeMarket',
+        title: '变盘策略'
       }
     ]
   },
