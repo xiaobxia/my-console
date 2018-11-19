@@ -111,14 +111,43 @@ Util.prototype = {
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       if (ifMatch(today,
-        {'ifUpOpen': true}
+        {'ifUpClose': false}
+      )) {
+        return {
+          flag: true,
+          text: 'sell-1-0'
+        }
+      }
+    }
+    if (ifMatch(lastDay,
+      {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
+    )) {
+      if (ifMatch(today,
+        {'ifUpClose': false}
+      )) {
+        return {
+          flag: true,
+          text: 'sell-2-0'
+        }
+      }
+    }
+    if (ifMatch(lastDay,
+      {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
+    )) {
+      if (ifMatch(today,
+        {'ifUpClose': false}
       )) {
         return {
           flag: true,
           new: true,
-          text: 'sell-1-0'
+          text: 'sell-3-0'
         }
       }
+      // return {
+      //   flag: true,
+      //   new: true,
+      //   text: 'sell-3-0'
+      // }
     }
     return false
   },
