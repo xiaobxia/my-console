@@ -28,7 +28,7 @@ for (let key in codeMap) {
   })
 }
 
-const defaultIndex = 'youse'
+const defaultIndex = 'baijiu'
 const ifMock = false
 
 
