@@ -1989,10 +1989,11 @@ Util.prototype = {
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       if (ifMatch(today,
-        {'ifUpClose': false}
+        {'ifUpClose': true}
       )) {
         return {
           flag: true,
+          new: true,
           text: 'sell-0-0'
         }
       }
@@ -2017,7 +2018,6 @@ Util.prototype = {
       )) {
         return {
           flag: true,
-          new: true,
           text: 'sell-2-0'
         }
       }
@@ -2097,10 +2097,11 @@ Util.prototype = {
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       if (ifMatch(today,
-        {'ifUpClose': false}
+        {'ifUpClose': true}
       )) {
         return {
           flag: true,
+          new: true,
           text: 'sell-0-0'
         }
       }
@@ -2121,11 +2122,10 @@ Util.prototype = {
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       if (ifMatch(today,
-        {'ifUpClose': false}
+        {'ifUpClose': true}
       )) {
         return {
           flag: true,
-          new: true,
           text: 'sell-2-0'
         }
       }
@@ -2233,7 +2233,6 @@ Util.prototype = {
       )) {
         return {
           flag: true,
-          new: true,
           text: 'sell-2-0'
         }
       }
@@ -2313,12 +2312,13 @@ Util.prototype = {
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       if (ifMatch(today,
-        {'ifUpClose': false}
+        {'ifUpClose': true}
       )) {
-        return {
-          flag: true,
-          text: 'sell-0-0'
-        }
+        // return {
+        //   flag: true,
+        //   new: true,
+        //   text: 'sell-0-0'
+        // }
       }
     }
     if (ifMatch(lastDay,
@@ -2341,7 +2341,6 @@ Util.prototype = {
       )) {
         return {
           flag: true,
-          new: true,
           text: 'sell-2-0'
         }
       }
@@ -2449,7 +2448,6 @@ Util.prototype = {
       )) {
         return {
           flag: true,
-          new: true,
           text: 'sell-2-0'
         }
       }
@@ -2555,11 +2553,11 @@ Util.prototype = {
       if (ifMatch(today,
         {'ifUpClose': false}
       )) {
-        return {
-          flag: true,
-          new: true,
-          text: 'sell-2-0'
-        }
+        // return {
+        //   flag: true,
+        //   new: true,
+        //   text: 'sell-2-0'
+        // }
       }
     }
     if (ifMatch(lastDay,

@@ -12,7 +12,7 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 const fnMap = changeMarket.fnMap;
 const InfoUtil = changeMarket.Util;
 
-const functionName = 'ifSellQiche'
+const functionName = 'ifSellWubai'
 let hide = 'buy'
 
 const isDev = process.env.NODE_ENV !== 'production'
