@@ -12,15 +12,6 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 const fnMap = changeMarket.fnMap;
 const InfoUtil = changeMarket.Util;
 
-const functionName = 'ifSellWubai'
-let hide = 'buy'
-
-const isDev = process.env.NODE_ENV !== 'production'
-
-if (!isDev) {
-  hide = false
-}
-
 class IndexList extends PureComponent {
 
   getChartOption = () => {
@@ -38,26 +29,25 @@ class IndexList extends PureComponent {
       yData.unshift(item['close']);
       const oneDayRecord = recentNetValue[index < recentNetValue.length - 1 ? index + 1 : index];
       const twoDayRecord = recentNetValue[index < recentNetValue.length - 2 ? index + 2 : index + 1];
-      let bugFlag = infoUtil[fnMap[this.props.nowType + 'Buy']](item, oneDayRecord, twoDayRecord);
-      let sellFlag = infoUtil[fnMap[this.props.nowType + 'Sell']](item, oneDayRecord, twoDayRecord);
-      if (hide !== 'buy' && ((bugFlag === true) || (bugFlag !== false && bugFlag.flag === true))) {
-        points.push({
-          coord: [item['date'], item['close']],
-          itemStyle: {
-            normal: {
-              color: (bugFlag !== false && bugFlag.new === true) ? 'black' : 'red'
-            }
-          },
-          label: {
-            show: false
+      let flag = infoUtil[fnMap[this.props.nowType]](item, oneDayRecord, twoDayRecord);
+      if (((flag !== false && flag.flag === true))) {
+        let color = ''
+        if (flag.text.indexOf('buy') !== -1) {
+          color = 'rgb(244, 148, 110)'
+          if (flag.new) {
+            color = 'rgb(132, 7, 189)'
           }
-        })
-      } else if (hide !== 'sell' && ((sellFlag === true) || (sellFlag !== false && sellFlag.flag === true))) {
+        } else if (flag.text.indexOf('sell') !== -1) {
+          color = 'green'
+          if (flag.new) {
+            color = 'black'
+          }
+        }
         points.push({
           coord: [item['date'], item['close']],
           itemStyle: {
             normal: {
-              color: (sellFlag !== false && sellFlag.new === true) ? 'black' : 'green'
+              color: color
             }
           },
           label: {
@@ -290,22 +280,6 @@ class IndexList extends PureComponent {
           size="small"
           rowKey={record => record.date}
           onSelect={this.onSelectRow}
-          rowClassName={(record, index) => {
-            const threshold = this.props.threshold;
-            const rate = this.props.rate;
-            const wave = this.props.wave;
-            const infoConfig = {threshold, rate, wave};
-            const infoUtil = new InfoUtil(infoConfig)
-            const recentNetValue = dataSource;
-            const oneDayRecord = recentNetValue[index < recentNetValue.length - 1 ? index + 1 : index];
-            const twoDayRecord = recentNetValue[index < recentNetValue.length - 2 ? index + 2 : index + 1];
-            let active = false;
-            let flag = infoUtil[functionName](record, oneDayRecord, twoDayRecord);
-            if (((flag !== false && flag !== true && flag.new === true)) && isDev) {
-              active = true;
-            }
-            return active ? 'active' : 'false'
-          }}
         />
       </div>
     );
