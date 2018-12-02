@@ -31,23 +31,11 @@ class IndexList extends PureComponent {
       const twoDayRecord = recentNetValue[index < recentNetValue.length - 2 ? index + 2 : index + 1];
       let flag = infoUtil[fnMap[this.props.nowType]](item, oneDayRecord, twoDayRecord);
       if (((flag !== false && flag.flag === true))) {
-        let color = ''
-        if (flag.text.indexOf('buy') !== -1) {
-          color = 'rgb(244, 148, 110)'
-          if (flag.new) {
-            color = 'rgb(132, 7, 189)'
-          }
-        } else if (flag.text.indexOf('sell') !== -1) {
-          color = 'green'
-          if (flag.new) {
-            color = 'black'
-          }
-        }
         points.push({
           coord: [item['date'], item['close']],
           itemStyle: {
             normal: {
-              color: color
+              color: 'black'
             }
           },
           label: {
