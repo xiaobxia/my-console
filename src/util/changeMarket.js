@@ -94,8 +94,8 @@ Util.prototype = {
   },
   ifChuangye: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -103,7 +103,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -111,7 +111,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -119,7 +119,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -131,8 +131,8 @@ Util.prototype = {
   },
   ifGangtie: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -140,7 +140,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -148,7 +148,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -156,7 +156,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -168,8 +168,8 @@ Util.prototype = {
   },
   ifJungong: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -177,7 +177,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -185,7 +185,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -193,7 +193,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -205,8 +205,8 @@ Util.prototype = {
   },
   ifYiyao: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -214,7 +214,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -222,7 +222,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -230,7 +230,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -242,8 +242,8 @@ Util.prototype = {
   },
   ifMeitan: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -251,7 +251,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -259,7 +259,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -267,7 +267,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -279,8 +279,7 @@ Util.prototype = {
   },
   ifYouse: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -288,7 +287,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -296,7 +295,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -304,7 +303,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -316,8 +315,7 @@ Util.prototype = {
   },
   ifJisuanji: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -325,7 +323,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -333,7 +331,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -341,7 +339,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -353,8 +351,7 @@ Util.prototype = {
   },
   ifBaijiu: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -362,7 +359,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -370,7 +367,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -378,7 +375,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -390,8 +387,7 @@ Util.prototype = {
   },
   ifXinxi: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -399,7 +395,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -407,7 +403,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -415,7 +411,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -427,8 +423,7 @@ Util.prototype = {
   },
   ifXiaofei: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -436,7 +431,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -444,7 +439,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -452,7 +447,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -464,8 +459,7 @@ Util.prototype = {
   },
   ifBaoxian: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -473,7 +467,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -481,7 +475,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -489,7 +483,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -501,8 +495,7 @@ Util.prototype = {
   },
   ifWulin: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -510,7 +503,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -518,7 +511,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -526,7 +519,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -538,8 +531,7 @@ Util.prototype = {
   },
   ifChuanmei: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -547,7 +539,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -555,7 +547,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -563,7 +555,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -575,8 +567,7 @@ Util.prototype = {
   },
   ifDianzi: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -584,7 +575,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -592,7 +583,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -600,7 +591,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -612,8 +603,7 @@ Util.prototype = {
   },
   ifYiliao: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -621,7 +611,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -629,7 +619,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -637,7 +627,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -649,8 +639,7 @@ Util.prototype = {
   },
   ifShengwu: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -658,7 +647,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -666,7 +655,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -674,7 +663,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -686,8 +675,7 @@ Util.prototype = {
   },
   ifSanbai: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -695,7 +683,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -703,7 +691,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -711,7 +699,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -723,8 +711,7 @@ Util.prototype = {
   },
   ifWubai: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -732,7 +719,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -740,7 +727,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -748,7 +735,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -760,8 +747,7 @@ Util.prototype = {
   },
   ifYinhang: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -769,7 +755,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -777,7 +763,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -785,7 +771,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -797,8 +783,7 @@ Util.prototype = {
   },
   ifDichan: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -806,7 +791,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -814,7 +799,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -822,7 +807,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -834,8 +819,7 @@ Util.prototype = {
   },
   ifZhengquan: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -843,7 +827,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -851,7 +835,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -859,7 +843,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -871,8 +855,7 @@ Util.prototype = {
   },
   ifJijian: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -880,7 +863,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -888,7 +871,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -896,7 +879,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -908,8 +891,7 @@ Util.prototype = {
   },
   ifQiche: function (record, oneDayRecord) {
     const today = this.getFlag(record)
-    const lastDay = this.getFlag(oneDayRecord)
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -917,7 +899,7 @@ Util.prototype = {
         text: 'type-0-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -925,7 +907,7 @@ Util.prototype = {
         text: 'type-1-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
@@ -933,7 +915,7 @@ Util.prototype = {
         text: 'type-2-0'
       }
     }
-    if (ifMatch(lastDay,
+    if (ifMatch(today,
       {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': true, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionUpClose': false, 'ifSessionUp': false, 'ifSessionDownClose': false}
     )) {
       return {
