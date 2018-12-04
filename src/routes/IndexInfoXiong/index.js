@@ -28,7 +28,7 @@ for (let key in codeMap) {
   })
 }
 
-const defaultIndex = 'yiyao'
+const defaultIndex = 'jisuanji'
 const ifMock = false
 const ifLockData = true
 
