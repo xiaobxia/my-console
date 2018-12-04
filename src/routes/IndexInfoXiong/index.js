@@ -28,8 +28,9 @@ for (let key in codeMap) {
   })
 }
 
-const defaultIndex = 'huanbao'
+const defaultIndex = 'chuangye'
 const ifMock = false
+const ifLockData = true
 
 
 
@@ -56,7 +57,7 @@ class IndexInfo extends PureComponent {
   componentWillUnmount() {
   }
 
-  initPage = (code) => {
+  initPage = (code, index) => {
     //webData/getWebStockdaybarAllZhongjin
     code = code || codeMap[defaultIndex].code;
     http.get(`${ifMock ? '/mock' : 'webData'}/getWebStockdaybarAllZhongjin`, {
@@ -65,7 +66,18 @@ class IndexInfo extends PureComponent {
     }).then((data) => {
       if (data.success) {
         const list = data.data.list;
-        this.setState(formatData(list));
+        if (ifLockData) {
+          this.setState({
+            list: formatData(list).list
+          });
+          this.setState({
+            threshold: codeMap[index || defaultIndex].threshold,
+            rate: codeMap[index || defaultIndex].rate,
+            wave: codeMap[index || defaultIndex].wave
+          });
+        } else {
+          this.setState(formatData(list));
+        }
       }
     })
   };
@@ -80,7 +92,7 @@ class IndexInfo extends PureComponent {
       code[key] = codeMap[key].code
     }
     this.setState({nowType: e.target.value});
-    this.initPage(code[e.target.value]);
+    this.initPage(code[e.target.value], e.target.value);
     console.log(e.target.value)
   };
 
