@@ -4934,7 +4934,6 @@ Util.prototype = {
     )) {
       return {
         flag: true,
-        new: true,
         text: 'buy-8-0'
       }
     }
@@ -5073,7 +5072,15 @@ Util.prototype = {
     )) {
       return {
         flag: true,
-        text: 'buy-2-0'
+        text: 'buy-3-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': false, 'ifSessionDownHigh': false, 'ifSessionUpClose': false, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': true, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'buy-4-0'
       }
     }
     return false
@@ -5445,6 +5452,14 @@ Util.prototype = {
         text: 'buy-5-0'
       }
     }
+    if (ifMatch(today,
+      {'ifUpOpen': true, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': true, 'ifSessionDown': true, 'ifSessionDownHigh': true, 'ifSessionUpClose': false, 'ifSessionUpCloseHigh': false, 'ifSessionUp': true, 'ifSessionUpHigh': false, 'ifSessionDownClose': true, 'ifSessionDownCloseHigh': true}
+    )) {
+      return {
+        flag: true,
+        text: 'buy-6-0'
+      }
+    }
     return false
   },
   ifSellJijian: function (record, oneDayRecord) {
@@ -5775,6 +5790,14 @@ Util.prototype = {
       return {
         flag: true,
         text: 'buy-4-0'
+      }
+    }
+    if (ifMatch(today,
+      {'ifUpOpen': false, 'ifOpenHigh': false, 'ifUpClose': false, 'ifCloseHigh': false, 'ifSessionDown': true, 'ifSessionDownHigh': false, 'ifSessionUpClose': true, 'ifSessionUpCloseHigh': false, 'ifSessionUp': false, 'ifSessionUpHigh': false, 'ifSessionDownClose': false, 'ifSessionDownCloseHigh': false}
+    )) {
+      return {
+        flag: true,
+        text: 'buy-5-0'
       }
     }
     return false
