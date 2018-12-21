@@ -18,6 +18,7 @@ import IndexInfoXiong from 'Bundle-loader?lazy!localRoutes/IndexInfoXiong'
 import IndexInfoJian from 'Bundle-loader?lazy!localRoutes/IndexInfoJian'
 import IndexDifference from 'Bundle-loader?lazy!localRoutes/IndexDifference'
 import ChangeMarket from 'Bundle-loader?lazy!localRoutes/ChangeMarket'
+import Chart from 'Bundle-loader?lazy!localRoutes/Chart'
 
 //router4就得以这种方式懒加载
 //其实model不需要按需加载，因为本来就不应该太大，应该由组件自己维护状态
@@ -125,6 +126,11 @@ export const baseRoutes = [
     name: 'ChangeMarket',
     path: '/changeMarket',
     component: getComponent(ChangeMarket)
+  },
+  {
+    name: 'Chart',
+    path: '/chart',
+    component: getComponent(Chart)
   }
 ];
 
@@ -140,6 +146,12 @@ export const menusInfos = [
     pathname: '/schedule',
     title: '定时任务',
     icon: 'schedule'
+  },
+  {
+    key: 'chart',
+    pathname: '/chart',
+    title: '图表测试',
+    icon: 'chart'
   },
   {
     key: 'index',
