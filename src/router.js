@@ -17,6 +17,7 @@ import MyAsset from 'Bundle-loader?lazy!localRoutes/MyAsset'
 import IndexInfoXiong from 'Bundle-loader?lazy!localRoutes/IndexInfoXiong'
 import IndexInfoJian from 'Bundle-loader?lazy!localRoutes/IndexInfoJian'
 import IndexDifference from 'Bundle-loader?lazy!localRoutes/IndexDifference'
+import FixedInvestment from 'Bundle-loader?lazy!localRoutes/FixedInvestment'
 import ChangeMarket from 'Bundle-loader?lazy!localRoutes/ChangeMarket'
 import Chart from 'Bundle-loader?lazy!localRoutes/Chart'
 
@@ -131,6 +132,11 @@ export const baseRoutes = [
     name: 'Chart',
     path: '/chart',
     component: getComponent(Chart)
+  },
+  {
+    name: 'FixedInvestment',
+    path: '/fixedInvestment',
+    component: getComponent(FixedInvestment)
   }
 ];
 
@@ -173,6 +179,10 @@ export const menusInfos = [
       {
         pathname: '/changeMarket',
         title: '变盘策略'
+      },
+      {
+        pathname: '/fixedInvestment',
+        title: '定投策略'
       }
     ]
   },

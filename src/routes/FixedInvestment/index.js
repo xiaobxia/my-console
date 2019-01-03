@@ -9,7 +9,7 @@ import DocumentTitle from 'react-document-title';
 import {Input, Upload, message, Button, Icon, Row, Col, Radio} from 'antd';
 import http from 'localUtil/httpUtil';
 import numberUtil from 'localUtil/numberUtil';
-import indexInfoUtil from 'localUtil/indexInfoUtilXiong';
+import indexInfoUtil from 'localUtil/fixedInvestment';
 import {consoleRender} from 'localUtil/consoleLog'
 import PageHeader from 'localComponent/PageHeader'
 import {getOpenKeyAndMainPath} from '../../router'
@@ -28,7 +28,7 @@ for (let key in codeMap) {
   })
 }
 
-const defaultIndex = 'huanbao'
+const defaultIndex = 'wulin'
 const ifMock = false
 const ifLockData = true
 

@@ -13,7 +13,7 @@ module.exports = {
     // assetsPublicPath: './',
     assetsPublicPath: './',
     //放七牛加速，减少带宽占用
-    cdnPublicPath: 'http://pi2lneas5.bkt.clouddn.com/',
+    cdnPublicPath: 'http://pkqk2my0o.bkt.clouddn.com/',
     //打包就移除sourceMap
     productionSourceMap: false,
     // Gzip off by default as many popular static hosts such as
