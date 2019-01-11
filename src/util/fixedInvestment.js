@@ -1089,9 +1089,9 @@ const codeMap = {
   'wulin': {
     code: 'sh000016',
     name: '50',
-    threshold: 0.73,
-    rate: 0.7160122699386505,
-    wave: 0.7482424242424242,
+    threshold: 0.76,
+    rate: 0.7761403508771934,
+    wave: 0.7521118012422363,
     mix: true,
     up: 115.65,
     upDay: 135,
