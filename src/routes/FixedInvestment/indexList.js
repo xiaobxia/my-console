@@ -12,8 +12,8 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 const fnMap = indexInfoUtil.fnMap;
 const InfoUtil = indexInfoUtil.Util;
 
-const functionName = 'ifSellWulin'
-let hide = 'buy'
+const functionName = 'ifBuyChuangye'
+let hide = 'sell'
 
 const isDev = process.env.NODE_ENV !== 'production'
 
