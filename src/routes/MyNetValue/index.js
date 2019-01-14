@@ -194,7 +194,8 @@ class MyNetValue extends PureComponent {
     const baseMy = netValueAll[0]['net_value']
     netValueAll.forEach(function (item, index) {
       xData.push(item.net_value_date);
-      yData.push(numberUtil.keepTwoDecimals(((item['net_value'] - baseMy) / baseMy) * 100));
+      // yData.push(numberUtil.keepTwoDecimals(((item['net_value'] - baseMy) / baseMy) * 100));
+      yData.push(item['net_value']);
     });
     return {
       title: {
