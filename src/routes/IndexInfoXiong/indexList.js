@@ -21,6 +21,28 @@ if (!isDev) {
   hide = false
 }
 
+function getAverageList (netValue, day) {
+  let list = []
+  let newList = []
+  netValue.forEach((item) => {
+    newList.unshift(item)
+  })
+  newList.forEach((item, index) => {
+    const average = getAverage(newList, day, index)
+    list.push(average)
+  })
+  return list
+}
+function getAverage (netValue, day, index) {
+  let start = index - day + 1
+  start = start < 0 ? 0 : start
+  let count = 0
+  for (let i = index; i >= start; i--) {
+    count += netValue[i]['close']
+  }
+  return numberUtil.keepTwoDecimals(count / (index + 1 - start))
+}
+
 class IndexList extends PureComponent {
 
   getChartOption = () => {
@@ -30,9 +52,14 @@ class IndexList extends PureComponent {
     const infoConfig = {threshold, rate, wave};
     const recentNetValue = this.props.dataSource;
     const infoUtil = new InfoUtil(infoConfig)
+    const recentNetValue2 = getAverageList(recentNetValue, 8)
     let xData = [];
     let yData = [];
+    let yData2 = [];
     let points = [];
+    recentNetValue2.forEach((item) => {
+      yData2.push(item);
+    })
     recentNetValue.forEach((item, index) => {
       xData.unshift(item['date']);
       yData.unshift(item['close']);
@@ -105,6 +132,16 @@ class IndexList extends PureComponent {
             symbolSize: 6
           }
         }
+        // {
+        //   name: '均线',
+        //   data: yData2,
+        //   type: 'line',
+        //   lineStyle: {
+        //     color: '#777'
+        //   },
+        //   smooth: false,
+        //   symbol: 'none'
+        // }
       ]
     };
   };
